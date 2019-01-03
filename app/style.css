@@ -1,0 +1,70 @@
+#btn1 {
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+#search {
+	margin-right: 50px;
+}
+
+body {
+	background-color: #ffd196;
+}
+
+.homepage {
+	margin-left: 10%;
+	margin-right: 10%;
+	margin-top: 2%;
+	height: 400px;
+	background-color: inherit;
+}
+
+.homepage > span {
+	display: inline;
+	float: left;
+	max-width: 45%;
+}
+
+.homepage > span > img {
+	max-height: 500px;
+}
+
+#about {
+	margin-top: 10%;
+	padding-left: 10%;
+}
+
+.events {
+	padding: 2%;
+	margin-left: 10%;
+	margin-right: 10%;
+	margin-top: 100px;
+	margin-bottom: 100px;
+	background-color: inherit;
+}
+
+.events > span {
+	display: inline;
+	float: left;
+	min-width: 26%;
+	margin-left: 7%;
+}
+
+.events > h3 {
+	position: absolute;
+	padding-left: 6%;
+}
+
+.events > span > img {
+	margin-top: 15px;
+	height: 200px;
+}
+
+.jumbotron {
+	margin-left: 10%;
+	margin-right: 10%;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	max-height: 200px;
+	background-color: #ffd196;
+}
