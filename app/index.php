@@ -30,10 +30,11 @@
         <form class="form-inline my-2 my-lg-0" id="search">
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
       </div>
       <div class="nav1_button">
         <button type="button" class="btn btn-secondary" id="login_button">Login</button>
-        <button type="button" class="btn btn-secondary" id="register_button">Register</button>
+        <button type="button" class="btn btn-secondary" id="register_button" onclick="window.location.href='register.php'">Register</button>
       </div>
       </div>
     </nav>
@@ -72,14 +73,14 @@
               <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body" style="padding:40px 50px;">
-              <form role="form" action="" method="post">
+              <form role="form" action="login_process.php" method="post">
                 <div class="form-group">
                   <label for="usrname">Username</label>
-                  <input type="text" class="form-control" id="usrname" placeholder="Enter username" name="username">
+                  <input type="text" class="form-control" id="usrname" placeholder="Enter username" name="login_username">
                 </div>
                 <div class="form-group">
                   <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
-                  <input type="text" class="form-control" id="psw" placeholder="Enter password" name="password">
+                  <input type="text" class="form-control" id="psw" placeholder="Enter password" name="login_password">
                 </div>
                 <div class="checkbox">
                   <label><input type="checkbox" value="" checked> Remember me</label>

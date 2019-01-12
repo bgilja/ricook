@@ -82,3 +82,26 @@ body {
 	margin-top: 10px;
 	color: white;
 }
+
+.modal-header {
+  background-color: #5cb85c;
+}
+
+#regFormDiv {
+	height: 600px;
+	margin-left: 10%;
+}
+
+#regForm {
+	padding-left: 10%;
+	width: 10px;
+}
+
+#regFormDiv > span {
+	width: 80%;
+}
+
+#registerButton {
+	margin-left: 12px;
+	margin-top: 5px;
+}
