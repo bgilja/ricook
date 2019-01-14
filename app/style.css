@@ -3,9 +3,11 @@
 	width: 80px;
 }
 
-#search {
-	margin-left: 5px;
-	margin-right: 5px;
+#homepage_username {
+	margin-left: 55px;
+	margin-right: 15px;
+	margin-top: 10px;
+	color: white;
 }
 
 body {
@@ -66,42 +68,73 @@ body {
 	background-color: #ffd196;
 }
 
-#nav_list_item1 {
-	width: 33.33%;
-	margin: 0px;
-}
-
-#nav_list_item2 {
-	width: 20%;
-	margin: 0px;
-}
-
-#homepage_username {
-	margin-left: 55px;
-	margin-right: 15px;
-	margin-top: 10px;
-	color: white;
-}
-
 .modal-header {
   background-color: #5cb85c;
 }
 
-#regFormDiv {
-	height: 600px;
-	margin-left: 10%;
+.registerForm {
+	margin-left: 0px;
 }
 
-#regForm {
-	padding-left: 10%;
-	width: 10px;
+.registerForm > input {
+	margin-left: 15px;
 }
 
-#regFormDiv > span {
-	width: 80%;
+.registerForm > div > input {
+	width: 400px;
 }
 
 #registerButton {
 	margin-left: 12px;
 	margin-top: 5px;
+}
+
+#regFormDiv {
+	height: 600px;
+	margin-left: 15%;
+}
+
+#regFormDiv > span {
+	width: 40%;
+	margin-right: 5%;
+}
+
+.user_information_block {
+	background-color: grey;
+	height: 100%;
+	width: 30%;
+	padding: 10px;
+}
+
+.user_information_block > div {
+	width: auto;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.user_information_block > div > img {
+	margin-top: 5px;
+	width: 320px;
+}
+
+.user_information_block > div > span {
+	float: left;
+}
+
+#user_info_list_left {
+	width: 300px;
+	margin: 0px;
+}
+
+.info_text {
+	float: right;
+}
+
+#image_preview_file {
+	width: 400px;
+	margin-bottom: 5px;
+}
+
+.row {
+	margin: 5px;
 }

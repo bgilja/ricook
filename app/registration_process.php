@@ -7,6 +7,7 @@
   $pass1 = $_POST['pass1'];
   $pass2 = $_POST['pass2'];
   $year = $_POST['year'];
+  $image = "src/default_avatar.jpg";
 
   if (isset($pass1) && isset($pass2)) {
     if ($pass1 != $pass2) {
@@ -37,15 +38,17 @@
     }
   }
 
+
   if ($flag == false) {
     if (isset($first_name) && isset($last_name) && isset($user_name) && isset($email) && isset($pass1) && isset($year)) {
-      $sql_query = $conn->prepare("INSERT INTO korisnik (first_name, last_name, user_name, email, year_of_birth, password) VALUES (?, ?, ?, ?, ?, ?)");
-      $sql_query->bind_param('ssssis', $first_name, $last_name, $user_name, $email, $year, $pass1);
+      $sql_query = $conn->prepare("INSERT INTO korisnik (first_name, last_name, user_name, email, year_of_birth, password, image) VALUES (?, ?, ?, ?, ?, ?, ?)");
+      $sql_query->bind_param('ssssiss', $first_name, $last_name, $user_name, $email, $year, $pass1, $image);
       $sql_query->execute();
       $result = $sql_query->get_result();
       $stmt->close();
       header('Location:  index.php');
     } else {
+      $stmt->close();
       header('Location:  register.php');
     }
   }
