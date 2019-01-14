@@ -135,6 +135,10 @@ body {
 	margin-bottom: 5px;
 }
 
-.row {
-	margin: 5px;
+.user_block > div {
+	margin-top: 5px;
+}
+
+.user_block > div > button {
+	width: 28.5%;
 }

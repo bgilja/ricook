@@ -38,109 +38,37 @@
       </div>
     </nav>
 
-    <div class="row">
-      <div class="col-2">
-        <div class="list-group" id="list-tab" role="tablist">
-          <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">All</a>
-          <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Followers</a>
-          <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Following</a>
-        </div>
+    <div>
+      <div class="nav2">
+        <nav class="nav nav-pills nav-fill" role="tablist">
+          <a class="nav-item nav-link active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">All</a>
+          <a class="nav-item nav-link" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Followers</a>
+          <a class="nav-item nav-link" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Following</a>
+        </nav>
       </div>
-      <div class="col-10">
-        <div class="tab-content" id="nav-tabContent">
-          <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
-            <?php
-              $servername = "127.0.0.1";
-              $username = "student";
-              $password = "student";
-              $dbname = "ricook";
-
-              $conn = new mysqli($servername, $username, $password, $dbname);
-
-              if ($conn->connect_error) {
-                die("Uspostavljanje konekcije na bazu nije uspjelo: ". $conn->connect_error);
-              }
-
-              $id = $_GET['id'];
-              $sql1 = "SELECT id_pratioc FROM pratitelj WHERE id_pratitelj = $id";
-              $result1 = mysqli_query($conn, $sql1);
-
-              while($row1 = $result1->fetch_assoc()) {
-                $sql2 = "SELECT first_name, last_name FROM korisnik WHERE id = $row1[id_pratioc]";
-                $result2 = mysqli_query($conn, $sql2);
-                $row2 = $result2->fetch_assoc();
-                echo $row2['first_name'] . $row2['last_name'] . "<br>";
-              }
-
-              $sql1 = "SELECT id_pratitelj FROM pratitelj WHERE id_pratioc = $id";
-              $result1 = mysqli_query($conn, $sql1);
-
-              while($row1 = $result1->fetch_assoc()) {
-                $sql2 = "SELECT first_name, last_name FROM korisnik WHERE id = $row1[id_pratitelj]";
-                $result2 = mysqli_query($conn, $sql2);
-                $row2 = $result2->fetch_assoc();
-                echo $row2['first_name'] . $row2['last_name'] . "<br>";
-
-                for ($i = 0; $i < 100; $i++) echo $row2['first_name'] . $row2['last_name'] . "<br>";
-              }
-
-              mysqli_close($conn);
-            ?>
-          </div>
-          <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
-            <?php
-              $servername = "127.0.0.1";
-              $username = "student";
-              $password = "student";
-              $dbname = "ricook";
-
-              $conn = new mysqli($servername, $username, $password, $dbname);
-
-              if ($conn->connect_error) {
-                die("Uspostavljanje konekcije na bazu nije uspjelo: ". $conn->connect_error);
-              }
-
-              $id = $_GET['id'];
-              $sql1 = "SELECT id_pratioc FROM pratitelj WHERE id_pratitelj = $id";
-              $result1 = mysqli_query($conn, $sql1);
-
-              while($row1 = $result1->fetch_assoc()) {
-                $sql2 = "SELECT first_name, last_name FROM korisnik WHERE id = $row1[id_pratioc]";
-                $result2 = mysqli_query($conn, $sql2);
-                $row2 = $result2->fetch_assoc();
-                echo $row2['first_name'] . $row2['last_name'] . "<br>";
-              }
-
-              mysqli_close($conn);
-            ?>
-          </div>
-          <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
-            <?php
-              $servername = "127.0.0.1";
-              $username = "student";
-              $password = "student";
-              $dbname = "ricook";
-
-              $conn = new mysqli($servername, $username, $password, $dbname);
-
-              if ($conn->connect_error) {
-                die("Uspostavljanje konekcije na bazu nije uspjelo: ". $conn->connect_error);
-              }
-
-              $id = $_GET['id'];
-              $sql1 = "SELECT id_pratitelj FROM pratitelj WHERE id_pratioc = $id";
-              $result1 = mysqli_query($conn, $sql1);
-
-              while($row1 = $result1->fetch_assoc()) {
-                $sql2 = "SELECT first_name, last_name FROM korisnik WHERE id = $row1[id_pratitelj]";
-                $result2 = mysqli_query($conn, $sql2);
-                $row2 = $result2->fetch_assoc();
-                echo $row2['first_name'] . $row2['last_name'] . "<br>";
-              }
-
-              mysqli_close($conn);
-            ?>
-          </div>
+      <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
+          <?php
+          include 'followers.php';
+          $conn = connectToDatabase();
+          printFollowers($_GET['id'], $conn);
+          printFollowing($_GET['id'], $conn);
+          closeDatabaseConnection($conn);
+          ?>
+        </div>
+        <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+          <?php
+          $conn = connectToDatabase();
+          printFollowers($_GET['id'], $conn);
+          closeDatabaseConnection($conn);
+          ?>
+        </div>
+        <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
+          <?php
+          $conn = connectToDatabase();
+          printFollowing($_GET['id'], $conn);
+          closeDatabaseConnection($conn);
+          ?>
         </div>
       </div>
     </div>
