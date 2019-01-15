@@ -12,6 +12,16 @@
     <title>Homepage</title>
   </head>
   <body>
+
+    <?php
+      include 'database_connection.php';
+      include 'followers.php';
+      include 'user_information.php';
+      $id = $_GET['id'];
+      $conn = connectToDatabase();
+      $row = getUserPersonalInfo($id, $conn);
+    ?>
+
     <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
       <a class="navbar-brand" href="#">LOGO</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,36 +30,38 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link active" href="user_homepage.php?id=<?php echo $_GET['id']; ?>">Home</a>
+            <a class="nav-link active" href="user_homepage.php?id=<?php echo $id; ?>">Home</a>
           </li>
           <li class="nav-item">
-          	<a class="nav-link" href="user_friends.php?id=<?php echo $_GET['id']; ?>">My Friends</a>
+          	<a class="nav-link" href="user_friends.php?id=<?php echo $id; ?>">My Friends</a>
           </li>
           <li class="nav-item">
-          	<a class="nav-link" href="user_profile.php?id=<?php echo $_GET['id']; ?>">Profile</a>
+          	<a class="nav-link" href="user_profile.php?id=<?php echo $id; ?>">Profile</a>
           </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0" id="search">
+        <form class="form-inline my-2 my-lg-0" id="search"  >
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
-        <h6 id="homepage_username">User1</h6>
+        <h6 id="homepage_username"><?php echo $row['user_name'] ?></h6>
         <button type="button" class="btn btn-secondary" id="btn1" onclick="window.location.href='index.php'">Logout</button>
       </div>
     </nav>
 
-    <nav class="nav nav-pills nav-fill" role="tablist" class="nav1">
-      <a class="nav-item nav-link active" data-toggle="pill" href="">Latest</a>
-      <a class="nav-item nav-link" data-toggle="pill" href="">Popular</a>
-      <a class="nav-item nav-link" data-toggle="pill" href="">Top rated</a>
-    </nav>
-    <nav class="nav nav-pills nav-fill" role="tablist" class="nav1">
-      <a class="nav-item nav-link active" data-toggle="pill" href="">Any</a>
-      <a class="nav-item nav-link" data-toggle="pill" href="">Breakfast</a>
-      <a class="nav-item nav-link" data-toggle="pill" href="">Lunch</a>
-      <a class="nav-item nav-link" data-toggle="pill" href="">Dinner</a>
-      <a class="nav-item nav-link" data-toggle="pill" href="">Dessert</a>
-    </nav>
+    <div class="user_homepage_nav">
+      <nav class="nav nav-pills nav-fill" role="tablist" class="nav1">
+        <a class="nav-item nav-link border border-primary rounded-0 active" data-toggle="pill" href="">Latest</a>
+        <a class="nav-item nav-link border border-primary rounded-0" data-toggle="pill" href="">Popular</a>
+        <a class="nav-item nav-link border border-primary rounded-0" data-toggle="pill" href="">Top rated</a>
+      </nav>
+      <nav class="nav nav-pills nav-fill" role="tablist" class="nav1">
+        <a class="nav-item nav-link border border-primary rounded-0 active" data-toggle="pill" href="">Any</a>
+        <a class="nav-item nav-link border border-primary rounded-0" data-toggle="pill" href="">Breakfast</a>
+        <a class="nav-item nav-link border border-primary rounded-0" data-toggle="pill" href="">Lunch</a>
+        <a class="nav-item nav-link border border-primary rounded-0" data-toggle="pill" href="">Dinner</a>
+        <a class="nav-item nav-link border border-primary rounded-0" data-toggle="pill" href="">Dessert</a>
+      </nav>
+    </div>
 
     <div class="jumbotron" id="index_footer">
       <hr class="my-4">

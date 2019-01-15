@@ -9,9 +9,19 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="style.css">
 
-    <title>Homepage</title>
+    <title>Followers</title>
   </head>
   <body>
+
+    <?php
+      include 'database_connection.php';
+      include 'followers.php';
+      include 'user_information.php';
+      $id = $_GET['id'];
+      $conn = connectToDatabase();
+      $row = getUserPersonalInfo($id, $conn);
+    ?>
+
     <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
       <a class="navbar-brand" href="#">LOGO</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,20 +30,20 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="user_homepage.php?id=<?php echo $_GET['id']; ?>">Home</a>
+            <a class="nav-link" href="user_homepage.php?id=<?php echo $id; ?>">Home</a>
           </li>
           <li class="nav-item">
-          	<a class="nav-link active" href="user_friends.php?id=<?php echo $_GET['id']; ?>">My Friends</a>
+          	<a class="nav-link active" href="user_friends.php?id=<?php echo $id; ?>">My Friends</a>
           </li>
           <li class="nav-item">
-          	<a class="nav-link" href="user_profile.php?id=<?php echo $_GET['id']; ?>">Profile</a>
+          	<a class="nav-link" href="user_profile.php?id=<?php echo $id; ?>">Profile</a>
           </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0" id="search">
+        <form class="form-inline my-2 my-lg-0" id="search"  >
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
-        <h6 id="homepage_username">User1</h6>
+        <h6 id="homepage_username"><?php echo $row['user_name'] ?></h6>
         <button type="button" class="btn btn-secondary" id="btn1" onclick="window.location.href='index.php'">Logout</button>
       </div>
     </nav>
@@ -41,39 +51,50 @@
     <div>
       <div class="nav2">
         <nav class="nav nav-pills nav-fill" role="tablist">
-          <a class="nav-item nav-link active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">All</a>
-          <a class="nav-item nav-link" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Followers</a>
-          <a class="nav-item nav-link" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Following</a>
+          <a class="nav-item nav-link border border-primary rounded-0 active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">All</a>
+          <a class="nav-item nav-link border border-primary rounded-0" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Followers</a>
+          <a class="nav-item nav-link border border-primary rounded-0" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Following</a>
         </nav>
       </div>
       <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
           <?php
-          include 'followers.php';
           $conn = connectToDatabase();
-          printFollowers($_GET['id'], $conn);
-          printFollowing($_GET['id'], $conn);
+          printTablestart();
+          printPersonRow();
+          printFollowers($id, $conn);
+          printFollowing($id, $conn);
           closeDatabaseConnection($conn);
+          printEndDiv();
+          printEndDiv();
           ?>
         </div>
         <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
           <?php
           $conn = connectToDatabase();
+          printTablestart();
+          printPersonRow();
           printFollowers($_GET['id'], $conn);
           closeDatabaseConnection($conn);
+          printEndDiv();
+          printEndDiv();
           ?>
         </div>
         <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
           <?php
           $conn = connectToDatabase();
+          printTablestart();
+          printPersonRow();
           printFollowing($_GET['id'], $conn);
           closeDatabaseConnection($conn);
+          printEndDiv();
+          printEndDiv();
           ?>
         </div>
       </div>
     </div>
 
-    <div class="jumbotron" id="index_footer">
+    <div class="jumbotron d-block" id="index_footer">
       <hr class="my-4">
       <h1 class="display-4">Hello, chef!</h1>
       <p class="lead">Cooking is not difficult. Everyone has taste, even if they don't realize it. Even if you're not a great chef, there's nothing to stop you understanding the difference between what tastes good and what doesn't.</p>

@@ -135,10 +135,23 @@ body {
 	margin-bottom: 5px;
 }
 
-.user_block > div {
-	margin-top: 5px;
+#user_block1 {
+	height: 330px;
 }
 
 .user_block > div > button {
 	width: 28.5%;
+	margin-left: 5px;
+	margin-top: 5px;
+}
+
+.person_row {
+	width: 90%;
+	height: 280px;
+	margin-left: 4%;
+}
+
+#user_block_btn {
+	margin-left: 20px;
+	width: 40%;
 }

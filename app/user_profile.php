@@ -12,9 +12,20 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <title>Homepage</title>
+    <title>Profile</title>
   </head>
   <body>
+
+    <?php
+      include 'database_connection.php';
+      include 'followers.php';
+      include 'user_information.php';
+      $id = $_GET['id'];
+      $conn = connectToDatabase();
+      $row = getUserPersonalInfo($id, $conn);
+      closeDatabaseConnection($conn);
+    ?>
+
     <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
       <a class="navbar-brand" href="#">LOGO</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -23,46 +34,27 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="user_homepage.php?id=<?php echo $_GET['id']; ?>">Home</a>
+            <a class="nav-link" href="user_homepage.php?id=<?php echo $id; ?>">Home</a>
           </li>
           <li class="nav-item">
-          	<a class="nav-link" href="user_friends.php?id=<?php echo $_GET['id']; ?>">My Friends</a>
+          	<a class="nav-link" href="user_friends.php?id=<?php echo $id; ?>">My Friends</a>
           </li>
           <li class="nav-item">
-          	<a class="nav-link active" href="user_profile.php?id=<?php echo $_GET['id']; ?>">Profile</a>
+          	<a class="nav-link active" href="user_profile.php?id=<?php echo $id; ?>">Profile</a>
           </li>
         </ul>
         <form class="form-inline my-2 my-lg-0" id="search"  >
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
-        <h6 id="homepage_username">User1</h6>
+        <h6 id="homepage_username"><?php echo $row['user_name'] ?></h6>
         <button type="button" class="btn btn-secondary" id="btn1" onclick="window.location.href='index.php'">Logout</button>
       </div>
     </nav>
 
-    <?php
-      $servername = "127.0.0.1";
-      $username = "student";
-      $password = "student";
-      $dbname = "ricook";
-
-      $conn = new mysqli($servername, $username, $password, $dbname);
-
-      if ($conn->connect_error) {
-        die("Uspostavljanje konekcije na bazu nije uspjelo: ". $conn->connect_error);
-      }
-
-      $id = $_GET['id'];
-      $sql = "SELECT * FROM korisnik WHERE id = $id";
-      $result = mysqli_query($conn, $sql);
-      $row = $result->fetch_assoc();
-      mysqli_close($conn);
-    ?>
-
     <div class="user_information_block">
-      <div class="user_block">
-        <img src="<?php echo $row['image']?>" id="avatar">
+      <div class="user_block" id="user_block1">
+        <img class="rounded float-left" src="<?php echo getImage($row) ?>" id="avatar">
         <div class="profile_buttons">
           <button type="button" class="btn btn-primary" id="change_pass_btn" onclick="">Change password</button>
           <button type="button" class="btn btn-danger" id="change_profile_image_btn" onclick="">Change picture</button>
@@ -91,9 +83,10 @@
         </span>
       </div>
       <div class="jumbotron" id="user_jumbotron">
-        <hr class="my-4">
         <h1 class="display-4">Hello, chef!</h1>
         <p class="lead">Cooking is not difficult. Everyone has taste, even if they don't realize it. Even if you're not a great chef, there's nothing to stop you understanding the difference between what tastes good and what doesn't.</p>
+        <hr class="my-4">
+        <input type="button" class="btn btn-secondary" name="change_status_button" value="Change status">
       </div>
     </div>
 
