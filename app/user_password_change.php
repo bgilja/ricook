@@ -1,5 +1,6 @@
 <?php
-
+  include 'function_script.php';
+  
   $old_pass = $_POST['pass1'];
   $pass1 = $_POST['pass2'];
   $pass2 = $_POST['pass3'];
@@ -11,19 +12,9 @@
     }
   }
 
-  $servername = "127.0.0.1";
-  $username = "student";
-  $password = "student";
-  $dbname = "ricook";
-
-  $conn = new mysqli($servername, $username, $password, $dbname);
-
-  if ($conn->connect_error) {
-    die("Uspostavljanje konekcije na bazu nije uspjelo: ". $conn->connect_error);
-  }
-
+  $conn = connectToDatabase();
   $query = "UPDATE korisnik SET password = $pass1 WHERE id = $id";
   $result = mysqli_query($conn, $query);
-  mysqli_close($conn);
+  closeDatabaseConnection($conn);
   header('Location:  user_profile.php?id=' . $id);
 ?>

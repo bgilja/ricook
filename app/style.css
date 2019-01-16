@@ -155,3 +155,10 @@ body {
 	margin-left: 20px;
 	width: 40%;
 }
+
+.search_container {
+	width: 90%;
+	margin-left: 5%;
+	margin-top: 10px;
+	height: 100%;
+}

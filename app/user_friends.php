@@ -14,12 +14,9 @@
   <body>
 
     <?php
-      include 'database_connection.php';
-      include 'followers.php';
-      include 'user_information.php';
+      include 'function_script.php';
       $id = $_GET['id'];
-      $conn = connectToDatabase();
-      $row = getUserPersonalInfo($id, $conn);
+      $row = getUserPersonalInfo($id);
     ?>
 
     <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
@@ -39,11 +36,11 @@
           	<a class="nav-link" href="user_profile.php?id=<?php echo $id; ?>">Profile</a>
           </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0" id="search"  >
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <form class="form-inline my-2 my-lg-0" id="search" action="search.php?id=<?php echo $id; ?>" method="post">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="string" required>
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
-        <h6 id="homepage_username"><?php echo $row['user_name'] ?></h6>
+        <h6 id="homepage_username"><?php echo getImage($row); ?></h6>
         <button type="button" class="btn btn-secondary" id="btn1" onclick="window.location.href='index.php'">Logout</button>
       </div>
     </nav>
@@ -57,47 +54,10 @@
         </nav>
       </div>
       <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
-          <?php
-          $conn = connectToDatabase();
-          printTablestart();
-          printPersonRow();
-          printFollowers($id, $conn);
-          printFollowing($id, $conn);
-          closeDatabaseConnection($conn);
-          printEndDiv();
-          printEndDiv();
-          ?>
-        </div>
-        <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
-          <?php
-          $conn = connectToDatabase();
-          printTablestart();
-          printPersonRow();
-          printFollowers($_GET['id'], $conn);
-          closeDatabaseConnection($conn);
-          printEndDiv();
-          printEndDiv();
-          ?>
-        </div>
-        <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
-          <?php
-          $conn = connectToDatabase();
-          printTablestart();
-          printPersonRow();
-          printFollowing($_GET['id'], $conn);
-          closeDatabaseConnection($conn);
-          printEndDiv();
-          printEndDiv();
-          ?>
-        </div>
+        <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list"><?php printFollowersAndFollowing($id); ?></div>
+        <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list"><?php printFollowers($id); ?></div>
+        <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list"><?php printFollowing($id);?></div>
       </div>
-    </div>
-
-    <div class="jumbotron d-block" id="index_footer">
-      <hr class="my-4">
-      <h1 class="display-4">Hello, chef!</h1>
-      <p class="lead">Cooking is not difficult. Everyone has taste, even if they don't realize it. Even if you're not a great chef, there's nothing to stop you understanding the difference between what tastes good and what doesn't.</p>
     </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

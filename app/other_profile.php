@@ -19,8 +19,9 @@
     <?php
       include 'function_script.php';
       $id = $_GET['id'];
+      $user = $_GET['user'];
       $conn = connectToDatabase();
-      $row = getUserPersonalInfo($id, $conn);
+      $row = getUserPersonalInfo($user, $conn);
       closeDatabaseConnection($conn);
     ?>
 
@@ -54,9 +55,6 @@
       <div class="user_block" id="user_block1">
         <img class="rounded float-left mw-75 mh-75" src="<?php echo getImage($row) ?>" id="avatar">
         <div class="profile_buttons">
-          <button type="button" class="btn btn-primary" id="change_pass_btn" onclick="">Change password</button>
-          <button type="button" class="btn btn-danger" id="change_profile_image_btn" onclick="">Change picture</button>
-          <button type="button" class="btn btn-warning" id="delete_profile_image_btn" onclick="">Delete picture</button>
         </div>
       </div>
       <div class="user_block">
@@ -76,8 +74,8 @@
             <li class="list-group-item">Average rating: <span class="info_text"><?php echo "0" ?></span></li>
             <li class="list-group-item">Highest rating recipe: <span class="info_text"><?php echo "0" ?></span></li>
             <li class="list-group-item">Lowest rating recipe: <span class="info_text"><?php echo "0" ?></span></li>
-            <li class="list-group-item">Followers: <span class="info_text"><?php echo sumFollowers($id); ?></span></li>
-            <li class="list-group-item">Following: <span class="info_text"><?php echo sumFollowing($id); ?></span></li>
+            <li class="list-group-item">Followers: <span class="info_text"><?php echo sumFollowers($user); ?></span></li>
+            <li class="list-group-item">Following: <span class="info_text"><?php echo sumFollowing($user); ?></span></li>
           </ul>
         </span>
       </div>
@@ -88,99 +86,9 @@
           <br>Cooking is not difficult. Everyone has taste, even if they don't realize it.
             Even if you're not a great chef, there's nothing to stop you understanding the difference between what tastes good and what doesn't.</p>
         <hr class="my-4">
-        <button type="button" class="btn btn-secondary" id="change_status_button" onclick="">Change status</button>
       </div>
     </div>
-
-
-    <div class="container">
-      <div class="modal fade" id="change_pass_modal" role="dialog">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h3>Change password</h3>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body" style="padding:40px 50px;">
-              <form role="form" action="user_password_change.php" method="post">
-                <div class="form-group">
-                  <label for="usrname">Password</label>
-                  <input type="password" class="form-control" id="usrname" placeholder="Enter password" name="pass1">
-                </div>
-                <div class="form-group">
-                  <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> New password</label>
-                  <input type="password" class="form-control" id="psw" placeholder="Enter new password" name="pass2">
-                </div>
-                <div class="form-group">
-                  <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> New password</label>
-                  <input type="password" class="form-control" id="psw" placeholder="Enter new password one more time" name="pass3">
-                </div>
-                  <input type="hidden" name="id" value="<?php echo $id; ?>">
-                  <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span>Change password</button>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <p>Forgot <a href="">Password?</a></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="container">
-      <div class="modal fade" id="change_profile_image_modal" role="dialog">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h3>Change profile picture</h3>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body" style="padding:40px 50px;">
-              <form action="user_profile_image_upload.php" method="post" enctype="multipart/form-data">
-                <h3>Select image to upload:</h3>
-                <input type="file" name="fileToUpload" id="image_preview_file">
-                <input type="hidden" name="id" value="<?php echo $id; ?>">
-                <input type="submit" value="Upload Image" name="submit" class="btn btn-primary">
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="container">
-      <div class="modal fade" id="change_profile_status_modal" role="dialog">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h3>Change status</h3>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body" style="padding:40px 50px;">
-              <form role="form" action="" method="post">
-                <div class="form-group">
-                  <label for="usrname">Change tag</label>
-                  <input type="text" class="form-control" id="usrname" placeholder="Enter tag" name="tag">
-                </div>
-                <div class="form-group">
-                  <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Change status</label>
-                  <input type="text" class="form-control" id="psw" placeholder="Enter new status" name="status">
-                </div>
-                  <input type="hidden" name="id" value="<?php echo $id; ?>">
-                  <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span>Change status</button>
-              </form>
-            </div>
-            <div class="modal-footer">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!-- Optional JavaScript -->
-    <script src="popup_change_password_modal.js"></script>
-    <script src="popup_change_profile_image_modal.js"></script>
-    <script src="popup_change_profile_status_modal.js"></script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>

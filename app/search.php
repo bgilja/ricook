@@ -16,8 +16,7 @@
     <?php
       include 'function_script.php';
       $id = $_GET['id'];
-      $conn = connectToDatabase();
-      $row = getUserPersonalInfo($id, $conn);
+      $name = $_POST['string']
     ?>
 
     <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
@@ -28,7 +27,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link active" href="user_homepage.php?id=<?php echo $id; ?>">Home</a>
+            <a class="nav-link" href="user_homepage.php?id=<?php echo $id; ?>">Home</a>
           </li>
           <li class="nav-item">
           	<a class="nav-link" href="user_friends.php?id=<?php echo $id; ?>">My Friends</a>
@@ -46,25 +45,27 @@
       </div>
     </nav>
 
-    <div class="user_homepage_nav bg-secondary">
-      <nav class="nav nav-pills nav-fill" role="tablist" class="nav1">
-        <a class="nav-item nav-link border border-dark rounded-0 text-white active" data-toggle="pill" href="">Latest</a>
-        <a class="nav-item nav-link border border-dark rounded-0 text-white" data-toggle="pill" href="">Popular</a>
-        <a class="nav-item nav-link border border-dark rounded-0 text-white" data-toggle="pill" href="">Top rated</a>
-      </nav>
-      <nav class="nav nav-pills nav-fill" role="tablist" class="nav1">
-        <a class="nav-item nav-link border border-dark rounded-0 text-white active" data-toggle="pill" href="">Any</a>
-        <a class="nav-item nav-link border border-dark rounded-0 text-white" data-toggle="pill" href="">Breakfast</a>
-        <a class="nav-item nav-link border border-dark rounded-0 text-white" data-toggle="pill" href="">Lunch</a>
-        <a class="nav-item nav-link border border-dark rounded-0 text-white" data-toggle="pill" href="">Dinner</a>
-        <a class="nav-item nav-link border border-dark rounded-0 text-white" data-toggle="pill" href="">Dessert</a>
-      </nav>
-    </div>
-
-    <div class="jumbotron" id="index_footer">
-      <hr class="my-4">
-      <h1 class="display-4">Hello, chef!</h1>
-      <p class="lead">Cooking is not difficult. Everyone has taste, even if they don't realize it. Even if you're not a great chef, there's nothing to stop you understanding the difference between what tastes good and what doesn't.</p>
+    <div class="search_container">
+      <div class="row">
+        <div class="search_row1 col-2 border bg-white">
+          <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link ml-2 mr-0 active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Users</a>
+            <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Recipes</a>
+            <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Ingredients</a>
+            <a class="nav-link" id="v-pills-tags-tab" data-toggle="pill" href="#v-pills-tags" role="tab" aria-controls="v-pills-tags" aria-selected="false">Tags</a>
+            <a class="nav-link" id="v-pills-events-tab" data-toggle="pill" href="#v-pills-events" role="tab" aria-controls="v-pills-events" aria-selected="false">Events</a>
+          </div>
+        </div>
+        <div class="col border-left">
+          <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab"><?php showUser($name); ?></div>
+            <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab"><?php showRecipe($name); ?></div>
+            <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab"><?php showIngredient($name); ?></div>
+            <div class="tab-pane fade" id="v-pills-tags" role="tabpanel" aria-labelledby="v-pills-tags-tab"><?php showTag($name); ?></div>
+            <div class="tab-pane fade" id="v-pills-events" role="tabpanel" aria-labelledby="v-pills-events-tab"><?php showTag($name); ?></div>
+          </div>
+        </div>
+      </div>
     </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
