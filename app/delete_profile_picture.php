@@ -9,5 +9,5 @@
   $result = mysqli_query($conn, $sql);
   closeDatabaseConnection($conn);
 
-  header('Location:  user_profile.php.?id='.$id);
+  header('Location:  user_profile.php?id='.$id);
 ?>
