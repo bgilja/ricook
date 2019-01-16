@@ -105,3 +105,24 @@ body {
 	margin-left: 12px;
 	margin-top: 5px;
 }
+<<<<<<< HEAD
+=======
+
+.person_row {
+	width: 90%;
+	height: 280px;
+	margin-left: 4%;
+}
+
+#user_block_btn {
+	margin-left: 20px;
+	width: 40%;
+}
+
+.search_container {
+	width: 90%;
+	margin-left: 5%;
+	margin-top: 10px;
+	height: 100%;
+}
+>>>>>>> 5d661cd33df28e91a29450f1297796530c67a06c

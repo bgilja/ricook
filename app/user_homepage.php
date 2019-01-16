@@ -26,6 +26,17 @@
     <title>Homepage</title>
   </head>
   <body>
+<<<<<<< HEAD
+=======
+
+    <?php
+      include 'function_script.php';
+      $id = $_GET['id'];
+      $conn = connectToDatabase();
+      $row = getUserPersonalInfo($id, $conn);
+    ?>
+
+>>>>>>> 5d661cd33df28e91a29450f1297796530c67a06c
     <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
       <a class="navbar-brand" href="#">LOGO</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,6 +54,7 @@
           	<a class="nav-link" href="user_profile.php">Profile</a>
           </li>
         </ul>
+<<<<<<< HEAD
         <form class="form-inline my-2 my-lg-0" id="search">
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
@@ -50,11 +62,19 @@
         <h6 id="homepage_username">User1</h6>
         <div class="nav1_button">
         <button type="button" class="btn btn-secondary" id="add_recipe_button">Add+</button>
+=======
+        <form class="form-inline my-2 my-lg-0" id="search" action="search.php?id=<?php echo $id; ?>" method="post">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="string" required>
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+        <h6 id="homepage_username"><?php echo $id ?></h6>
+>>>>>>> 5d661cd33df28e91a29450f1297796530c67a06c
         <button type="button" class="btn btn-secondary" id="btn1" onclick="window.location.href='index.php'">Logout</button>
       </div>
       </div>
     </nav>
 
+<<<<<<< HEAD
     <nav class="nav nav-pills nav-fill" role="tablist" class="nav1">
       <a class="nav-item nav-link active" data-toggle="pill" href="">Latest</a>
       <a class="nav-item nav-link" data-toggle="pill" href="">Popular</a>
@@ -67,6 +87,22 @@
       <a class="nav-item nav-link" data-toggle="pill" href="">Dinner</a>
       <a class="nav-item nav-link" data-toggle="pill" href="">Dessert</a>
     </nav>
+=======
+    <div class="user_homepage_nav bg-secondary">
+      <nav class="nav nav-pills nav-fill" role="tablist" class="nav1">
+        <a class="nav-item nav-link border border-dark rounded-0 text-white active" data-toggle="pill" href="">Latest</a>
+        <a class="nav-item nav-link border border-dark rounded-0 text-white" data-toggle="pill" href="">Popular</a>
+        <a class="nav-item nav-link border border-dark rounded-0 text-white" data-toggle="pill" href="">Top rated</a>
+      </nav>
+      <nav class="nav nav-pills nav-fill" role="tablist" class="nav1">
+        <a class="nav-item nav-link border border-dark rounded-0 text-white active" data-toggle="pill" href="">Any</a>
+        <a class="nav-item nav-link border border-dark rounded-0 text-white" data-toggle="pill" href="">Breakfast</a>
+        <a class="nav-item nav-link border border-dark rounded-0 text-white" data-toggle="pill" href="">Lunch</a>
+        <a class="nav-item nav-link border border-dark rounded-0 text-white" data-toggle="pill" href="">Dinner</a>
+        <a class="nav-item nav-link border border-dark rounded-0 text-white" data-toggle="pill" href="">Dessert</a>
+      </nav>
+    </div>
+>>>>>>> 5d661cd33df28e91a29450f1297796530c67a06c
 
     <div class="jumbotron" id="index_footer">
       <hr class="my-4">

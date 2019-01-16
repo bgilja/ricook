@@ -41,6 +41,10 @@
       <span id="regForm">
         <form class="registerForm" action="registration_process.php" method="post">
           <div class="form-group col-md-6">
+            <label for="inputOib4">Username</label>
+            <input type="text" class="form-control" placeholder="JohnCollins1" name="username">
+          </div>
+          <div class="form-group col-md-6">
             <label>First name</label>
             <input type="text" class="form-control" placeholder="John" name="first_name">
           </div>
@@ -59,10 +63,6 @@
           <div class="form-group col-md-6">
             <label for="inputPassword4">Repeat password</label>
             <input type="password" class="form-control" placeholder="Password" name="pass2">
-          </div>
-          <div class="form-group col-md-6">
-            <label for="inputOib4">Username</label>
-            <input type="text" class="form-control" placeholder="JohnCollins1" name="username">
           </div>
           <div class="form-group col-md-6">
             <label for="inputYear">Year of birth</label>

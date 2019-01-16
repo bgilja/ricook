@@ -1,5 +1,4 @@
 <?php
-
   $first_name = $_POST['first_name'];
   $last_name = $_POST['last_name'];
   $user_name = $_POST['username'];
@@ -45,8 +44,14 @@
       $result = $sql_query->get_result();
       $stmt->close();
       header('Location:  index.php');
+<<<<<<< HEAD
     } else {
       header('Location:  register.php');
+=======
+>>>>>>> 5d661cd33df28e91a29450f1297796530c67a06c
     }
   }
+
+  $stmt->close();
+  header('Location:  register.php');
 ?>
