@@ -38,7 +38,7 @@
     </nav>
 
     <div class="homepage" id="regFormDiv">
-      <span id="regForm">
+      <span>
         <form class="registerForm" action="registration_process.php" method="post">
           <div class="form-group col-md-6">
             <label for="inputOib4">Username</label>
@@ -91,10 +91,10 @@
               <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body" style="padding:40px 50px;">
-              <form role="form" action="" method="post">
+              <form role="form" action="login_process.php" method="post">
                 <div class="form-group">
                   <label for="usrname">Username</label>
-                  <input type="text" class="form-control" id="usrname" placeholder="Enter username" name="logim_username">
+                  <input type="text" class="form-control" id="usrname" placeholder="Enter username" name="login_username">
                 </div>
                 <div class="form-group">
                   <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>

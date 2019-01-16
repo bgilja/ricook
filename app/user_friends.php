@@ -9,11 +9,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="style.css">
 
-    <title>Homepage</title>
+    <title>Followers</title>
   </head>
   <body>
-<<<<<<< HEAD
-=======
 
     <?php
       include 'function_script.php';
@@ -21,7 +19,6 @@
       $row = getUserPersonalInfo($id);
     ?>
 
->>>>>>> 5d661cd33df28e91a29450f1297796530c67a06c
     <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
       <a class="navbar-brand" href="#">LOGO</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,38 +27,24 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="user_homepage.php">Home</a>
+            <a class="nav-link" href="user_homepage.php?id=<?php echo $id; ?>">Home</a>
           </li>
           <li class="nav-item">
-          	<a class="nav-link active" href="user_friends.php">My Friends</a>
+          	<a class="nav-link active" href="user_friends.php?id=<?php echo $id; ?>">My Friends</a>
           </li>
           <li class="nav-item">
-          	<a class="nav-link" href="user_profile.php">Profile</a>
+          	<a class="nav-link" href="user_profile.php?id=<?php echo $id; ?>">Profile</a>
           </li>
         </ul>
-<<<<<<< HEAD
-        <form class="form-inline my-2 my-lg-0" id="search">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-        <h6 id="homepage_username">User1</h6>
-=======
         <form class="form-inline my-2 my-lg-0" id="search" action="search.php?id=<?php echo $id; ?>" method="post">
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="string" required>
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
         <h6 id="homepage_username"><?php echo getImage($row); ?></h6>
->>>>>>> 5d661cd33df28e91a29450f1297796530c67a06c
         <button type="button" class="btn btn-secondary" id="btn1" onclick="window.location.href='index.php'">Logout</button>
       </div>
     </nav>
 
-<<<<<<< HEAD
-    <div class="jumbotron" id="index_footer">
-      <hr class="my-4">
-      <h1 class="display-4">Hello, chef!</h1>
-      <p class="lead">Cooking is not difficult. Everyone has taste, even if they don't realize it. Even if you're not a great chef, there's nothing to stop you understanding the difference between what tastes good and what doesn't.</p>
-=======
     <div>
       <div class="nav2">
         <nav class="nav nav-pills nav-fill" role="tablist">
@@ -75,7 +58,6 @@
         <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list"><?php printFollowers($id); ?></div>
         <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list"><?php printFollowing($id);?></div>
       </div>
->>>>>>> 5d661cd33df28e91a29450f1297796530c67a06c
     </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

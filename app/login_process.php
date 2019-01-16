@@ -1,20 +1,12 @@
 <?php
 
+  include 'function_script.php';
 
   $user_name = $_POST['login_username'];
-  $password = $_POST['password'];
+  $password = $_POST['login_password'];
   $id = -1;
 
-  $servername = "127.0.0.1";
-  $username = "student";
-  $password = "student";
-  $dbname = "ricook";
-
-  $conn = new mysqli($servername, $username, $password, $dbname);
-
-  if ($conn->connect_error) {
-    die("Uspostavljanje konekcije na bazu nije uspjelo: ". $conn->connect_error);
-  }
+  $conn = connectToDatabase();
 
   $sql = "SELECT id, user_name, email FROM korisnik";
   $stmt = $conn->prepare($sql);
@@ -29,8 +21,9 @@
     }
   }
 
+  closeDatabaseConnection($conn);
   if ($flag) {
-    header('Location:  user_homepage.php.?oib='.$id);
+    header('Location:  user_homepage.php.?id='.$id);
   } else {
     header('Location:  index.php');
   }
