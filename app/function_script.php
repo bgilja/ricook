@@ -35,39 +35,42 @@
   }
 
   function getRecipeNumber($id) {
-    /*$conn = connectToDatabase();
-    $sql = "SELECT COUNT(*) as count FROM recept WHERE id_vlasnik = $id";
+    $conn = connectToDatabase();
+    $sql = "SELECT COUNT(*) AS count FROM recept WHERE id_kreator = $id";
     $result = mysqli_query($conn, $sql);
     $row = $result->fetch_assoc();
     closeDatabaseConnection($conn);
-    return $row['count'];*/
+    return $row['count'];
   }
 
   function getAverageRecipeRating($id) {
-    /*$conn = connectToDatabase();
-    $sql = "SELECT COUNT(*) as count, SUM(rating) as suma FROM recept WHERE id_vlasnik = $id";
+    $conn = connectToDatabase();
+    $sql = "SELECT SUM(ocjena) AS a, COUNT(ocjena) AS b FROM recept WHERE id_kreator = $id";
     $result = mysqli_query($conn, $sql);
     $row = $result->fetch_assoc();
     closeDatabaseConnection($conn);
-    return $row['suma'] / $row['count'];*/
+    if ($row['b'] == 0) return 0;
+    return ($row['a'] / $row['b']);
   }
 
   function getHighestRecipeRating($id) {
-    /*$conn = connectToDatabase();
-    $sql = "SELECT MAX(rating) FROM recept WHERE id_vlasnik = $id";
+    $conn = connectToDatabase();
+    $sql = "SELECT MAX(ocjena) AS ret FROM recept WHERE id_kreator = $id";
     $result = mysqli_query($conn, $sql);
     $row = $result->fetch_assoc();
     closeDatabaseConnection($conn);
-    return $row['rating'];*/
+    if (isset($row['ret'])) $row['ret'];
+    return 0;
   }
 
   function getLowestRecipeRating($id) {
-    /*$conn = connectToDatabase();
-    $sql = "SELECT MIN(rating) FROM recept WHERE id_vlasnik = $id";
+    $conn = connectToDatabase();
+    $sql = "SELECT MIN(ocjena) AS ret FROM recept WHERE id_kreator = $id";
     $result = mysqli_query($conn, $sql);
     $row = $result->fetch_assoc();
     closeDatabaseConnection($conn);
-    return $row['rating'];*/
+    if (isset($row['ret'])) $row['ret'];
+    return 0;
   }
 
   function sumFollowers($id) {

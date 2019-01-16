@@ -72,10 +72,10 @@
         </span>
         <span>
           <ul class="list-group">
-            <li class="list-group-item">Recipes: <span class="info_text"><?php echo "0" ?></span></li>
-            <li class="list-group-item">Average rating: <span class="info_text"><?php echo "0" ?></span></li>
-            <li class="list-group-item">Highest rating recipe: <span class="info_text"><?php echo "0" ?></span></li>
-            <li class="list-group-item">Lowest rating recipe: <span class="info_text"><?php echo "0" ?></span></li>
+            <li class="list-group-item">Recipes: <span class="info_text"><?php echo getRecipeNumber($id); ?></span></li>
+            <li class="list-group-item">Average rating: <span class="info_text"><?php echo getAverageRecipeRating($id); ?></span></li>
+            <li class="list-group-item">Highest rating recipe: <span class="info_text"><?php echo getHighestRecipeRating($id); ?></span></li>
+            <li class="list-group-item">Lowest rating recipe: <span class="info_text"><?php echo getLowestRecipeRating($id); ?></span></li>
             <li class="list-group-item">Followers: <span class="info_text"><?php echo sumFollowers($id); ?></span></li>
             <li class="list-group-item">Following: <span class="info_text"><?php echo sumFollowing($id); ?></span></li>
           </ul>
@@ -177,10 +177,36 @@
       </div>
     </div>
 
+    <div class="container">
+      <div class="modal fade" id="delete_profile_image_modal" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3>Delete profile picture</h3>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body" style="padding:40px 50px;">
+              <form role="form" action="delete_profile_picture.php" method="post">
+                <div class="form-group">
+                  <label>Yes I want to delete profile picture</label>
+                  <input type="checkbox" name="check" required>
+                </div>
+                  <input type="hidden" name="id" value="<?php echo $id; ?>">
+                  <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span>Delete profile picture</button>
+              </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Optional JavaScript -->
     <script src="popup_change_password_modal.js"></script>
     <script src="popup_change_profile_image_modal.js"></script>
     <script src="popup_change_profile_status_modal.js"></script>
+    <script src="popup_delete_profile_image_modal.js"></script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
