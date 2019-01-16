@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <!-- Required meta tags -->
@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="style.css">
 
-    <title>Homepage</title>
+    <title>Hello, world!</title>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
@@ -17,28 +17,62 @@
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="user_homepage.php">Home</a>
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Explore <span class="sr-only"></span></a>
           </li>
-          <li class="nav-item">
-          	<a class="nav-link active" href="user_friends.php">My Friends</a>
-          </li>
-          <li class="nav-item">
-          	<a class="nav-link" href="user_profile.php">Profile</a>
-          </li>
+
         </ul>
         <form class="form-inline my-2 my-lg-0" id="search">
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
-        <h6 id="homepage_username">User1</h6>
-        <button type="button" class="btn btn-secondary" id="btn1" onclick="window.location.href='index.php'">Logout</button>
+      <div class="btn-group dropleft">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Login
+        </button>
+      <form class="dropdown-menu p-4">
+        <div class="form-group">
+          <label for="exampleDropdownFormEmail2">Email address</label>
+          <input type="email" class="form-control" id="exampleDropdownFormEmail2" placeholder="email@example.com">
+        </div>
+        <div class="form-group">
+          <label for="exampleDropdownFormPassword2">Password</label>
+          <input type="password" class="form-control" id="exampleDropdownFormPassword2" placeholder="Password">
+        </div>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="dropdownCheck2">
+          <label class="form-check-label" for="dropdownCheck2">
+            Remember me
+          </label>
+        </div>
+        <button type="submit" class="btn btn-primary">Sign in</button>
+      </form>      
+      </div>
+        <button type="button" class="btn btn-secondary" id="btn1">Register</button>
       </div>
     </nav>
-
-    <div class="jumbotron" id="index_footer">
+    <div class="homepage">
+      <span id="about">
+        <h3>About us</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+          Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      </span>
+      <span>
+        <img src="src/home.jpg">
+      </span>
+    </div>
+    <div class="events">
+      <h3>Events</h3>
+      <span><img src="src/home.jpg"></span>
+      <span><img src="src/home.jpg"></span>
+      <span><img src="src/home.jpg"></span>
+    </div>
+    <div class="jumbotron">
       <hr class="my-4">
       <h1 class="display-4">Hello, chef!</h1>
       <p class="lead">Cooking is not difficult. Everyone has taste, even if they don't realize it. Even if you're not a great chef, there's nothing to stop you understanding the difference between what tastes good and what doesn't.</p>

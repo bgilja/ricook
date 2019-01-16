@@ -2,7 +2,7 @@
 
 
   $user_name = $_POST['login_username'];
-  $password = $_POST['login_password'];
+  $password = $_POST['password'];
   $id = -1;
 
   $servername = "127.0.0.1";
@@ -29,9 +29,8 @@
     }
   }
 
-  $stmt->close();
   if ($flag) {
-    header('Location:  user_homepage.php.?id='.$id);
+    header('Location:  user_homepage.php.?oib='.$id);
   } else {
     header('Location:  index.php');
   }
