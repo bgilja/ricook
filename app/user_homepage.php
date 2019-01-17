@@ -14,7 +14,7 @@
 
     <title>Homepage</title>
   </head>
-  <body>
+  <body class="">
 
     <?php
       include 'function_script.php';
@@ -51,18 +51,55 @@
     </nav>
 
     <div class="user_homepage_nav bg-secondary">
-      <nav class="nav nav-pills nav-fill" role="tablist" class="nav1">
-        <a class="nav-item nav-link border border-dark rounded-0 text-white active" data-toggle="pill" href="">Latest</a>
-        <a class="nav-item nav-link border border-dark rounded-0 text-white" data-toggle="pill" href="">Popular</a>
-        <a class="nav-item nav-link border border-dark rounded-0 text-white" data-toggle="pill" href="">Top rated</a>
-      </nav>
-      <nav class="nav nav-pills nav-fill" role="tablist" class="nav1">
-        <a class="nav-item nav-link border border-dark rounded-0 text-white active" data-toggle="pill" href="">Any</a>
-        <a class="nav-item nav-link border border-dark rounded-0 text-white" data-toggle="pill" href="">Breakfast</a>
-        <a class="nav-item nav-link border border-dark rounded-0 text-white" data-toggle="pill" href="">Lunch</a>
-        <a class="nav-item nav-link border border-dark rounded-0 text-white" data-toggle="pill" href="">Dinner</a>
-        <a class="nav-item nav-link border border-dark rounded-0 text-white" data-toggle="pill" href="">Dessert</a>
-      </nav>
+      <div class="row1">
+        <nav class="nav nav-pills nav-fill" role="tablist">
+          <a class="nav-item nav-link border border-dark rounded-0 text-white active" id="list-main-list" data-toggle="list" href="#list-main" role="tab" aria-controls="main">Latest</a>
+          <a class="nav-item nav-link border border-dark rounded-0 text-white" id="list-main-list" data-toggle="list" href="#list-main" role="tab" aria-controls="main">Popular</a>
+          <a class="nav-item nav-link border border-dark rounded-0 text-white" id="list-main-list" data-toggle="list" href="#list-main" role="tab" aria-controls="main">Top rated</a>
+        </nav>
+      </div>
+      <div class="row1">
+          <nav class="nav nav-pills nav-fill" role="tablist">
+            <a class="nav-item nav-link border border-dark rounded-0 text-white active" id="list-main-list" data-toggle="list" href="#list-main" role="tab" aria-controls="main">Any</a>
+            <a class="nav-item nav-link border border-dark rounded-0 text-white" id="list-main-list" data-toggle="list" href="#list-main" role="tab" aria-controls="main">Breakfast</a>
+            <a class="nav-item nav-link border border-dark rounded-0 text-white" id="list-main-list" data-toggle="list" href="#list-main" role="tab" aria-controls="main">Lunch</a>
+            <a class="nav-item nav-link border border-dark rounded-0 text-white" id="list-main-list" data-toggle="list" href="#list-main" role="tab" aria-controls="main">Dinner</a>
+            <a class="nav-item nav-link border border-dark rounded-0 text-white" id="list-main-list" data-toggle="list" href="#list-main" role="tab" aria-controls="main">Dessert</a>
+          </nav>
+      </div>
+      <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane w-75 float-right mr-2 fade show active" id="list-main" role="tabpanel" aria-labelledby="list-main-list">
+
+          <div class="card rounded-0 m-2">
+            <div class="card border border-light rounded-0">
+              <div>
+                <img src="' . getImage($map) . '" class="card-img-top w-25 border border-light float-left">
+                <p class="lead h-75">Cooking is not difficult. Everyone has taste, even if they don't realize it.
+                Even if you're not a great chef, there's nothing to stop you understanding the difference between what tastes good and what doesn't.
+                <br>Cooking is not difficult. Everyone has taste, even if they don't realize it.
+                Even if you're not a great chef, there's nothing to stop you understanding the difference between what tastes good and what doesn't.</p>
+                <a href="" value="Unfollow" class="btn btn-primary float-right w-25 align-bottom mb-1 mt-4 mr-2">Visit profile</a>
+                <input type="submit" name="submit" value="Unfollow" class="btn btn-primary float-right w-25 align-bottom mb-1 mt-4 mr-2" id="user_unfollow_btn">
+              </div>
+            </div>
+          </div>
+
+          <div class="card rounded-0 m-2">
+            <div class="card border border-light rounded-0">
+              <div>
+                <img src="' . getImage($map) . '" class="card-img-top w-25 border border-light float-left">
+                <p class="lead h-75">Cooking is not difficult. Everyone has taste, even if they don't realize it.
+                Even if you're not a great chef, there's nothing to stop you understanding the difference between what tastes good and what doesn't.
+                <br>Cooking is not difficult. Everyone has taste, even if they don't realize it.
+                Even if you're not a great chef, there's nothing to stop you understanding the difference between what tastes good and what doesn't.</p>
+                <a href="" value="Unfollow" class="btn btn-primary float-right w-25 align-bottom mb-1 mt-4 mr-2">Visit profile</a>
+                <input type="submit" name="submit" value="Unfollow" class="btn btn-primary float-right w-25 align-bottom mb-1 mt-4 mr-2" id="user_unfollow_btn">
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
 
     <div class="container">
@@ -83,22 +120,8 @@
                   <label for="exampleFormControlTextarea1">Instructions</label>
                   <textarea class="form-control" id="exampleFormControlTextarea1" rows="7" name="instructions"></textarea>
                 </div>
-                <div class="form-group">
-                  <label for="exampleFormControlSelect1">Spiciness</label>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                    <label class="form-check-label" for="inlineRadio1">1</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                    <label class="form-check-label" for="inlineRadio2">2</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
-                    <label class="form-check-label" for="inlineRadio3">3</label>
-                  </div>
-                </div>
-                <input type="text" name="name" id="find_recipe" list="huge_list">Name
+                <span><input type="text" name="name" id="ingredient" list="huge_list">Name</span>
+                <span><input type="number" name="name" id="amount" min="0" max="10000">Amount</span>
                 <datalist id="huge_list"></datalist>
                 <input type="hidden" name="id" value="<?php echo $id; ?>">
                 <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span>Add</button>
@@ -109,12 +132,6 @@
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="jumbotron" id="index_footer">
-      <hr class="my-4">
-      <h1 class="display-4">Hello, chef!</h1>
-      <p class="lead">Cooking is not difficult. Everyone has taste, even if they don't realize it. Even if you're not a great chef, there's nothing to stop you understanding the difference between what tastes good and what doesn't.</p>
     </div>
     <!-- Optional JavaScript -->
     <script src="popup_recipe_modal.js"></script>

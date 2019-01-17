@@ -48,15 +48,15 @@
     <div>
       <div class="nav2">
         <nav class="nav nav-pills nav-fill" role="tablist">
-          <a class="nav-item nav-link border border-primary rounded-0 active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">All</a>
-          <a class="nav-item nav-link border border-primary rounded-0" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Followers</a>
-          <a class="nav-item nav-link border border-primary rounded-0" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Following</a>
+          <a class="nav-item nav-link border border-primary rounded-0 active" id="list-all-list" data-toggle="list" href="#list-all" role="tab" aria-controls="all">All</a>
+          <a class="nav-item nav-link border border-primary rounded-0" id="list-followers-list" data-toggle="list" href="#list-followers" role="tab" aria-controls="followers">Followers</a>
+          <a class="nav-item nav-link border border-primary rounded-0" id="list-following-list" data-toggle="list" href="#list-following" role="tab" aria-controls="following">Following</a>
         </nav>
       </div>
       <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list"><?php printFollowersAndFollowing($id); ?></div>
-        <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list"><?php printFollowers($id); ?></div>
-        <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list"><?php printFollowing($id);?></div>
+        <div class="tab-pane fade show active" id="list-all" role="tabpanel" aria-labelledby="list-all-list"><?php printFollowersAndFollowing($id); ?></div>
+        <div class="tab-pane fade" id="list-followers" role="tabpanel" aria-labelledby="list-followers-list"><?php printFollowers($id); ?></div>
+        <div class="tab-pane fade" id="list-following" role="tabpanel" aria-labelledby="list-following-list"><?php printFollowing($id);?></div>
       </div>
     </div>
     <!-- Optional JavaScript -->

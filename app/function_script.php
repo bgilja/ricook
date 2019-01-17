@@ -31,7 +31,27 @@
   }
 
   function isFollowing($id1, $id2) {
-    return true;
+    $conn = connectToDatabase();
+    $sql = "SELECT COUNT(*) AS count_follow FROM pratitelj WHERE id_pratitelj = $id2 AND id_pratioc = $id1";
+    $result = mysqli_query($conn, $sql);
+    $row = $result->fetch_assoc();
+    closeDatabaseConnection($conn);
+    if ($row['count_follow'] > 0) return 1;
+    return 0;
+  }
+
+  function startFollowing($id, $user) {
+    $conn = connectToDatabase();
+    $sql = "INSERT INTO pratitelj (id_pratitelj, id_pratioc) VALUES ($user, $id)";
+    $result = mysqli_query($conn, $sql);
+    closeDatabaseConnection($conn);
+  }
+
+  function stopFollowing($id, $user) {
+    $conn = connectToDatabase();
+    $sql = "DELETE FROM pratitelj WHERE id_pratitelj = $user AND id_pratioc = $id";
+    $result = mysqli_query($conn, $sql);
+    closeDatabaseConnection($conn);
   }
 
   function getRecipeNumber($id) {
@@ -107,11 +127,20 @@
     echo ' <div class="card w-25 p-1 float-left border border-light shadow rounded-0">
             <span>
               <img src="' . getImage($map) . '" class="card-img-top w-50 border border-light float-left">
+              <h6>' . $map['user_name'] . '</h6>
               <a href="other_profile.php?id=' . $id .'&user=' . $map["id"] .'" value="Unfollow" class="btn btn-primary align-top w-50 mb-1">Visit profile</a> ';
     if (isFollowing($id, $map['id'])) {
-      echo ' <input type="submit" name="submit" value="Unfollow" class="btn btn-primary align-top w-50 mb-1" id="user_unfollow_btn"> ';
+      echo ' <form action="stop_following.php" method="post">
+            <input type="hidden" name="id" value="' . $id . '">
+            <input type="hidden" name="user" value="' . $map["id"] .'">
+            <input type="submit" name="submit" value="Unfollow" class="btn btn-primary align-top w-50 mb-1" id="user_unfollow_btn">
+            </form> ';
     } else {
-      echo ' <input type="button" name="submit3" value="Follow" class="btn btn-primary align-top w-50 mb-1" id="user_follow_btn"> ';
+      echo ' <form action="start_following.php" method="post">
+            <input type="hidden" name="id" value="' . $id . '">
+            <input type="hidden" name="user" value="' . $map["id"] .'">
+            <input type="submit" name="submit3" value="Follow" class="btn btn-primary align-top w-50 mb-1" id="user_follow_btn">
+            </form> ';
     }
     echo '   </span>
           </div> ';
@@ -192,5 +221,11 @@
     $result = mysqli_query($conn, $sql);
     queryPersonCard($result, $conn, 1);
     closeDatabaseConnection($conn);
+  }
+
+  function printRecipeCard() {
+  }
+
+  function queryRecipeCard() {
   }
 ?>
