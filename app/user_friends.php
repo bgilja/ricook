@@ -48,9 +48,9 @@
     <div>
       <div class="nav2">
         <nav class="nav nav-pills nav-fill" role="tablist">
-          <a class="nav-item nav-link border border-primary rounded-0 active" id="list-all-list" data-toggle="list" href="#list-all" role="tab" aria-controls="all">All</a>
-          <a class="nav-item nav-link border border-primary rounded-0" id="list-followers-list" data-toggle="list" href="#list-followers" role="tab" aria-controls="followers">Followers</a>
-          <a class="nav-item nav-link border border-primary rounded-0" id="list-following-list" data-toggle="list" href="#list-following" role="tab" aria-controls="following">Following</a>
+          <a class="nav-item nav-link border border-dark rounded-0 active" id="list-all-list" data-toggle="list" href="#list-all" role="tab" aria-controls="all">All</a>
+          <a class="nav-item nav-link border border-dark rounded-0" id="list-followers-list" data-toggle="list" href="#list-followers" role="tab" aria-controls="followers">Followers</a>
+          <a class="nav-item nav-link border border-dark rounded-0" id="list-following-list" data-toggle="list" href="#list-following" role="tab" aria-controls="following">Following</a>
         </nav>
       </div>
       <div class="tab-content" id="nav-tabContent">

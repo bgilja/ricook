@@ -162,3 +162,57 @@ body {
 	margin-top: 10px;
 	height: 100%;
 }
+
+.nav{
+	background-color: #ffd196;
+	color: #000000;
+}
+
+.btn-group{
+	width: 100%;
+	border-color: #000000;
+}
+
+.nav-pills .nav-link{
+	border-color:  rgba(0, 0, 0, 0.2);
+}
+
+.nav-pills .nav-link:not(.active) {
+    background-color: 	rgb(176,176,176);
+    color: #ffffff;
+}
+
+.nav-pills .nav-link.active {
+    background-color:   rgb(144,144,144);
+    color: white;
+}
+
+.search_row1 {
+    background-color: #ffd196;
+}
+
+.card{
+	width: 20%;
+}
+
+.slika{
+		width: 38%;
+}
+
+.d-inline-flex{
+		max-height: 60%;
+		max-width: 57%;
+		position: absolute;
+		margin-left: 5px;
+		background-color: powderblue;
+}
+
+.imebtn{
+	width: 100%;
+}
+
+.tab-content {
+	float: right;
+	margin-right: 5px;
+	margin-top: 5px;
+}

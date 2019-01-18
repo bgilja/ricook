@@ -47,18 +47,18 @@
 
     <div class="search_container">
       <div class="row">
-        <div class="search_row1 col-2 border bg-white">
+        <div class="search_row1 col-2">
           <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-            <a class="nav-link ml-2 mr-0 active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Users</a>
-            <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Recipes</a>
-            <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Ingredients</a>
-            <a class="nav-link" id="v-pills-tags-tab" data-toggle="pill" href="#v-pills-tags" role="tab" aria-controls="v-pills-tags" aria-selected="false">Tags</a>
-            <a class="nav-link" id="v-pills-events-tab" data-toggle="pill" href="#v-pills-events" role="tab" aria-controls="v-pills-events" aria-selected="false">Events</a>
+            <a class="nav-link border border-dark rounded-0 active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Users</a>
+            <a class="nav-link border border-dark rounded-0" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Recipes</a>
+            <a class="nav-link border border-dark rounded-0" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Ingredients</a>
+            <a class="nav-link border border-dark rounded-0" id="v-pills-tags-tab" data-toggle="pill" href="#v-pills-tags" role="tab" aria-controls="v-pills-tags" aria-selected="false">Tags</a>
+            <a class="nav-link border border-dark rounded-0" id="v-pills-events-tab" data-toggle="pill" href="#v-pills-events" role="tab" aria-controls="v-pills-events" aria-selected="false">Events</a>
           </div>
         </div>
-        <div class="col border-left">
+        <div class="col">
           <div class="tab-content" id="v-pills-tabContent">
-            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab"><?php showUser($name); ?></div>
+            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab"><?php showUser($name, $id); ?></div>
             <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab"><?php showRecipe($name); ?></div>
             <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab"><?php showIngredient($name); ?></div>
             <div class="tab-pane fade" id="v-pills-tags" role="tabpanel" aria-labelledby="v-pills-tags-tab"><?php showTag($name); ?></div>

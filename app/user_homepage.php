@@ -12,6 +12,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+    <style>
+        .d-inline-flex{
+            height: 150px;
+            width: 280px;
+        }
+    </style>
+
     <title>Homepage</title>
   </head>
   <body class="">
@@ -50,7 +57,7 @@
       </div>
     </nav>
 
-    <div class="user_homepage_nav bg-secondary">
+    <div class="user_homepage_nav">
       <div class="row1">
         <nav class="nav nav-pills nav-fill" role="tablist">
           <a class="nav-item nav-link border border-dark rounded-0 text-white active" id="list-main-list" data-toggle="list" href="#list-main" role="tab" aria-controls="main">Latest</a>
@@ -67,51 +74,25 @@
             <a class="nav-item nav-link border border-dark rounded-0 text-white" id="list-main-list" data-toggle="list" href="#list-main" role="tab" aria-controls="main">Dessert</a>
           </nav>
       </div>
-      <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane w-75 float-right mr-2 fade show active" id="list-main" role="tabpanel" aria-labelledby="list-main-list">
-
-          <div class="card rounded-0 m-2">
-            <div class="card border border-light rounded-0">
-              <div>
-                <img src="' . getImage($map) . '" class="card-img-top w-25 border border-light float-left">
-                <p class="lead h-75">Cooking is not difficult. Everyone has taste, even if they don't realize it.
-                Even if you're not a great chef, there's nothing to stop you understanding the difference between what tastes good and what doesn't.
-                <br>Cooking is not difficult. Everyone has taste, even if they don't realize it.
-                Even if you're not a great chef, there's nothing to stop you understanding the difference between what tastes good and what doesn't.</p>
-                <a href="" value="Unfollow" class="btn btn-primary float-right w-25 align-bottom mb-1 mt-4 mr-2">Visit profile</a>
-                <input type="submit" name="submit" value="Unfollow" class="btn btn-primary float-right w-25 align-bottom mb-1 mt-4 mr-2" id="user_unfollow_btn">
-              </div>
-            </div>
-          </div>
-
-          <div class="card rounded-0 m-2">
-            <div class="card border border-light rounded-0">
-              <div>
-                <img src="' . getImage($map) . '" class="card-img-top w-25 border border-light float-left">
-                <p class="lead h-75">Cooking is not difficult. Everyone has taste, even if they don't realize it.
-                Even if you're not a great chef, there's nothing to stop you understanding the difference between what tastes good and what doesn't.
-                <br>Cooking is not difficult. Everyone has taste, even if they don't realize it.
-                Even if you're not a great chef, there's nothing to stop you understanding the difference between what tastes good and what doesn't.</p>
-                <a href="" value="Unfollow" class="btn btn-primary float-right w-25 align-bottom mb-1 mt-4 mr-2">Visit profile</a>
-                <input type="submit" name="submit" value="Unfollow" class="btn btn-primary float-right w-25 align-bottom mb-1 mt-4 mr-2" id="user_unfollow_btn">
-              </div>
-            </div>
-          </div>
-
+      <div class="tab-content w-75" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="list-main" role="tabpanel" aria-labelledby="list-main-list">
+          <?php for ($i=0; $i < 100; $i++) {
+            showRecipe("");
+          } ?>
         </div>
       </div>
     </div>
 
     <div class="container">
       <div class="modal fade" id="add_recipe_modal" role="dialog">
-        <div class="modal-dialog">
-          <div class="modal-content">
+        <div class="modal-dialog" style="width: 70%; margin-left: 23%;">
+          <div class="modal-content" style="width: 1000px;">
             <div class="modal-header">
               <h3>Add recipe</h3>
               <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body" style="padding:10px 30px;">
-              <form role="form" action="add_recipe.php" method="post">
+              <form role="form" action="add_recipe.php" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                   <label for="exampleFormControlInput1">Recipe</label>
                   <input type="textbox" class="form-control" id="exampleFormControlInput1" placeholder="Dish name" name="dish_name">
@@ -120,8 +101,14 @@
                   <label for="exampleFormControlTextarea1">Instructions</label>
                   <textarea class="form-control" id="exampleFormControlTextarea1" rows="7" name="instructions"></textarea>
                 </div>
-                <span><input type="text" name="name" id="ingredient" list="huge_list">Name</span>
-                <span><input type="number" name="name" id="amount" min="0" max="10000">Amount</span>
+                <div class="form-row">
+                  <span class="form-col"><input type="text" name="ingredient" required class="form-control">Ingredient</span>
+                  <span class="form-col"><input type="number" name="amount" min="0" max="10000" required class="form-control w-50 ml-2">Amount</span>
+                  <h6 class="mt-2">Ovdje se prikazuju ponudeni rezultati iz autofila</h6>
+                </div>
+                <div class="">
+                  <h6>Select image to upload: <input type="file" value="" name="fileToUpload" id="image_preview_file"></h6>
+                </div>
                 <datalist id="huge_list"></datalist>
                 <input type="hidden" name="id" value="<?php echo $id; ?>">
                 <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span>Add</button>

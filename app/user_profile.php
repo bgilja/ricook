@@ -50,48 +50,66 @@
       </div>
     </nav>
 
-    <div class="user_information_block">
-      <div class="user_block" id="user_block1">
-        <img class="rounded float-left mw-75 mh-75" src="<?php echo getImage($row) ?>" id="avatar">
-        <div class="profile_buttons">
-          <button type="button" class="btn btn-primary" id="change_pass_btn" onclick="">Change password</button>
-          <button type="button" class="btn btn-danger" id="change_profile_image_btn" onclick="">Change picture</button>
-          <button type="button" class="btn btn-warning" id="delete_profile_image_btn" onclick="">Delete picture</button>
+    <div class="">
+      <div class="">
+        <div class="user_information_block">
+          <div class="user_block" id="user_block1">
+            <img class="rounded float-left mw-75 mh-75" src="<?php echo getImage($row) ?>" id="avatar">
+            <div class="profile_buttons">
+              <button type="button" class="btn btn-primary" id="change_pass_btn" onclick="">Change password</button>
+              <button type="button" class="btn btn-danger" id="change_profile_image_btn" onclick="">Change picture</button>
+              <button type="button" class="btn btn-warning" id="delete_profile_image_btn" onclick="">Delete picture</button>
+            </div>
+          </div>
+          <div class="user_block">
+            <span>
+              <ul class="list-group" id="user_info_list_left">
+                <li class="list-group-item">Username: <span class="info_text"><?php echo $row['user_name'] ?></span></li>
+                <li class="list-group-item">First name: <span class="info_text"><?php echo $row['first_name'] ?></span></li>
+                <li class="list-group-item">Last name: <span class="info_text"><?php echo $row['last_name'] ?></span></li>
+                <li class="list-group-item">Email: <span class="info_text"><?php echo $row['email'] ?></span></li>
+                <li class="list-group-item">Year of birth: <span class="info_text"><?php echo $row['year_of_birth'] ?></span></li>
+                <li class="list-group-item"><a>Last active: <span class="info_text"><?php echo "0" ?></span></li>
+              </ul>
+            </span>
+            <span>
+              <ul class="list-group">
+                <li class="list-group-item">Recipes: <span class="info_text"><?php echo getRecipeNumber($id); ?></span></li>
+                <li class="list-group-item">Average rating: <span class="info_text"><?php echo getAverageRecipeRating($id); ?></span></li>
+                <li class="list-group-item">Highest rating recipe: <span class="info_text"><?php echo getHighestRecipeRating($id); ?></span></li>
+                <li class="list-group-item">Lowest rating recipe: <span class="info_text"><?php echo getLowestRecipeRating($id); ?></span></li>
+                <li class="list-group-item">Followers: <span class="info_text"><?php echo sumFollowers($id); ?></span></li>
+                <li class="list-group-item">Following: <span class="info_text"><?php echo sumFollowing($id); ?></span></li>
+              </ul>
+            </span>
+          </div>
+          <div class="jumbotron" id="user_jumbotron">
+            <h1 class="display-4">Hello, chef!</h1>
+            <p class="lead">Cooking is not difficult. Everyone has taste, even if they don't realize it.
+              Even if you're not a great chef, there's nothing to stop you understanding the difference between what tastes good and what doesn't.
+              <br>Cooking is not difficult. Everyone has taste, even if they don't realize it.
+                Even if you're not a great chef, there's nothing to stop you understanding the difference between what tastes good and what doesn't.</p>
+            <hr class="my-4">
+            <button type="button" class="btn btn-secondary" id="change_status_button" onclick="">Change status</button>
+          </div>
         </div>
       </div>
-      <div class="user_block">
-        <span>
-          <ul class="list-group" id="user_info_list_left">
-            <li class="list-group-item">Username: <span class="info_text"><?php echo $row['user_name'] ?></span></li>
-            <li class="list-group-item">First name: <span class="info_text"><?php echo $row['first_name'] ?></span></li>
-            <li class="list-group-item">Last name: <span class="info_text"><?php echo $row['last_name'] ?></span></li>
-            <li class="list-group-item">Email: <span class="info_text"><?php echo $row['email'] ?></span></li>
-            <li class="list-group-item">Year of birth: <span class="info_text"><?php echo $row['year_of_birth'] ?></span></li>
-            <li class="list-group-item"><a>Last active: <span class="info_text"><?php echo "0" ?></span></li>
-          </ul>
-        </span>
-        <span>
-          <ul class="list-group">
-            <li class="list-group-item">Recipes: <span class="info_text"><?php echo getRecipeNumber($id); ?></span></li>
-            <li class="list-group-item">Average rating: <span class="info_text"><?php echo getAverageRecipeRating($id); ?></span></li>
-            <li class="list-group-item">Highest rating recipe: <span class="info_text"><?php echo getHighestRecipeRating($id); ?></span></li>
-            <li class="list-group-item">Lowest rating recipe: <span class="info_text"><?php echo getLowestRecipeRating($id); ?></span></li>
-            <li class="list-group-item">Followers: <span class="info_text"><?php echo sumFollowers($id); ?></span></li>
-            <li class="list-group-item">Following: <span class="info_text"><?php echo sumFollowing($id); ?></span></li>
-          </ul>
-        </span>
-      </div>
-      <div class="jumbotron" id="user_jumbotron">
-        <h1 class="display-4">Hello, chef!</h1>
-        <p class="lead">Cooking is not difficult. Everyone has taste, even if they don't realize it.
-          Even if you're not a great chef, there's nothing to stop you understanding the difference between what tastes good and what doesn't.
-          <br>Cooking is not difficult. Everyone has taste, even if they don't realize it.
-            Even if you're not a great chef, there's nothing to stop you understanding the difference between what tastes good and what doesn't.</p>
-        <hr class="my-4">
-        <button type="button" class="btn btn-secondary" id="change_status_button" onclick="">Change status</button>
+
+      <div class="user_homepage_nav mt-2">
+        <div class="row1">
+          <nav class="nav nav-pills nav-fill" role="tablist">
+            <a class="nav-item nav-link border border-dark rounded-0 text-white active" id="list-main-list" data-toggle="list" href="#list-main" role="tab" aria-controls="main">Latest</a>
+          </nav>
+        </div>
+        <div class="tab-content ml-1" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="list-main" role="tabpanel" aria-labelledby="list-main-list">
+            <?php for ($i=0; $i < 100; $i++) {
+              showRecipe("");
+            } ?>
+          </div>
+        </div>
       </div>
     </div>
-
 
     <div class="container">
       <div class="modal fade" id="change_pass_modal" role="dialog">

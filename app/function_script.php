@@ -111,57 +111,48 @@
     return $row['count'];
   }
 
-  function printTablestart() {
-    echo ' <br><div> ';
-  }
-
   function printEndDiv() {
     echo ' </div><br> ';
   }
 
-  function printPersonRow() {
-    echo ' <div class="person_row mx-75"> ';
+  function printDivUserActivity() {
+    echo ' <div class="user_activity mt-2"> ';
   }
 
   function printPersonCard($id, $map) {
-    echo ' <div class="card w-25 p-1 float-left border border-light shadow rounded-0">
-            <span>
-              <img src="' . getImage($map) . '" class="card-img-top w-50 border border-light float-left">
-              <h6>' . $map['user_name'] . '</h6>
-              <a href="other_profile.php?id=' . $id .'&user=' . $map["id"] .'" value="Unfollow" class="btn btn-primary align-top w-50 mb-1">Visit profile</a> ';
+    echo ' <div class="card p-1 float-left border border-light m-1 rounded-0">
+      <span class="border p-1">
+        <img class="slika border" src="' . getImage($map) . '" >
+        <div class="d-inline-flex p-1 bd-highlight">Im an inline flexbox container!da da da dd a da da d a da da d a da  da da  da da  da  ad  da da </div>
+        <div class="imebtn float-right">
+          <h6>' . $map['user_name'] . '</h6>
+          <a href="other_profile.php?id=' . $id .'&user=' . $map["id"] .'" value="Unfollow" class="btn btn-primary align-top w-100 mb-1">Visit profile</a> ';
+
     if (isFollowing($id, $map['id'])) {
       echo ' <form action="stop_following.php" method="post">
             <input type="hidden" name="id" value="' . $id . '">
             <input type="hidden" name="user" value="' . $map["id"] .'">
-            <input type="submit" name="submit" value="Unfollow" class="btn btn-primary align-top w-50 mb-1" id="user_unfollow_btn">
+            <input type="submit" name="submit" value="Unfollow" class="btn btn-primary align-top w-100 mb-1" id="user_unfollow_btn">
             </form> ';
     } else {
       echo ' <form action="start_following.php" method="post">
             <input type="hidden" name="id" value="' . $id . '">
             <input type="hidden" name="user" value="' . $map["id"] .'">
-            <input type="submit" name="submit3" value="Follow" class="btn btn-primary align-top w-50 mb-1" id="user_follow_btn">
+            <input type="submit" name="submit3" value="Follow" class="btn btn-primary align-top w-100 mb-1" id="user_follow_btn">
             </form> ';
     }
-    echo '   </span>
+    echo '   </div></span>
           </div> ';
   }
 
   function queryPersonCard($result1, $conn, $id) {
-    $brojac = 0;
-    printTablestart();
-    printPersonRow();
+    printDivUserActivity();
     while($row1 = $result1->fetch_assoc()) {
       $sql2 = "SELECT * FROM korisnik WHERE id = " . $row1['id'];
       $result2 = mysqli_query($conn, $sql2);
       $row2 = $result2->fetch_assoc();
-      $brojac += 1;
       printPersonCard($id, $row2);
-      if ($brojac % 4 == 0) {
-        printEndDiv();
-        printPersonRow();
-      }
     }
-    printEndDiv();
     printEndDiv();
   }
 
@@ -191,9 +182,9 @@
     closeDatabaseConnection($conn);
   }
 
-  function showUser($name) {
+  function showUser($name, $id) {
     $conn = connectToDatabase();
-    $sql = "SELECT id FROM korisnik WHERE id in (SELECT id FROM korisnik WHERE first_name LIKE ('%$name%') OR last_name LIKE ('%$name%') OR user_name LIKE ('%$name%'))";
+    $sql = "SELECT id FROM korisnik WHERE id in (SELECT id FROM korisnik WHERE first_name LIKE ('%$name%') OR last_name LIKE ('%$name%') OR user_name LIKE ('%$name%')) AND id != $id";
     $result = mysqli_query($conn, $sql);
     queryPersonCard($result, $conn, 1);
     closeDatabaseConnection($conn);
@@ -201,9 +192,9 @@
 
   function showRecipe($name) {
     $conn = connectToDatabase();
-    $sql = "SELECT id FROM korisnik";
+    $sql = "SELECT id FROM recept WHERE id_kreator = 1";
     $result = mysqli_query($conn, $sql);
-    queryPersonCard($result, $conn, 1);
+    queryRecipeCard($result, $conn, 1);
     closeDatabaseConnection($conn);
   }
 
@@ -223,9 +214,50 @@
     closeDatabaseConnection($conn);
   }
 
-  function printRecipeCard() {
+  function showEvent($name) {
+    $conn = connectToDatabase();
+    $sql = "SELECT id FROM korisnik";
+    $result = mysqli_query($conn, $sql);
+    queryPersonCard($result, $conn, 1);
+    closeDatabaseConnection($conn);
   }
 
-  function queryRecipeCard() {
+  function printRecipeCard($id, $map) {
+    echo ' <span class="card w-25 p-2 rounded-0 float-left">
+      <span>
+         <h3>Ime_recepta by <a>Username</a></h3>
+         <img class="slika border" src="' . $map['image'] . '" >
+         <div class="d-inline-flex h-25 p-2 bd-highlight">' . $map['upute'] . '</div>
+      </span>
+      <table id="tablica" class="table table-sm h-75 mt-2">
+        <thead><tr><th class="table-success" scope="col">Nutritivne vrijednosti:</th><th class="table-success"></th></tr></thead>
+        <tbody>
+          <tr class="table-success"><td>Bjelancevine:</td><td>50g</td></tr>
+          <tr class="table-success"><td>Ugljikohidrati:</td><td>100g</td></tr>
+          <tr class="table-success"><td >Masti:</td><td>30g</td></tr>
+        </tbody>
+      </table>
+      <div class="imebtn">
+        <input type="button" name="submit" value="Visit" class="btn btn-primary align-top" id="user_block_btn">
+        <input type="button" name="submit" value="Favorite" class="btn btn-primary align-top" id="user_block_btn">
+      </div>
+    </span> ';
+  }
+
+  function queryRecipeCard($result1, $conn) {
+    while ($row1 = $result1->fetch_assoc()) {
+      $sql2 = "SELECT * FROM recept WHERE id = " . $row1['id'];
+      $result2 = mysqli_query($conn, $sql2);
+      $row2 = $result2->fetch_assoc();
+      printRecipeCard(1, $row2);
+    }
+  }
+
+  function printAllUserRecepies($id) {
+    $conn = connectToDatabase();
+    $sql = "SELECT * FROM recept WHERE id_kreator = $id";
+    $result1 = mysqli_query($conn, $sql);
+    queryRecipeCard($result1, $conn, $id);
+    closeDatabaseConnection($conn);
   }
 ?>
