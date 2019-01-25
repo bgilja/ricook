@@ -21,9 +21,23 @@
     return "src/default_avatar.jpg";
   }
 
+  function getRecipeImage($row) {
+    if (substr($row['image'], 0, 3) === "src") return $row['image'];
+    return "src/default_avatar.jpg";
+  }
+
   function getUserPersonalInfo($id) {
     $conn = connectToDatabase();
     $sql = "SELECT * FROM korisnik WHERE id = $id";
+    $result = mysqli_query($conn, $sql);
+    $row = $result->fetch_assoc();
+    closeDatabaseConnection($conn);
+    return $row;
+  }
+
+  function getRecipeInfo($id) {
+    $conn = connectToDatabase();
+    $sql = "SELECT * FROM recept WHERE id = $id";
     $result = mysqli_query($conn, $sql);
     $row = $result->fetch_assoc();
     closeDatabaseConnection($conn);
@@ -223,7 +237,7 @@
   }
 
   function printRecipeCard($id, $map) {
-    echo ' <span class="card w-25 p-2 rounded-0 float-left">
+    echo ' <div class="card w-25 p-2 rounded-0 float-left">
       <span>
          <h3>Ime_recepta by <a>Username</a></h3>
          <img class="slika border" src="' . $map['image'] . '" >
@@ -241,7 +255,7 @@
         <input type="button" name="submit" value="Visit" class="btn btn-primary align-top" id="user_block_btn">
         <input type="button" name="submit" value="Favorite" class="btn btn-primary align-top" id="user_block_btn">
       </div>
-    </span> ';
+    </div> ';
   }
 
   function queryRecipeCard($result1, $conn) {

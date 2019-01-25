@@ -18,10 +18,10 @@
 
     <?php
       include 'function_script.php';
-      $id = $_GET['id'];
-      $user = $_GET['user'];
+      $id = 1;
+      $recipe = 18;
       $conn = connectToDatabase();
-      $row = getUserPersonalInfo($user, $conn);
+      $row = getRecipeInfo($recipe, $conn);
       closeDatabaseConnection($conn);
     ?>
 
@@ -53,37 +53,22 @@
 
     <div class="user_profile_page h-100 w-100">
       <div class="row w-100 h-100">
-        <div class="col-4 bg-info p-1">
+        <div class="col-4 bg-dark float-left">
           <div class="user_information_block">
             <div class="user_block" id="user_block1">
-              <img class="rounded float-left mw-75 mh-75" src="<?php echo getImage($row) ?>" id="avatar">
+              <img class="rounded float-left mw-75 mh-75" src=" <?php echo $row['image'] ?>">
               <div class="profile_buttons">
-                <button type="button" class="btn btn-primary" id="change_pass_btn" onclick="">Change password</button>
-                <button type="button" class="btn btn-danger" id="change_profile_image_btn" onclick="">Change picture</button>
-                <button type="button" class="btn btn-warning" id="delete_profile_image_btn" onclick="">Delete picture</button>
+                <button type="button" class="btn btn-primary" id="recipe_fav_btn" onclick="">Favourite</button>
+                <button type="button" class="btn btn-danger" id="recipe_rate_btn" onclick="">Rating</button>
               </div>
             </div>
             <div class="user_block">
-              <span>
-                <ul class="list-group" id="user_info_list_left">
-                  <li class="list-group-item">Username: <span class="info_text"><?php echo $row['user_name'] ?></span></li>
-                  <li class="list-group-item">First name: <span class="info_text"><?php echo $row['first_name'] ?></span></li>
-                  <li class="list-group-item">Last name: <span class="info_text"><?php echo $row['last_name'] ?></span></li>
-                  <li class="list-group-item">Email: <span class="info_text"><?php echo $row['email'] ?></span></li>
-                  <li class="list-group-item">Year of birth: <span class="info_text"><?php echo $row['year_of_birth'] ?></span></li>
-                  <li class="list-group-item"><a>Last active: <span class="info_text"><?php echo "0" ?></span></li>
+                <ul class="list-group w-100">
+                  <li class="list-group-item">Created by: <span class="info_text"><?php echo $row['id_kreator'] ?></span></li>
+                  <li class="list-group-item">Name: <span class="info_text"><?php echo $row['ime'] ?></span></li>
+                  <li class="list-group-item">Rated by: <span class="info_text"><?php echo $row['broj_ocjena'] ?></span></li>
+                  <li class="list-group-item">Rating: <span class="info_text"><?php echo $row['image'] ?></span></li>
                 </ul>
-              </span>
-              <span>
-                <ul class="list-group">
-                  <li class="list-group-item">Recipes: <span class="info_text"><?php echo "0" ?></span></li>
-                  <li class="list-group-item">Average rating: <span class="info_text"><?php echo "0" ?></span></li>
-                  <li class="list-group-item">Highest rating recipe: <span class="info_text"><?php echo "0" ?></span></li>
-                  <li class="list-group-item">Lowest rating recipe: <span class="info_text"><?php echo "0" ?></span></li>
-                  <li class="list-group-item">Followers: <span class="info_text"><?php echo sumFollowers($user); ?></span></li>
-                  <li class="list-group-item">Following: <span class="info_text"><?php echo sumFollowing($user); ?></span></li>
-                </ul>
-              </span>
             </div>
             <div class="jumbotron" id="user_jumbotron">
               <h1 class="display-4">Hello, chef!</h1>
@@ -106,7 +91,6 @@
       </div>
     </div>
 
-    
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

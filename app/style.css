@@ -99,13 +99,6 @@ body {
 	margin-right: 5%;
 }
 
-.user_information_block {
-	background-color: grey;
-	height: 100%;
-	width: 30%;
-	padding: 10px;
-}
-
 .user_information_block > div {
 	width: auto;
 	margin-top: 5px;
@@ -211,8 +204,15 @@ body {
 	width: 100%;
 }
 
-.tab-content {
-	float: right;
-	margin-right: 5px;
-	margin-top: 5px;
+.slika2{
+	height: 300px;
+}
+
+#flex2{
+	max-width: 78%;
+	width: 1100px;
+}
+
+.dario{
+	margin-left: -200px;
 }

@@ -53,7 +53,7 @@
           <a class="nav-item nav-link border border-dark rounded-0" id="list-following-list" data-toggle="list" href="#list-following" role="tab" aria-controls="following">Following</a>
         </nav>
       </div>
-      <div class="tab-content" id="nav-tabContent">
+      <div class="tab-content" id="nav-tabContent" style="margin-left: 15%;">
         <div class="tab-pane fade show active" id="list-all" role="tabpanel" aria-labelledby="list-all-list"><?php printFollowersAndFollowing($id); ?></div>
         <div class="tab-pane fade" id="list-followers" role="tabpanel" aria-labelledby="list-followers-list"><?php printFollowers($id); ?></div>
         <div class="tab-pane fade" id="list-following" role="tabpanel" aria-labelledby="list-following-list"><?php printFollowing($id);?></div>
