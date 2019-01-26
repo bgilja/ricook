@@ -53,7 +53,7 @@
 
     <div class="user_profile_page h-100 w-100">
       <div class="row w-100 h-100">
-        <div class="col-4 bg-dark float-left">
+          <div class="col-4 p-1 pl-4 pr-3 h-100" style="background-color: grey;">
           <div class="user_information_block">
             <div class="user_block" id="user_block1">
               <img class="rounded float-left mw-75 mh-75" src=" <?php echo $row['image'] ?>">
@@ -65,27 +65,33 @@
             <div class="user_block">
                 <ul class="list-group w-100">
                   <li class="list-group-item">Created by: <span class="info_text"><?php echo $row['id_kreator'] ?></span></li>
-                  <li class="list-group-item">Name: <span class="info_text"><?php echo $row['ime'] ?></span></li>
                   <li class="list-group-item">Rated by: <span class="info_text"><?php echo $row['broj_ocjena'] ?></span></li>
                   <li class="list-group-item">Rating: <span class="info_text"><?php echo $row['image'] ?></span></li>
+                  <li class="list-group-item">Favourited by: <span class="info_text"><?php echo "!"; ?></span></li>
                 </ul>
             </div>
-            <div class="jumbotron" id="user_jumbotron">
-              <h1 class="display-4">Hello, chef!</h1>
-              <p class="lead">Cooking is not difficult. Everyone has taste, even if they don't realize it.
-                Even if you're not a great chef, there's nothing to stop you understanding the difference between what tastes good and what doesn't.
-                <br>Cooking is not difficult. Everyone has taste, even if they don't realize it.
-                  Even if you're not a great chef, there's nothing to stop you understanding the difference between what tastes good and what doesn't.</p>
-              <hr class="my-4">
-              <button type="button" class="btn btn-secondary" id="change_status_button" onclick="">Change status</button>
+            <div class="table" style="height: 500px;">
+              <table id="tablica" class="table table-sm">
+                <thead><tr ><th class="table-success" scope="col">Nutritivne vrijednosti:</th><th class="table-success"></th></tr></thead>
+                <tbody>
+                  <tr class="table-success"><td>Bjelancevine:</td><td>50g</td></tr>
+                  <tr class="table-success"><td>Ugljikohidrati:</td><td>100g</td></tr>
+                  <tr class="table-success"><td >Masti:</td><td>30g</td></tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
         <div class="col-8 float-left">
           <div class="mt-2">
-            <?php for ($i=0; $i < 100; $i++) {
-              showRecipe("");
-            } ?>
+            <div class="jumbotron" id="user_jumbotron">
+              <h1 class="display-4">Upute</h1>
+              <p class="lead">Cooking is not difficult. Everyone has taste, even if they don't realize it.
+                Even if you're not a great chef, there's nothing to stop you understanding the difference between what tastes good and what doesn't.
+                <br>Cooking is not difficult. Everyone has taste, even if they don't realize it.
+                  Even if you're not a great chef, there's nothing to stop you understanding the difference between what tastes good and what doesn't.</p>
+              <hr class="my-4">
+            </div>
           </div>
         </div>
       </div>

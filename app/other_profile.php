@@ -53,7 +53,7 @@
 
     <div class="user_profile_page h-100 w-100">
       <div class="row w-100 h-100">
-        <div class="col-4 bg-info p-1">
+        <div class="col-4 p-1" style="background-color: grey">
           <div class="user_information_block">
             <div class="user_block" id="user_block1">
               <img class="rounded float-left mw-75 mh-75" src="<?php echo getImage($row) ?>" id="avatar">
@@ -98,15 +98,14 @@
         </div>
         <div class="col-8 float-left">
           <div class="mt-2">
-            <?php for ($i=0; $i < 100; $i++) {
-              showRecipe("");
-            } ?>
+            <?php for ($i=0; $i < 100; $i++) printAllUserRecepies($id, $user);
+            ?>
           </div>
         </div>
       </div>
     </div>
 
-    
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

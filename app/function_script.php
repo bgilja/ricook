@@ -204,11 +204,72 @@
     closeDatabaseConnection($conn);
   }
 
-  function showRecipe() {
+  function printRecipeCard($id, $map) {
+    $row = getUserPersonalInfo($map['id_kreator']);
+    echo ' <div class="card w-100 p-3 mt-1 mb-1 float-left">
+      <div mb-2>
+         <a href="see_recipe.php?id=' . $id . '&recipe=' . $map['id'] .'"><h3> ' . $map['ime'] . '</a> by <a href="other_profile.php?id=' . $id . '&user=' . $row['id'] . '">' . $row['user_name'] . ' </a></h3>
+         <a href="see_recipe.php?id=' . $id . '&recipe=' . $map['id'] .'"><img class="slika2" src=" ' . getRecipeImage($map) . ' "></a>
+         <div class="d-inline-flex w-100 h-100 p-3 bd-highlight" id="flex2">Im an inline flexbox container!da da da dd a da da d a da da d a da  da da  da da  da  ad  da da </div>
+      </div>
+      <table id="tablica" class="table table-sm">
+        <thead><tr ><th class="table-success" scope="col">Nutritivne vrijednosti:</th><th class="table-success"></th></tr></thead>
+        <tbody>
+          <tr class="table-success"><td>Bjelancevine:</td><td>50g</td></tr>
+          <tr class="table-success"><td>Ugljikohidrati:</td><td>100g</td></tr>
+          <tr class="table-success"><td >Masti:</td><td>30g</td></tr>
+        </tbody>
+      </table>
+      <div class="imebtn2">
+        <input type="button" name="submit1" value="Details" class="btn btn-primary align-top">
+        <input type="button" name="submit2" value="Favourite" class="btn btn-primary align-top">
+        <input type="button" name="submit3" value="Rate" class="btn btn-primary align-top">
+        <input type="button" name="submit4" value="Report" class="btn btn-danger align-top">
+      </div>
+    </div> ';
+  }
+
+  function queryRecipeCard($result1, $conn, $id) {
+    while ($row1 = $result1->fetch_assoc()) {
+      $sql2 = "SELECT * FROM recept WHERE id = " . $row1['id'];
+      $result2 = mysqli_query($conn, $sql2);
+      $row2 = $result2->fetch_assoc();
+      printRecipeCard($id, $row2);
+    }
+  }
+
+  function showRecipe($id) {
     $conn = connectToDatabase();
-    $sql = "SELECT id FROM recept WHERE id_kreator = 1";
+    $sql = "SELECT id FROM recept";
     $result = mysqli_query($conn, $sql);
-    queryRecipeCard($result, $conn, 1);
+    queryRecipeCard($result, $conn, $id);
+    closeDatabaseConnection($conn);
+  }
+
+  function printRecipeCardOnProfile($row_recipe, $id) {
+    $row_user = getUserPersonalInfo($row_recipe['id_kreator']);
+
+    echo ' <div class="card w-25 p-2 rounded-0 float-left">
+       <h3><a href="see_recipe.php?id=' . $id . '&recipe=' . $row_recipe['id'] .'"> ' . $row_recipe['ime'] . ' </a></h3>
+       <img class="w-100" src=" ' . getRecipeImage($row_recipe) . ' " >
+      <input type="button" name="submit" value="Favorite" class="btn btn-primary w-100">
+    </div> ';
+  }
+
+  function queryRecipeCardOnProfile($result1, $conn, $id) {
+    while ($row1 = $result1->fetch_assoc()) {
+      $sql2 = "SELECT * FROM recept WHERE id = " . $row1['id'];
+      $result2 = mysqli_query($conn, $sql2);
+      $row2 = $result2->fetch_assoc();
+      printRecipeCardOnProfile($row2, $id);
+    }
+  }
+
+  function printAllUserRecepies($id) {
+    $conn = connectToDatabase();
+    $sql = "SELECT * FROM recept WHERE id_kreator = $id";
+    $result1 = mysqli_query($conn, $sql);
+    queryRecipeCardOnProfile($result1, $conn, $id);
     closeDatabaseConnection($conn);
   }
 
@@ -233,46 +294,6 @@
     $sql = "SELECT id FROM korisnik";
     $result = mysqli_query($conn, $sql);
     queryPersonCard($result, $conn, 1);
-    closeDatabaseConnection($conn);
-  }
-
-  function printRecipeCard($id, $map) {
-    $row = getUserPersonalInfo($id);
-    echo ' <div class="card w-100 p-3 mt-1 mb-1 float-left">
-      <div mb-2>
-         <a href=""><h3> ' . $map['ime'] . '</a> by <a href="">' . $row['user_name'] . ' </a></h3>
-         <a href=""><img class="slika2" src=" ' . getRecipeImage($map) . ' "></a>
-         <div class="d-inline-flex w-100 h-100 p-3 bd-highlight" id="flex2">Im an inline flexbox container!da da da dd a da da d a da da d a da  da da  da da  da  ad  da da </div>
-      </div>
-      <table id="tablica" class="table table-sm">
-        <thead><tr ><th class="table-success" scope="col">Nutritivne vrijednosti:</th><th class="table-success"></th></tr></thead>
-        <tbody>
-          <tr class="table-success"><td>Bjelancevine:</td><td>50g</td></tr>
-          <tr class="table-success"><td>Ugljikohidrati:</td><td>100g</td></tr>
-          <tr class="table-success"><td >Masti:</td><td>30g</td></tr>
-        </tbody>
-      </table>
-      <div class="imebtn2">
-        <input type="button" name="Submit" value="Unfollow" class="btn btn-primary align-top" id="user_block_btn">
-        <input type="button" name="Submit" value="Profile" class="btn btn-primary align-top" id="user_block_btn">
-      </div>
-    </div> ';
-  }
-
-  function queryRecipeCard($result1, $conn) {
-    while ($row1 = $result1->fetch_assoc()) {
-      $sql2 = "SELECT * FROM recept WHERE id = " . $row1['id'];
-      $result2 = mysqli_query($conn, $sql2);
-      $row2 = $result2->fetch_assoc();
-      printRecipeCard(1, $row2);
-    }
-  }
-
-  function printAllUserRecepies($id) {
-    $conn = connectToDatabase();
-    $sql = "SELECT * FROM recept WHERE id_kreator = $id";
-    $result1 = mysqli_query($conn, $sql);
-    queryRecipeCard($result1, $conn, $id);
     closeDatabaseConnection($conn);
   }
 ?>

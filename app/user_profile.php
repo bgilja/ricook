@@ -98,11 +98,8 @@
           </div>
         </div>
         <div class="col-8 mt-2">
-          <div class="card w-25 p-2 rounded-0 float-left">
-             <h3><a href="">Ime_recepta</a></h3>
-             <img class="w-100" src="src\default_avatar.jpg" >
-            <input type="button" name="submit" value="Favorite" class="btn btn-primary w-100">
-          </div>
+          <?php for($i = 0; $i < 100; $i++) printAllUserRecepies($id, $id);
+          ?>
         </div>
       </div>
     </div>

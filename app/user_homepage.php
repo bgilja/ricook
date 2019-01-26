@@ -78,7 +78,7 @@
       <div class="tab-content w-75" id="nav-tabContent" style="margin-left: 12%;">
         <div class="tab-pane fade show active" id="list-main" role="tabpanel" aria-labelledby="list-main-list">
           <?php for ($i = 0; $i < 100; $i++) {
-            showRecipe();
+            showRecipe($id);
           }
           ?>
         </div>
@@ -109,13 +109,13 @@
                   <h6 class="mt-2">Ovdje se prikazuju ponudeni rezultati iz autofila</h6>
                 </div>
                 <div class="form-row">
-                  <span class="form-col ml-1 mr-1"><input type="checkbox" name="breakfast" required class="form-control">Breakfast</span>
-                  <span class="form-col ml-1 mr-1"><input type="checkbox" name="lunch" required class="form-control">Lunch</span>
-                  <span class="form-col ml-1 mr-1"><input type="checkbox" name="dinner" required class="form-control">Dinner</span>
-                  <span class="form-col ml-1 mr-1"><input type="checkbox" name="dessert" required class="form-control">Dessert</span>
+                  <span class="form-col ml-1 mr-1"><input type="checkbox" name="breakfast" class="form-control">Breakfast</span>
+                  <span class="form-col ml-1 mr-1"><input type="checkbox" name="lunch" class="form-control">Lunch</span>
+                  <span class="form-col ml-1 mr-1"><input type="checkbox" name="dinner" class="form-control">Dinner</span>
+                  <span class="form-col ml-1 mr-1"><input type="checkbox" name="dessert" class="form-control">Dessert</span>
                 </div>
                 <div class="">
-                  <h6>Select image to upload: <input type="file" value="" name="fileToUpload" id="image_preview_file" required></h6>
+                  <h6>Select image to upload: <input type="file" value="" name="fileToUpload" id="image_preview_file"></h6>
                 </div>
                 <datalist id="huge_list"></datalist>
                 <input type="hidden" name="id" value="<?php echo $id; ?>">
