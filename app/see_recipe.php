@@ -23,7 +23,6 @@
       $conn = connectToDatabase();
       $row = getRecipeInfo($recipe, $conn);
       $user_info = getUserPersonalInfo($id);
-      closeDatabaseConnection($conn);
     ?>
 
     <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
@@ -121,6 +120,30 @@
                 <br>Cooking is not difficult. Everyone has taste, even if they don't realize it.
                   Even if you're not a great chef, there's nothing to stop you understanding the difference between what tastes good and what doesn't.</p>
               <hr class="my-4">
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <?php
+              $comments = "SELECT * FROM komentar";
+              $result = mysqli_query($conn, $comments);
+              while ($row2 = $result->fetch_assoc()) {
+                $sql = "SELECT user_name FROM korisnik WHERE id = ". $row2['id_kreator'];
+                $result2 = mysqli_query($conn, $sql);
+                $row3 = $result2->fetch_assoc();
+                echo $row3['user_name'] . " - " . $row2['tekst'] . "<p>";
+              }
+              closeDatabaseConnection($conn);
+            ?>
+          <div class="panel-heading">Submit Your Comments</div>
+            <div class="panel-body">
+            	<form method="post" action="add_comment.php">
+          	  <div class="form-group">
+          	    <textarea name="comment" class="form-control" rows="3"></textarea>
+          	  </div>
+              <input type="hidden" name="id" value= "<?php echo $id?>">
+              <input type="hidden" name="recipe" value="<?php echo $recipe?>">
+          	  <button type="submit" class="btn btn-primary">Submit</button>
+          	</form>
             </div>
           </div>
         </div>
