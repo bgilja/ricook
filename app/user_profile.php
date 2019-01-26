@@ -40,6 +40,13 @@
           <li class="nav-item">
           	<a class="nav-link active" href="user_profile.php?id=<?php echo $id; ?>">Profile</a>
           </li>
+          <?php
+          if ($id == 1) {
+            echo '<li class="nav-item">
+                    <a class="nav-link" href="add_ingredient.php?id=' .$id . '">Add ingredient</a>
+                  </li>';
+          }
+          ?>
         </ul>
         <form class="form-inline my-2 my-lg-0" id="search" action="search.php?id=<?php echo $id; ?>" method="post">
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="string" required>
@@ -58,8 +65,9 @@
               <img class="rounded float-left mw-75 mh-75" src="<?php echo getImage($row) ?>" id="avatar">
               <div class="profile_buttons">
                 <button type="button" class="btn btn-primary" id="change_pass_btn" onclick="">Change password</button>
-                <button type="button" class="btn btn-danger" id="change_profile_image_btn" onclick="">Change picture</button>
-                <button type="button" class="btn btn-warning" id="delete_profile_image_btn" onclick="">Delete picture</button>
+                <button type="button" class="btn btn-success" id="change_profile_image_btn" onclick="">Change picture</button>
+                <button type="button" class="btn btn-info" id="delete_profile_image_btn" onclick="">Delete picture</button>
+                <button type="button" class="btn btn-danger" id="delete_profile_btn" onclick="">Delete profile</button>
               </div>
             </div>
             <div class="user_block w-100">
@@ -75,7 +83,7 @@
               </div>
               <div class="w-50 float-left">
                 <ul class="list-group w-100">
-                  <li class="list-group-item">Recipes: <span class="info_text"><?php echo getRecipeNumber($id); ?></span></li>
+                  <li class="list-group-item">Recipes: <span class="info_text"><?php echo countUserRecipes($id); ?></span></li>
                   <li class="list-group-item">Average rating: <span class="info_text"><?php echo getAverageRecipeRating($id); ?></span></li>
                   <li class="list-group-item">Highest rating recipe: <span class="info_text"><?php echo getHighestRecipeRating($id); ?></span></li>
                   <li class="list-group-item">Lowest rating recipe: <span class="info_text"><?php echo getLowestRecipeRating($id); ?></span></li>

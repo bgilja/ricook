@@ -35,6 +35,13 @@
           <li class="nav-item">
           	<a class="nav-link" href="user_profile.php?id=<?php echo $id; ?>">Profile</a>
           </li>
+          <?php
+          if ($id == 1) {
+            echo '<li class="nav-item">
+                    <a class="nav-link" href="add_ingredient.php?id=' .$id . '">Add ingredient</a>
+                  </li>';
+          }
+          ?>
         </ul>
         <form class="form-inline my-2 my-lg-0" id="search" action="search.php?id=<?php echo $id; ?>" method="post">
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="string" required>
@@ -59,7 +66,7 @@
         <div class="col">
           <div class="tab-content" id="v-pills-tabContent">
             <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab"><?php showUser($name, $id); ?></div>
-            <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab"><?php showRecipe($name); ?></div>
+            <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab"><?php showRecipeOnMainpage($name); ?></div>
             <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab"><?php showIngredient($name); ?></div>
             <div class="tab-pane fade" id="v-pills-tags" role="tabpanel" aria-labelledby="v-pills-tags-tab"><?php showTag($name); ?></div>
             <div class="tab-pane fade" id="v-pills-events" role="tabpanel" aria-labelledby="v-pills-events-tab"><?php showTag($name); ?></div>

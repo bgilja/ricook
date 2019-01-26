@@ -18,10 +18,11 @@
 
     <?php
       include 'function_script.php';
-      $id = 1;
-      $recipe = 18;
+      $id = $_GET['id'];
+      $recipe = $_GET['recipe'];
       $conn = connectToDatabase();
       $row = getRecipeInfo($recipe, $conn);
+      $user_info = getUserPersonalInfo($id);
       closeDatabaseConnection($conn);
     ?>
 
@@ -41,6 +42,13 @@
           <li class="nav-item">
           	<a class="nav-link" href="user_profile.php?id=<?php echo $id; ?>">Profile</a>
           </li>
+          <?php
+          if ($id == 1) {
+            echo '<li class="nav-item">
+                    <a class="nav-link" href="add_ingredient.php?id=' .$id . '">Add ingredient</a>
+                  </li>';
+          }
+          ?>
         </ul>
         <form class="form-inline my-2 my-lg-0" id="search" action="search.php?id=<?php echo $id; ?>" method="post">
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="string" required>
@@ -58,16 +66,38 @@
             <div class="user_block" id="user_block1">
               <img class="rounded float-left mw-75 mh-75" src=" <?php echo $row['image'] ?>">
               <div class="profile_buttons">
-                <button type="button" class="btn btn-primary" id="recipe_fav_btn" onclick="">Favourite</button>
-                <button type="button" class="btn btn-info" id="delete_profile_image_btn" onclick="">Give rating</button>
+                <?php
+                 if (!isFavoredby($id, $recipe)) {
+                  echo ' <form class="" action="add_to_favourites.php" method="post">
+                    <input type="hidden" name="id" value="'. $id .'">
+                    <input type="hidden" name="recipe" value="'. $recipe .'">
+                    <input type="submit" class="btn btn-primary w-25 ml-1" value="Favourite">
+                  </form> ';
+                } else {
+                  echo ' <form class="" action="remove_from_favourites.php" method="post">
+                    <input type="hidden" name="id" value="'. $id .'">
+                    <input type="hidden" name="recipe" value="'. $recipe .'">
+                    <input type="submit" class="btn btn-primary w-25 ml-1" value="Unfavourite">
+                  </form> ';
+                }
+                if (isCreator($id, $recipe)) {
+                  echo ' <form class="mt-1" action="delete_recipe.php" method="post">
+                    <input type="hidden" name="id" value="'. $id .'">
+                    <input type="hidden" name="recipe" value="'. $recipe .'">
+                    <input type="submit" class="btn btn-danger w-25 ml-1" value="Delete">
+                  </form> ';
+                }
+                ?>
+                <button type="button" class="btn btn-info mt-1 w-25" id="delete_profile_image_btn">Give rating</button>
               </div>
             </div>
             <div class="user_block">
                 <ul class="list-group w-100">
-                  <li class="list-group-item">Created by: <span class="info_text"><?php echo $row['id_kreator']; ?></span></li>
+                  <li class="list-group-item">Created by: <span class="info_text"><?php echo $user_info['user_name']; ?></span></li>
                   <li class="list-group-item">Rated by: <span class="info_text"><?php echo $row['broj_ocjena']; ?></span></li>
                   <li class="list-group-item">Rating: <span class="info_text"><?php echo $row['ocjena']; ?></span></li>
-                  <li class="list-group-item">Favourited by: <span class="info_text"><?php $row['image']; ?></span></li>
+                  <li class="list-group-item">Favourited by: <span class="info_text"><?php echo countFavorites($recipe); ?></span></li>
+                  <li class="list-group-item">Your rating: <span class="info_text"><?php echo 0; ?></span></li>
                 </ul>
             </div>
             <div class="table" style="height: 500px;">

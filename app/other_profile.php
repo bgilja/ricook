@@ -41,6 +41,13 @@
           <li class="nav-item">
           	<a class="nav-link" href="user_profile.php?id=<?php echo $id; ?>">Profile</a>
           </li>
+          <?php
+          if ($id == 1) {
+            echo '<li class="nav-item">
+                    <a class="nav-link" href="add_ingredient.php?id=' .$id . '">Add ingredient</a>
+                  </li>';
+          }
+          ?>
         </ul>
         <form class="form-inline my-2 my-lg-0" id="search" action="search.php?id=<?php echo $id; ?>" method="post">
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="string" required>
@@ -58,48 +65,48 @@
             <div class="user_block" id="user_block1">
               <img class="rounded float-left mw-75 mh-75" src="<?php echo getImage($row) ?>" id="avatar">
               <div class="profile_buttons">
-                <button type="button" class="btn btn-primary" id="change_pass_btn" onclick="">Change password</button>
-                <button type="button" class="btn btn-danger" id="change_profile_image_btn" onclick="">Change picture</button>
-                <button type="button" class="btn btn-warning" id="delete_profile_image_btn" onclick="">Delete picture</button>
+                <button type="button" class="btn btn-primary" id="" onclick="">Follow</button>
+                <button type="button" class="btn btn-danger" id="" onclick="">Report</button>
               </div>
             </div>
             <div class="user_block">
-              <span>
-                <ul class="list-group" id="user_info_list_left">
+              <div class="w-50 float-left">
+                <ul class="list-group w-100">
                   <li class="list-group-item">Username: <span class="info_text"><?php echo $row['user_name'] ?></span></li>
                   <li class="list-group-item">First name: <span class="info_text"><?php echo $row['first_name'] ?></span></li>
                   <li class="list-group-item">Last name: <span class="info_text"><?php echo $row['last_name'] ?></span></li>
                   <li class="list-group-item">Email: <span class="info_text"><?php echo $row['email'] ?></span></li>
                   <li class="list-group-item">Year of birth: <span class="info_text"><?php echo $row['year_of_birth'] ?></span></li>
-                  <li class="list-group-item"><a>Last active: <span class="info_text"><?php echo "0" ?></span></li>
+                  <li class="list-group-item">Last active: <span class="info_text"><?php echo "0" ?></span></li>
                 </ul>
-              </span>
-              <span>
-                <ul class="list-group">
-                  <li class="list-group-item">Recipes: <span class="info_text"><?php echo "0" ?></span></li>
-                  <li class="list-group-item">Average rating: <span class="info_text"><?php echo "0" ?></span></li>
-                  <li class="list-group-item">Highest rating recipe: <span class="info_text"><?php echo "0" ?></span></li>
-                  <li class="list-group-item">Lowest rating recipe: <span class="info_text"><?php echo "0" ?></span></li>
+              </div>
+              <div class="w-50 float-left">
+                <ul class="list-group w-100">
+                  <li class="list-group-item">Recipes: <span class="info_text"><?php echo countUserRecipes($user); ?></span></li>
+                  <li class="list-group-item">Average rating: <span class="info_text"><?php echo getAverageRecipeRating($user); ?></span></li>
+                  <li class="list-group-item">Highest rating recipe: <span class="info_text"><?php echo getHighestRecipeRating($user); ?></span></li>
+                  <li class="list-group-item">Lowest rating recipe: <span class="info_text"><?php echo getLowestRecipeRating($user); ?></span></li>
                   <li class="list-group-item">Followers: <span class="info_text"><?php echo sumFollowers($user); ?></span></li>
                   <li class="list-group-item">Following: <span class="info_text"><?php echo sumFollowing($user); ?></span></li>
                 </ul>
-              </span>
+              </div>
             </div>
-            <div class="jumbotron" id="user_jumbotron">
-              <h1 class="display-4">Hello, chef!</h1>
-              <p class="lead">Cooking is not difficult. Everyone has taste, even if they don't realize it.
-                Even if you're not a great chef, there's nothing to stop you understanding the difference between what tastes good and what doesn't.
-                <br>Cooking is not difficult. Everyone has taste, even if they don't realize it.
-                  Even if you're not a great chef, there's nothing to stop you understanding the difference between what tastes good and what doesn't.</p>
-              <hr class="my-4">
-              <button type="button" class="btn btn-secondary" id="change_status_button" onclick="">Change status</button>
+            <div class="">
+              <div class="jumbotron" style="margin-top: 305px;">
+                <h1 class="display-4">Hello, chef!</h1>
+                <p class="lead">Cooking is not difficult. Everyone has taste, even if they don't realize it.
+                  Even if you're not a great chef, there's nothing to stop you understanding the difference between what tastes good and what doesn't.
+                  <br>Cooking is not difficult. Everyone has taste, even if they don't realize it.
+                    Even if you're not a great chef, there's nothing to stop you understanding the difference between what tastes good and what doesn't.</p>
+                <hr class="my-4">
+                <button type="button" class="btn btn-secondary" id="change_status_button" onclick="">Change status</button>
+              </div>
             </div>
           </div>
         </div>
         <div class="col-8 float-left">
           <div class="mt-2">
-            <?php for ($i=0; $i < 100; $i++) printAllUserRecepies($id, $user);
-            ?>
+            <?php for ($i=0; $i < 100; $i++) printAllUserRecepies($id, $user); ?>
           </div>
         </div>
       </div>

@@ -1,9 +1,10 @@
 <?php
   include 'function_script.php';
   $id = $_POST['id'];
+  $recipe = $_POST['recipe'];
   $conn = connectToDatabase();
-  $sql = "UPDATE korisnik SET image = 'src/default_avatar.jpg' WHERE id = $id";
+  $sql = "DELETE FROM recept WHERE id = $recipe AND id_kreator = $id";
   $result = mysqli_query($conn, $sql);
   closeDatabaseConnection($conn);
-  header('Location:  user_profile.php?id='.$id);
+  header('Location:  user_homepage.php?id=' . $id);
 ?>

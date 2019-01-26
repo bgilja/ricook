@@ -28,6 +28,7 @@
       $id = $_GET['id'];
       $conn = connectToDatabase();
       $row = getUserPersonalInfo($id, $conn);
+      closeDatabaseConnection($conn);
     ?>
 
     <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
@@ -46,9 +47,13 @@
           <li class="nav-item">
           	<a class="nav-link" href="user_profile.php?id=<?php echo $id; ?>">Profile</a>
           </li>
-           <li class="nav-item">
-            <a class="nav-link" href="dario.php?id=<?php echo $id; ?>">Add ingredient</a>
-          </li>
+          <?php
+          if ($id == 1) {
+            echo '<li class="nav-item">
+                    <a class="nav-link" href="add_ingredient.php?id=' .$id . '">Add ingredient</a>
+                  </li>';
+          }
+          ?>
         </ul>
         <form class="form-inline my-2 my-lg-0" id="search" action="search.php?id=<?php echo $id; ?>" method="post">
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="string" required>
@@ -66,6 +71,7 @@
           <a class="nav-item nav-link border border-dark rounded-0 text-white active" id="list-main-list" data-toggle="list" href="#list-main" role="tab" aria-controls="main">Latest</a>
           <a class="nav-item nav-link border border-dark rounded-0 text-white" id="list-main-list" data-toggle="list" href="#list-main" role="tab" aria-controls="main">Popular</a>
           <a class="nav-item nav-link border border-dark rounded-0 text-white" id="list-main-list" data-toggle="list" href="#list-main" role="tab" aria-controls="main">Top rated</a>
+          <a class="nav-item nav-link border border-dark rounded-0 text-white" id="list-main-list" data-toggle="list" href="#list-main" role="tab" aria-controls="main">Favorited</a>
         </nav>
       </div>
       <div class="row1">
@@ -80,8 +86,8 @@
 
       <div class="tab-content w-75" id="nav-tabContent" style="margin-left: 12%;">
         <div class="tab-pane fade show active" id="list-main" role="tabpanel" aria-labelledby="list-main-list">
-          <?php for ($i = 0; $i < 100; $i++) {
-            showRecipe($id);
+          <?php for ($i = 0; $i < 1; $i++) {
+            showRecipeOnMainpage($id);
           }
           ?>
         </div>

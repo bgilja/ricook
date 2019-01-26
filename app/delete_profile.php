@@ -1,11 +1,9 @@
 <?php
   include 'function_script.php';
-
   $id = $_POST['id'];
-  $user = $_POST['user'];
   $conn = connectToDatabase();
-  stopFollowing($id, $user);
+  $sql = "DELETE FROM korisnik WHERE id = $id";
+  $result = mysqli_query($conn, $sql);
   closeDatabaseConnection($conn);
-
-  header('Location: user_friends.php?id=' . $id);
+  header('Location:  index.php');
 ?>

@@ -22,14 +22,15 @@
     <title>Homepage</title>
   </head>
   <body class="">
-<!--
+
     <?php
       include 'function_script.php';
       $id = $_GET['id'];
       $conn = connectToDatabase();
       $row = getUserPersonalInfo($id, $conn);
+      closeDatabaseConnection($conn);
     ?>
--->
+
     <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
       <a class="navbar-brand" href="#">LOGO</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,9 +47,13 @@
           <li class="nav-item">
             <a class="nav-link" href="user_profile.php?id=<?php echo $id; ?>">Profile</a>
           </li>
-           <li class="nav-item">
-            <a class="nav-link" href="dario.php?id=<?php echo $id; ?>">Add ingredient</a>
-          </li>
+          <?php
+          if ($id == 1) {
+            echo '<li class="nav-item">
+                    <a class="nav-link active" href="add_ingredient.php?id=' .$id . '">Add ingredient</a>
+                  </li>';
+          }
+          ?>
         </ul>
 
         <form class="form-inline my-2 my-lg-0" id="search" action="search.php?id=<?php echo $id; ?>" method="post">
@@ -60,24 +65,15 @@
         <button type="button" class="btn btn-secondary" id="btn1" onclick="window.location.href='index.php'">Logout</button>
       </div>
     </nav>
-    <!-- ovaj dio ja radim-->
+
     <div class="price_list">
       <h3 style="text-align: center;">Namirnice</h3>
 
-      <table  class="table table-hover table-sm" style="width: 70%; margin-left: 15%;">
-     <thead class="thead-light"> <tr><th>Id</th><th>Ime</th><th>Proteini(100g)</th><th>Ugljikohidrati(100g)</th><th>Masti(100g)</th><th>kcal(100g)</th><th>Opcije</th></tr></thead>
+      <table  class="table table-hover table-sm border border-dark" style="width: 70%; margin-left: 15%;">
+     <thead class="thead-light border border-light"> <tr><th>Id</th><th>Ime</th><th>Proteini(100g)</th><th>Ugljikohidrati(100g)</th><th>Masti(100g)</th><th>kcal(100g)</th><th>Opcije</th></tr></thead>
 
       <?php
-        $servername = "127.0.0.1";
-        $username = "student";
-        $password = "student";
-        $dbname = "ricook";
-        // Stvaranje konekcije na bazu
-        $link = new mysqli($servername, $username, $password, $dbname);
-        // Provjera uspjesnosti spajanja na bazu
-        if ($link->connect_error) {
-          die("Uspostavljanje konekcije na bazu nije uspjelo: ". $link->connect_error);
-        }
+        $link = connectToDatabase();
         $sql = "SELECT id, ime, protein, ugljikohidrati, masti, kcal FROM namirnica";
         $result = mysqli_query($link, $sql);
         while($row = mysqli_fetch_array($result, MYSQLI_BOTH)){
@@ -89,31 +85,27 @@
                 <input type="submit" value="Izbriši" > </form></td>');
           print("</tr>");
         }
-        mysqli_close($link);
+        closeDatabaseConnection($link);
       ?>
-
       </table>
     </div>
-   <div class="card namirnice_forma" >
-          <h3 align="center">Za dodavanje namirnice ispunite formular</h3>
-          <form action="dodaj_namirnicu.php" method="post" style="width: 60%; margin:auto;">
-                <label >Ime:</label>
-                <input type="text" class="form-control"  placeholder="Ime" name="ime">
-                <label >Proteini:</label>
-                <input type="text" class="form-control"  placeholder="Kolicina proteina u 100g" name="protein">
-                <label >Ugljikohidrati:</label>
-                <input type="text" class="form-control"  placeholder="Kolicina ugljikohidrata u 100g " name="ugljikohidrati">
-                <label >Masti:</label>
-                <input type="text" class="form-control"  placeholder="Kolicina masti u 100g" name="masti">
-                <label >Kalorijska vrijednost(kcal):</label>
-                <input type="text" class="form-control"  placeholder="Kalorijska vrijednost u 100g" name="kcal">
+    <div class="card namirnice_forma mt-5" >
+      <h3 align="center">Za dodavanje namirnice ispunite formular</h3>
+      <form action="dodaj_namirnicu.php" method="post" style="width: 60%; margin:auto;">
+        <label >Ime:</label>
+        <input type="text" class="form-control"  placeholder="Ime" name="ime">
+        <label >Proteini:</label>
+        <input type="text" class="form-control"  placeholder="Kolicina proteina u 100g" name="protein">
+        <label >Ugljikohidrati:</label>
+        <input type="text" class="form-control"  placeholder="Kolicina ugljikohidrata u 100g " name="ugljikohidrati">
+        <label >Masti:</label>
+        <input type="text" class="form-control"  placeholder="Kolicina masti u 100g" name="masti">
+        <label >Kalorijska vrijednost(kcal):</label>
+        <input type="text" class="form-control"  placeholder="Kalorijska vrijednost u 100g" name="kcal">
+        <input class="btn btn-primary" type="submit" value="Dodaj" style="margin-left: 40%; margin-top: 5px">
+      </form>
+    </div>
 
-            <input class="btn btn-primary" type="submit" value="Dodaj" style="margin-left: 40%; margin-top: 5px">
-          </form>
-  </div>
-
-    <!--do tu-->
-    
     <!-- Optional JavaScript -->
     <script src="popup_recipe_modal.js"></script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

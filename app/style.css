@@ -189,7 +189,7 @@ body {
 }
 
 .slika{
-		width: 38%;
+		max-width: 38%;
 }
 
 .d-inline-flex{
@@ -216,6 +216,7 @@ body {
 .dario{
 	margin-left: -200px;
 }
+
 .namirnice_forma{
 	width: 30%;
 	margin: auto;

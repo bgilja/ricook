@@ -68,13 +68,31 @@
     closeDatabaseConnection($conn);
   }
 
-  function getRecipeNumber($id) {
+  function sumFollowers($id) {
     $conn = connectToDatabase();
-    $sql = "SELECT COUNT(*) AS count FROM recept WHERE id_kreator = $id";
+    $sql = "SELECT COUNT(*) as count FROM pratitelj WHERE id_pratitelj = $id";
     $result = mysqli_query($conn, $sql);
     $row = $result->fetch_assoc();
     closeDatabaseConnection($conn);
     return $row['count'];
+  }
+
+  function sumFollowing($id) {
+    $conn = connectToDatabase();
+    $sql = "SELECT COUNT(*) as count FROM pratitelj WHERE id_pratioc = $id";
+    $result = mysqli_query($conn, $sql);
+    $row = $result->fetch_assoc();
+    closeDatabaseConnection($conn);
+    return $row['count'];
+  }
+
+  function countUserRecipes($id) {
+    $conn = connectToDatabase();
+    $sql = "SELECT COUNT(*) AS brojac FROM recept WHERE id_kreator = $id";
+    $result = mysqli_query($conn, $sql);
+    $row = $result->fetch_assoc();
+    closeDatabaseConnection($conn);
+    return $row['brojac'];
   }
 
   function getAverageRecipeRating($id) {
@@ -107,32 +125,6 @@
     return 0;
   }
 
-  function sumFollowers($id) {
-    $conn = connectToDatabase();
-    $sql = "SELECT COUNT(*) as count FROM pratitelj WHERE id_pratitelj = $id";
-    $result = mysqli_query($conn, $sql);
-    $row = $result->fetch_assoc();
-    closeDatabaseConnection($conn);
-    return $row['count'];
-  }
-
-  function sumFollowing($id) {
-    $conn = connectToDatabase();
-    $sql = "SELECT COUNT(*) as count FROM pratitelj WHERE id_pratioc = $id";
-    $result = mysqli_query($conn, $sql);
-    $row = $result->fetch_assoc();
-    closeDatabaseConnection($conn);
-    return $row['count'];
-  }
-
-  function printEndDiv() {
-    echo ' </div><br> ';
-  }
-
-  function printDivUserActivity() {
-    echo ' <div class="user_activity mt-2"> ';
-  }
-
   function printPersonCard($id, $map) {
     echo ' <div class="card p-1 float-left border border-light m-1 rounded-0">
       <span class="border p-1">
@@ -146,13 +138,13 @@
       echo ' <form action="stop_following.php" method="post">
             <input type="hidden" name="id" value="' . $id . '">
             <input type="hidden" name="user" value="' . $map["id"] .'">
-            <input type="submit" name="submit" value="Unfollow" class="btn btn-primary align-top w-100 mb-1" id="user_unfollow_btn">
+            <input type="submit" name="submit" value="Unfollow" class="btn btn-primary align-top w-100 mb-1">
             </form> ';
     } else {
       echo ' <form action="start_following.php" method="post">
             <input type="hidden" name="id" value="' . $id . '">
             <input type="hidden" name="user" value="' . $map["id"] .'">
-            <input type="submit" name="submit3" value="Follow" class="btn btn-primary align-top w-100 mb-1" id="user_follow_btn">
+            <input type="submit" name="submit3" value="Follow" class="btn btn-primary align-top w-100 mb-1">
             </form> ';
     }
     echo '   </div></span>
@@ -160,14 +152,14 @@
   }
 
   function queryPersonCard($result1, $conn, $id) {
-    printDivUserActivity();
+    echo ' <div class="user_activity mt-2"> ';
     while($row1 = $result1->fetch_assoc()) {
       $sql2 = "SELECT * FROM korisnik WHERE id = " . $row1['id'];
       $result2 = mysqli_query($conn, $sql2);
       $row2 = $result2->fetch_assoc();
       printPersonCard($id, $row2);
     }
-    printEndDiv();
+    echo ' </div><br> ';
   }
 
   function printFollowersAndFollowing($id) {
@@ -204,9 +196,24 @@
     closeDatabaseConnection($conn);
   }
 
-  function printRecipeCard($id, $map) {
+  function isFavoredby($id_user, $id_recipe) {
+    $conn = connectToDatabase();
+    $sql = "SELECT id_recept FROM favourite WHERE id_korisnik = $id_user";
+    $result = mysqli_query($conn, $sql);
+    while ($row = $result->fetch_assoc()) {
+      if ($row['id_recept'] === $id_recipe) {
+        closeDatabaseConnection($conn);
+        return true;
+      }
+    }
+    closeDatabaseConnection($conn);
+    return false;
+  }
+
+  function printRecipeCardOnMainpage($id, $map) {
     $row = getUserPersonalInfo($map['id_kreator']);
-    echo ' <div class="card w-100 p-3 mt-1 mb-1 float-left">
+    echo '
+    <div class="card w-100 p-3 mt-1 mb-1 float-left">
       <div mb-2>
          <a href="see_recipe.php?id=' . $id . '&recipe=' . $map['id'] .'"><h3> ' . $map['ime'] . '</a> by <a href="other_profile.php?id=' . $id . '&user=' . $row['id'] . '">' . $row['user_name'] . ' </a></h3>
          <a href="see_recipe.php?id=' . $id . '&recipe=' . $map['id'] .'"><img class="slika2" src=" ' . getRecipeImage($map) . ' "></a>
@@ -221,35 +228,34 @@
         </tbody>
       </table>
       <div class="imebtn2">
-        <input type="button" name="submit1" value="Details" class="btn btn-primary align-top">
-        <input type="button" name="submit2" value="Favourite" class="btn btn-primary align-top">
+        <a class="btn btn-primary align-top text-white">Details</a>
       </div>
     </div> ';
   }
 
-  function queryRecipeCard($result1, $conn, $id) {
+  function queryRecipeCardOnMainpage($result1, $conn, $id) {
     while ($row1 = $result1->fetch_assoc()) {
       $sql2 = "SELECT * FROM recept WHERE id = " . $row1['id'];
       $result2 = mysqli_query($conn, $sql2);
       $row2 = $result2->fetch_assoc();
-      printRecipeCard($id, $row2);
+      printRecipeCardOnMainpage($id, $row2);
     }
   }
 
-  function showRecipe($id) {
+  function showRecipeOnMainpage($id) {
     $conn = connectToDatabase();
     $sql = "SELECT id FROM recept";
     $result = mysqli_query($conn, $sql);
-    queryRecipeCard($result, $conn, $id);
+    queryRecipeCardOnMainpage($result, $conn, $id);
     closeDatabaseConnection($conn);
   }
 
   function printRecipeCardOnProfile($row_recipe, $id) {
     $row_user = getUserPersonalInfo($row_recipe['id_kreator']);
 
-    echo ' <div class="card w-25 p-2 rounded-0 float-left">
+    echo ' <div class="card w-25 p-2 rounded-0 float-left" style="height: 400px;">
        <h3><a href="see_recipe.php?id=' . $id . '&recipe=' . $row_recipe['id'] .'"> ' . $row_recipe['ime'] . ' </a></h3>
-       <img class="w-100" src=" ' . getRecipeImage($row_recipe) . ' " >
+       <img class="" src=" ' . getRecipeImage($row_recipe) . ' ">
       <input type="button" name="submit" value="Favorite" class="btn btn-primary w-100">
     </div> ';
   }
@@ -293,5 +299,20 @@
     $result = mysqli_query($conn, $sql);
     queryPersonCard($result, $conn, 1);
     closeDatabaseConnection($conn);
+  }
+
+  function countFavorites($id) {
+    $conn = connectToDatabase();
+    $sql = "SELECT COUNT(*) as brojac FROM favourite WHERE id_recept = $id";
+    $result = mysqli_query($conn, $sql);
+    $row = $result->fetch_assoc();
+    closeDatabaseConnection($conn);
+    return $row['brojac'];
+  }
+
+  function isCreator($id, $recipe) {
+    $row = getRecipeInfo($recipe);
+    if ($row['id_kreator'] === $id) return true;
+    return false;
   }
 ?>
