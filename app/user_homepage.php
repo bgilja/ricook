@@ -74,29 +74,13 @@
             <a class="nav-item nav-link border border-dark rounded-0 text-white" id="list-main-list" data-toggle="list" href="#list-main" role="tab" aria-controls="main">Dessert</a>
           </nav>
       </div>
-      
+
       <div class="tab-content w-75" id="nav-tabContent" style="margin-left: 12%;">
         <div class="tab-pane fade show active" id="list-main" role="tabpanel" aria-labelledby="list-main-list">
-          <div class="card w-100 p-3 float-left">
-            <span>
-               <h3>Ime_recepta</h3>
-               <img class="slika2" src="src\default_avatar.jpg" >
-               <div class="d-inline-flex  h-50 p-3 bd-highlight" id="flex2">I'm an inline flexbox container!da da da dd a da da d a da da d a da  da da  da da  da  ad  da da </div>
-            </span>
-            <table id="tablica" class="table table-sm">
-              <thead><tr ><th class="table-success" scope="col">Nutritivne vrijednosti:</th><th class="table-success"></th></tr></thead>
-              <tbody>
-                <tr class="table-success"><td>Bjelancevine:</td><td>50g</td></tr>
-                <tr class="table-success"><td>Ugljikohidrati:</td><td>100g</td></tr>
-                <tr class="table-success"><td >Masti:</td><td>30g</td></tr>
-              </tbody>
-            </table>
-            <div class="imebtn2">
-              <h5>UserName</h5>
-              <input type="button" name="Submit" value="Unfollow" class="btn btn-primary align-top" id="user_block_btn">
-              <input type="button" name="Submit" value="Profile" class="btn btn-primary align-top" id="user_block_btn">
-            </div>
-		      </div>
+          <?php for ($i = 0; $i < 100; $i++) {
+            showRecipe();
+          }
+          ?>
         </div>
       </div>
     </div>
