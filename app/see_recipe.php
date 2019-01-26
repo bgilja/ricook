@@ -59,15 +59,15 @@
               <img class="rounded float-left mw-75 mh-75" src=" <?php echo $row['image'] ?>">
               <div class="profile_buttons">
                 <button type="button" class="btn btn-primary" id="recipe_fav_btn" onclick="">Favourite</button>
-                <button type="button" class="btn btn-danger" id="recipe_rate_btn" onclick="">Rating</button>
+                <button type="button" class="btn btn-info" id="delete_profile_image_btn" onclick="">Give rating</button>
               </div>
             </div>
             <div class="user_block">
                 <ul class="list-group w-100">
-                  <li class="list-group-item">Created by: <span class="info_text"><?php echo $row['id_kreator'] ?></span></li>
-                  <li class="list-group-item">Rated by: <span class="info_text"><?php echo $row['broj_ocjena'] ?></span></li>
-                  <li class="list-group-item">Rating: <span class="info_text"><?php echo $row['image'] ?></span></li>
-                  <li class="list-group-item">Favourited by: <span class="info_text"><?php echo "!"; ?></span></li>
+                  <li class="list-group-item">Created by: <span class="info_text"><?php echo $row['id_kreator']; ?></span></li>
+                  <li class="list-group-item">Rated by: <span class="info_text"><?php echo $row['broj_ocjena']; ?></span></li>
+                  <li class="list-group-item">Rating: <span class="info_text"><?php echo $row['ocjena']; ?></span></li>
+                  <li class="list-group-item">Favourited by: <span class="info_text"><?php $row['image']; ?></span></li>
                 </ul>
             </div>
             <div class="table" style="height: 500px;">
@@ -97,7 +97,34 @@
       </div>
     </div>
 
+    <div class="container">
+      <div class="modal fade" id="delete_profile_image_modal" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3>Rate recipe</h3>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body" style="padding:40px 50px;">
+              <form role="form" action="recipe_rating.php" method="post">
+                <div class="form-group">
+                  <label>Recipe rating is from 1 to 10</label>
+                  <input type="number" name="rating" required min="1" max="10" style="margin-left: 10px;">
+                </div>
+                  <input type="hidden" name="id" value="<?php echo $id; ?>">
+                  <input type="hidden" name="recipe" value="<?php echo $recipe; ?>">
+                  <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span>Rate</button>
+              </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Optional JavaScript -->
+    <script src="popup_delete_profile_image_modal.js"></script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>

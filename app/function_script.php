@@ -223,8 +223,6 @@
       <div class="imebtn2">
         <input type="button" name="submit1" value="Details" class="btn btn-primary align-top">
         <input type="button" name="submit2" value="Favourite" class="btn btn-primary align-top">
-        <input type="button" name="submit3" value="Rate" class="btn btn-primary align-top">
-        <input type="button" name="submit4" value="Report" class="btn btn-danger align-top">
       </div>
     </div> ';
   }
