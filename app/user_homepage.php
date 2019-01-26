@@ -46,6 +46,9 @@
           <li class="nav-item">
           	<a class="nav-link" href="user_profile.php?id=<?php echo $id; ?>">Profile</a>
           </li>
+           <li class="nav-item">
+            <a class="nav-link" href="dario.php?id=<?php echo $id; ?>">Add ingredient</a>
+          </li>
         </ul>
         <form class="form-inline my-2 my-lg-0" id="search" action="search.php?id=<?php echo $id; ?>" method="post">
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="string" required>
