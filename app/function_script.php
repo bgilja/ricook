@@ -205,7 +205,7 @@
     $conn = connectToDatabase();
     $sql = "SELECT id FROM korisnik WHERE id in (SELECT id FROM korisnik WHERE first_name LIKE ('%$name%') OR last_name LIKE ('%$name%') OR user_name LIKE ('%$name%')) AND id != $id";
     $result = mysqli_query($conn, $sql);
-    queryPersonCard($result, $conn, 1);
+    queryPersonCard($result, $conn, $id);
     closeDatabaseConnection($conn);
   }
 
@@ -255,49 +255,19 @@
     }
   }
 
-  function showRecipeOnMainpage($id) {
+  function showRecipeOnMainpage($id, $meal, $order) {
     $conn = connectToDatabase();
-    $sql = "SELECT id FROM recept";
-    $result = mysqli_query($conn, $sql);
-    queryRecipeCardOnMainpage($result, $conn, $id);
-    closeDatabaseConnection($conn);
-  }
-
-  function showRecipeOnMainpageAny($id) {
-    $conn = connectToDatabase();
-    $sql = "SELECT id FROM recept";
-    $result = mysqli_query($conn, $sql);
-    queryRecipeCardOnMainpage($result, $conn, $id);
-    closeDatabaseConnection($conn);
-  }
-
-  function showRecipeOnMainpageBreakfast($id) {
-    $conn = connectToDatabase();
-    $sql = "SELECT id FROM recept WHERE id IN (SELECT id_recept FROM recept_obrok WHERE obrok = 1)";
-    $result = mysqli_query($conn, $sql);
-    queryRecipeCardOnMainpage($result, $conn, $id);
-    closeDatabaseConnection($conn);
-  }
-
-  function showRecipeOnMainpageLunch($id) {
-    $conn = connectToDatabase();
-    $sql = "SELECT id FROM recept WHERE id IN (SELECT id_recept FROM recept_obrok WHERE obrok = 2)";
-    $result = mysqli_query($conn, $sql);
-    queryRecipeCardOnMainpage($result, $conn, $id);
-    closeDatabaseConnection($conn);
-  }
-
-  function showRecipeOnMainpageDinner($id) {
-    $conn = connectToDatabase();
-    $sql = "SELECT id FROM recept WHERE id IN (SELECT id_recept FROM recept_obrok WHERE obrok = 3)";
-    $result = mysqli_query($conn, $sql);
-    queryRecipeCardOnMainpage($result, $conn, $id);
-    closeDatabaseConnection($conn);
-  }
-
-  function showRecipeOnMainpageDessert($id) {
-    $conn = connectToDatabase();
-    $sql = "SELECT id FROM recept WHERE id IN (SELECT id_recept FROM recept_obrok WHERE obrok = 4)";
+    if ($meal === 1) {
+      $sql = "SELECT id FROM recept WHERE id IN (SELECT id_recept FROM recept_obrok WHERE obrok = 1)";
+    } else if ($meal == 2) {
+      $sql = "SELECT id FROM recept WHERE id IN (SELECT id_recept FROM recept_obrok WHERE obrok = 2)";
+    } else if ($meal == 3) {
+      $sql = "SELECT id FROM recept WHERE id IN (SELECT id_recept FROM recept_obrok WHERE obrok = 3)";
+    } else if ($meal == 4) {
+      $sql = "SELECT id FROM recept WHERE id IN (SELECT id_recept FROM recept_obrok WHERE obrok = 4)";
+    } else {
+      $sql = "SELECT id FROM recept";
+    }
     $result = mysqli_query($conn, $sql);
     queryRecipeCardOnMainpage($result, $conn, $id);
     closeDatabaseConnection($conn);

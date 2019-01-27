@@ -12,13 +12,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <style>
-        .d-inline-flex{
-            height: 150px;
-            width: 280px;
-        }
-    </style>
-
     <title>Homepage</title>
   </head>
   <body class="">
@@ -26,6 +19,8 @@
     <?php
       include 'function_script.php';
       $id = $_GET['id'];
+      $meal = 0;
+      $state = 0;
       $conn = connectToDatabase();
       $row = getUserPersonalInfo($id, $conn);
       closeDatabaseConnection($conn);
@@ -85,11 +80,11 @@
       </div>
 
       <div class="tab-content w-75" id="nav-tabContent" style="margin-left: 12%;">
-        <div class="tab-pane fade show active" id="list-any" role="tabpanel" aria-labelledby="list-main-list"><?php for ($i = 0; $i < 1; $i++) showRecipeOnMainpageAny($id); ?></div>
-        <div class="tab-pane fade" id="list-breakfast" role="tabpanel" aria-labelledby="list-main-list"><?php for ($i = 0; $i < 1; $i++) showRecipeOnMainpageBreakfast($id); ?></div>
-        <div class="tab-pane fade" id="list-lunch" role="tabpanel" aria-labelledby="list-main-list"><?php for ($i = 0; $i < 1; $i++) showRecipeOnMainpageLunch($id); ?></div>
-        <div class="tab-pane fade" id="list-dinner" role="tabpanel" aria-labelledby="list-main-list"><?php for ($i = 0; $i < 1; $i++) showRecipeOnMainpageDessert($id); ?></div>
-        <div class="tab-pane fade" id="list-dessert" role="tabpanel" aria-labelledby="list-main-list"><?php for ($i = 0; $i < 1; $i++) showRecipeOnMainpageDinner($id); ?></div>
+        <div class="tab-pane fade show active" id="list-any" role="tabpanel" aria-labelledby="list-main-list"><?php for ($i = 0; $i < 1; $i++) showRecipeOnMainpage($id, 0, 0); ?></div>
+        <div class="tab-pane fade" id="list-breakfast" role="tabpanel" aria-labelledby="list-main-list"><?php for ($i = 0; $i < 1; $i++) showRecipeOnMainpage($id, 1, 0); ?></div>
+        <div class="tab-pane fade" id="list-lunch" role="tabpanel" aria-labelledby="list-main-list"><?php for ($i = 0; $i < 1; $i++) showRecipeOnMainpage($id, 2, 0); ?></div>
+        <div class="tab-pane fade" id="list-dinner" role="tabpanel" aria-labelledby="list-main-list"><?php for ($i = 0; $i < 1; $i++) showRecipeOnMainpage($id, 3, 0); ?></div>
+        <div class="tab-pane fade" id="list-dessert" role="tabpanel" aria-labelledby="list-main-list"><?php for ($i = 0; $i < 1; $i++) showRecipeOnMainpage($id, 4, 0); ?></div>
       </div>
     </div>
 

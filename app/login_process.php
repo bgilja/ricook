@@ -23,7 +23,7 @@
 
   closeDatabaseConnection($conn);
   if ($flag) {
-    header('Location:  user_homepage.php.?id='.$id);
+    header('Location:  user_homepage.php?id='.$id);
   } else {
     header('Location:  index.php');
   }

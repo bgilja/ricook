@@ -42,31 +42,31 @@
         <form class="registerForm" action="registration_process.php" method="post">
           <div class="form-group col-md-6">
             <label for="inputOib4">Username</label>
-            <input type="text" class="form-control" placeholder="JohnCollins1" name="username">
+            <input type="text" class="form-control" placeholder="JohnCollins1" name="username" required>
           </div>
           <div class="form-group col-md-6">
             <label>First name</label>
-            <input type="text" class="form-control" placeholder="John" name="first_name">
+            <input type="text" class="form-control" placeholder="John" name="first_name" required>
           </div>
           <div class="form-group col-md-6">
             <label>Last name</label>
-            <input type="text" class="form-control" placeholder="Collins" name="last_name">
+            <input type="text" class="form-control" placeholder="Collins" name="last_name" required>
           </div>
           <div class="form-group col-md-6">
             <label>Email</label>
-            <input type="text" class="form-control" placeholder="johncollins@example.com" name="email">
+            <input type="text" class="form-control" placeholder="johncollins@example.com" name="email" required>
           </div>
           <div class="form-group col-md-6">
             <label for="inputPassword4">Password</label>
-            <input type="password" class="form-control" placeholder="Password" name="pass1">
+            <input type="password" class="form-control" placeholder="Password" name="pass1" required>
           </div>
           <div class="form-group col-md-6">
             <label for="inputPassword4">Repeat password</label>
-            <input type="password" class="form-control" placeholder="Password" name="pass2">
+            <input type="password" class="form-control" placeholder="Password" name="pass2" required>
           </div>
           <div class="form-group col-md-6">
             <label for="inputYear">Year of birth</label>
-            <input type="number" class="form-control" placeholder="1974" name="year">
+            <input type="number" class="form-control" placeholder="1974" name="year" required>
           </div>
           <input type="submit" class="btn btn-primary" value="Register">
         </form>
