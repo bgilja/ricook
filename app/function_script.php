@@ -44,6 +44,15 @@
     return $row;
   }
 
+  function incrementViewsCount($recipe, $conn) {
+    $sql = "SELECT broj_pregleda FROM recept WHERE id = $recipe";
+    $result = mysqli_query($conn, $sql);
+    $row = $result->fetch_assoc();
+    $broj_pregleda = $row['broj_pregleda']+1;
+    $sql = "UPDATE recept SET broj_pregleda = $broj_pregleda WHERE id = $recipe";
+    $result = mysqli_query($conn, $sql);
+  }
+
   function isFollowing($id1, $id2) {
     $conn = connectToDatabase();
     $sql = "SELECT COUNT(*) AS count_follow FROM pratitelj WHERE id_pratitelj = $id2 AND id_pratioc = $id1";

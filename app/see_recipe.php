@@ -21,6 +21,7 @@
       $id = $_GET['id'];
       $recipe = $_GET['recipe'];
       $conn = connectToDatabase();
+      incrementViewsCount($recipe, $conn);
       $row = getRecipeInfo($recipe, $conn);
       $user_info = getUserPersonalInfo($id);
     ?>
@@ -93,6 +94,7 @@
             <div class="user_block">
                 <ul class="list-group w-100">
                   <li class="list-group-item">Created by: <span class="info_text"><?php echo $user_info['user_name']; ?></span></li>
+                  <li class="list-group-item">Views count: <span class="info_text"><?php echo $row['broj_pregleda']; ?></span></li>
                   <li class="list-group-item">Rated by: <span class="info_text"><?php echo $row['broj_ocjena']; ?></span></li>
                   <li class="list-group-item">Rating: <span class="info_text"><?php echo $row['ocjena']; ?></span></li>
                   <li class="list-group-item">Favourited by: <span class="info_text"><?php echo countFavorites($recipe); ?></span></li>
