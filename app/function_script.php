@@ -250,6 +250,46 @@
     closeDatabaseConnection($conn);
   }
 
+  function showRecipeOnMainpageAny($id) {
+    $conn = connectToDatabase();
+    $sql = "SELECT id FROM recept";
+    $result = mysqli_query($conn, $sql);
+    queryRecipeCardOnMainpage($result, $conn, $id);
+    closeDatabaseConnection($conn);
+  }
+
+  function showRecipeOnMainpageBreakfast($id) {
+    $conn = connectToDatabase();
+    $sql = "SELECT id FROM recept WHERE id IN (SELECT id_recept FROM recept_obrok WHERE obrok = 1)";
+    $result = mysqli_query($conn, $sql);
+    queryRecipeCardOnMainpage($result, $conn, $id);
+    closeDatabaseConnection($conn);
+  }
+
+  function showRecipeOnMainpageLunch($id) {
+    $conn = connectToDatabase();
+    $sql = "SELECT id FROM recept WHERE id IN (SELECT id_recept FROM recept_obrok WHERE obrok = 2)";
+    $result = mysqli_query($conn, $sql);
+    queryRecipeCardOnMainpage($result, $conn, $id);
+    closeDatabaseConnection($conn);
+  }
+
+  function showRecipeOnMainpageDinner($id) {
+    $conn = connectToDatabase();
+    $sql = "SELECT id FROM recept WHERE id IN (SELECT id_recept FROM recept_obrok WHERE obrok = 3)";
+    $result = mysqli_query($conn, $sql);
+    queryRecipeCardOnMainpage($result, $conn, $id);
+    closeDatabaseConnection($conn);
+  }
+
+  function showRecipeOnMainpageDessert($id) {
+    $conn = connectToDatabase();
+    $sql = "SELECT id FROM recept WHERE id IN (SELECT id_recept FROM recept_obrok WHERE obrok = 4)";
+    $result = mysqli_query($conn, $sql);
+    queryRecipeCardOnMainpage($result, $conn, $id);
+    closeDatabaseConnection($conn);
+  }
+
   function printRecipeCardOnProfile($row_recipe, $id) {
     $row_user = getUserPersonalInfo($row_recipe['id_kreator']);
 

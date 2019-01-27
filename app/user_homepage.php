@@ -68,29 +68,28 @@
     <div class="user_homepage_nav">
       <div class="row1">
         <nav class="nav nav-pills nav-fill" role="tablist">
-          <a class="nav-item nav-link border border-dark rounded-0 text-white active" id="list-main-list" data-toggle="list" href="#list-main" role="tab" aria-controls="main">Latest</a>
-          <a class="nav-item nav-link border border-dark rounded-0 text-white" id="list-main-list" data-toggle="list" href="#list-main" role="tab" aria-controls="main">Popular</a>
-          <a class="nav-item nav-link border border-dark rounded-0 text-white" id="list-main-list" data-toggle="list" href="#list-main" role="tab" aria-controls="main">Top rated</a>
-          <a class="nav-item nav-link border border-dark rounded-0 text-white" id="list-main-list" data-toggle="list" href="#list-main" role="tab" aria-controls="main">Favorited</a>
+          <a class="nav-item nav-link border border-dark rounded-0 text-white active" id="list-any-list" data-toggle="list" href="#list-main" role="tab" aria-controls="main">Latest</a>
+          <a class="nav-item nav-link border border-dark rounded-0 text-white" id="list-any-list" data-toggle="list" href="#list-main" role="tab" aria-controls="main">Popular</a>
+          <a class="nav-item nav-link border border-dark rounded-0 text-white" id="list-any-list" data-toggle="list" href="#list-main" role="tab" aria-controls="main">Top rated</a>
+          <a class="nav-item nav-link border border-dark rounded-0 text-white" id="list-any-list" data-toggle="list" href="#list-main" role="tab" aria-controls="main">Favorited</a>
         </nav>
       </div>
       <div class="row1">
           <nav class="nav nav-pills nav-fill" role="tablist">
-            <a class="nav-item nav-link border border-dark rounded-0 text-white active" id="list-main-list" data-toggle="list" href="#list-main" role="tab" aria-controls="main">Any</a>
-            <a class="nav-item nav-link border border-dark rounded-0 text-white" id="list-main-list" data-toggle="list" href="#list-main" role="tab" aria-controls="main">Breakfast</a>
-            <a class="nav-item nav-link border border-dark rounded-0 text-white" id="list-main-list" data-toggle="list" href="#list-main" role="tab" aria-controls="main">Lunch</a>
-            <a class="nav-item nav-link border border-dark rounded-0 text-white" id="list-main-list" data-toggle="list" href="#list-main" role="tab" aria-controls="main">Dinner</a>
-            <a class="nav-item nav-link border border-dark rounded-0 text-white" id="list-main-list" data-toggle="list" href="#list-main" role="tab" aria-controls="main">Dessert</a>
+            <a class="nav-item nav-link border border-dark rounded-0 text-white active" id="list-any-list" data-toggle="list" href="#list-any" role="tab" aria-controls="any">Any</a>
+            <a class="nav-item nav-link border border-dark rounded-0 text-white" id="list-breakfast-list" data-toggle="list" href="#list-breakfast" role="tab" aria-controls="breakfast">Breakfast</a>
+            <a class="nav-item nav-link border border-dark rounded-0 text-white" id="list-lunch-list" data-toggle="list" href="#list-lunch" role="tab" aria-controls="lunch">Lunch</a>
+            <a class="nav-item nav-link border border-dark rounded-0 text-white" id="list-dinner-list" data-toggle="list" href="#list-dinner" role="tab" aria-controls="dinner">Dinner</a>
+            <a class="nav-item nav-link border border-dark rounded-0 text-white" id="list-dessert-list" data-toggle="list" href="#list-dessert" role="tab" aria-controls="dessert">Dessert</a>
           </nav>
       </div>
 
       <div class="tab-content w-75" id="nav-tabContent" style="margin-left: 12%;">
-        <div class="tab-pane fade show active" id="list-main" role="tabpanel" aria-labelledby="list-main-list">
-          <?php for ($i = 0; $i < 1; $i++) {
-            showRecipeOnMainpage($id);
-          }
-          ?>
-        </div>
+        <div class="tab-pane fade show active" id="list-any" role="tabpanel" aria-labelledby="list-main-list"><?php for ($i = 0; $i < 1; $i++) showRecipeOnMainpageAny($id); ?></div>
+        <div class="tab-pane fade" id="list-breakfast" role="tabpanel" aria-labelledby="list-main-list"><?php for ($i = 0; $i < 1; $i++) showRecipeOnMainpageBreakfast($id); ?></div>
+        <div class="tab-pane fade" id="list-lunch" role="tabpanel" aria-labelledby="list-main-list"><?php for ($i = 0; $i < 1; $i++) showRecipeOnMainpageLunch($id); ?></div>
+        <div class="tab-pane fade" id="list-dinner" role="tabpanel" aria-labelledby="list-main-list"><?php for ($i = 0; $i < 1; $i++) showRecipeOnMainpageDessert($id); ?></div>
+        <div class="tab-pane fade" id="list-dessert" role="tabpanel" aria-labelledby="list-main-list"><?php for ($i = 0; $i < 1; $i++) showRecipeOnMainpageDinner($id); ?></div>
       </div>
     </div>
 
