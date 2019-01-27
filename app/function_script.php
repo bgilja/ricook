@@ -269,7 +269,49 @@
       $sql = "SELECT id FROM recept";
     }
     $result = mysqli_query($conn, $sql);
+    $rowsperpage = 2;
+    $result = mysqli_query($conn, $sql);
+    $numrows = mysqli_num_rows($result);
+    $totalpages = ceil($numrows / $rowsperpage);
+
+    if (isset($_GET['currentpage']) && is_numeric($_GET['currentpage'])) {
+       $currentpage = (int) $_GET['currentpage'];
+    } else {
+       $currentpage = 1;
+    }
+    if ($currentpage > $totalpages) {
+       $currentpage = $totalpages;
+    }
+    if ($currentpage < 1) {
+       $currentpage = 1;
+    }
+    $offset = ($currentpage - 1) * $rowsperpage;
+    $sql = "SELECT id FROM recept  LIMIT $offset, $rowsperpage";
+    $result = mysqli_query($conn, $sql);
+
     queryRecipeCardOnMainpage($result, $conn, $id);
+
+    $range = 3;
+    if ($currentpage > 1) {
+       echo " <a href='{$_SERVER['PHP_SELF']}?currentpage=1&id=$id'><<</a> ";
+       $prevpage = $currentpage - 1;
+       echo " <a href='{$_SERVER['PHP_SELF']}?currentpage=$prevpage&id=$id'><</a> ";
+    }
+    for ($x = ($currentpage - $range); $x < (($currentpage + $range) + 1); $x++) {
+       if (($x > 0) && ($x <= $totalpages)) {
+          if ($x == $currentpage) {
+             echo " [<b>$x</b>] ";
+          } else {
+             echo " <a href='{$_SERVER['PHP_SELF']}?currentpage=$x&id=$id'>$x</a> ";
+          }
+       }
+    }
+
+    if ($currentpage != $totalpages) {
+       $nextpage = $currentpage + 1;
+       echo " <a href='{$_SERVER['PHP_SELF']}?currentpage=$nextpage&id=$id'>></a> ";
+       echo " <a href='{$_SERVER['PHP_SELF']}?currentpage=$totalpages&id=$id'>>></a> ";
+    }
     closeDatabaseConnection($conn);
   }
 
