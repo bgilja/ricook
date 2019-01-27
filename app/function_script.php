@@ -23,7 +23,7 @@
 
   function getRecipeImage($row) {
     if (substr($row['image'], 0, 3) === "src") return $row['image'];
-    return "src/default_avatar.jpg";
+    return "src/default_recipe.png";
   }
 
   function getUserPersonalInfo($id) {

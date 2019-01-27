@@ -63,7 +63,7 @@
           <div class="col-4 p-1 pl-4 pr-3 h-100" style="background-color: grey;">
           <div class="user_information_block">
             <div class="user_block" id="user_block1">
-              <img class="rounded float-left mw-75 mh-75" src=" <?php echo $row['image'] ?>">
+              <img class="rounded border float-left mw-75 mh-75" src=" <?php echo getRecipeImage(getRecipeInfo($recipe)); ?>">
               <div class="profile_buttons">
                 <?php
                  if (!isFavoredby($id, $recipe)) {
@@ -96,7 +96,7 @@
                   <li class="list-group-item">Rated by: <span class="info_text"><?php echo $row['broj_ocjena']; ?></span></li>
                   <li class="list-group-item">Rating: <span class="info_text"><?php echo $row['ocjena']; ?></span></li>
                   <li class="list-group-item">Favourited by: <span class="info_text"><?php echo countFavorites($recipe); ?></span></li>
-                  <li class="list-group-item">Your rating: <span class="info_text"><?php echo 0; ?></span></li>
+                  <li class="list-group-item">Your rating: <span class="info_text"><?php echo 0; ?></span></li> <!--treba novi entitet za spremanje rejtinga-->
                 </ul>
             </div>
             <div class="table" style="height: 500px;">
