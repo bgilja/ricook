@@ -17,7 +17,6 @@
       include 'function_script.php';
       $id = $_GET['id'];
       $row = getUserPersonalInfo($id);
-      closeDatabaseConnection($conn);
     ?>
 
     <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">

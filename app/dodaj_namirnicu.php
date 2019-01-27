@@ -1,4 +1,5 @@
 <?php
+  $id = $_POST['id'];
   $ime = $_POST['ime'];
   $protein = $_POST['protein'];
   $ugljikohidrati = $_POST['ugljikohidrati'];
@@ -14,12 +15,12 @@
   if ($link->connect_error) {
     die("Uspostavljanje konekcije na bazu nije uspjelo: ". $link->connect_error);
   }
-  
-    
+
+
     $query = "INSERT INTO `namirnica`(`ime`, `protein`, `ugljikohidrati`, `masti`, `kcal`) VALUES ('" . $ime . "', '" . $protein . "', '" . $ugljikohidrati . "', '" . $masti . "','" . $kcal . "')";
 
   $result = mysqli_query($link, $query);
   //  Zatvaranje konekcije
   mysqli_close($link);
-  header( 'Location: dario.php?id=1');
+  header( 'Location: add_ingredient.php?id='.$id);
 ?>

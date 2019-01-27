@@ -67,7 +67,10 @@
                 <button type="button" class="btn btn-primary" id="change_pass_btn" onclick="">Change password</button>
                 <button type="button" class="btn btn-success" id="change_profile_image_btn" onclick="">Change picture</button>
                 <button type="button" class="btn btn-info" id="delete_profile_image_btn" onclick="">Delete picture</button>
-                <button type="button" class="btn btn-danger" id="delete_profile_btn" onclick="">Delete profile</button>
+                <form class="" action="delete_profile.php" method="post" id="delete_profile">
+                  <input type="hidden" name="id" value="<?php echo $id; ?>">
+                </form>
+                <button type="submit" class="btn btn-danger" form="delete_profile" id="delete_profile_image_btn" onclick="">Delete profile</button>
               </div>
             </div>
             <div class="user_block w-100">
@@ -106,8 +109,7 @@
           </div>
         </div>
         <div class="col-8 mt-2">
-          <?php for($i = 0; $i < 100; $i++) printAllUserRecepies($id, $id);
-          ?>
+          <?php for($i = 0; $i < 100; $i++) printAllUserRecepies($id, $id); ?>
         </div>
       </div>
     </div>

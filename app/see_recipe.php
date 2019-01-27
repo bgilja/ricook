@@ -124,13 +124,13 @@
           </div>
           <div class="panel panel-default">
             <?php
-              $comments = "SELECT * FROM komentar";
+              $comments = "SELECT * FROM komentar WHERE id_recept = $recipe";
               $result = mysqli_query($conn, $comments);
               while ($row2 = $result->fetch_assoc()) {
                 $sql = "SELECT user_name FROM korisnik WHERE id = ". $row2['id_kreator'];
                 $result2 = mysqli_query($conn, $sql);
                 $row3 = $result2->fetch_assoc();
-                echo $row3['user_name'] . " - " . $row2['tekst'] . "<p>";
+                echo "<p>" . $row3['user_name'] . " - " . $row2['tekst'] . "</p>";
               }
               closeDatabaseConnection($conn);
             ?>
@@ -140,8 +140,8 @@
           	  <div class="form-group">
           	    <textarea name="comment" class="form-control" rows="3"></textarea>
           	  </div>
-              <input type="hidden" name="id" value= "<?php echo $id?>">
-              <input type="hidden" name="recipe" value="<?php echo $recipe?>">
+              <input type="hidden" name="id" value= "<?php echo $id; ?>">
+              <input type="hidden" name="recipe" value="<?php echo $recipe; ?>">
           	  <button type="submit" class="btn btn-primary">Submit</button>
           	</form>
             </div>
