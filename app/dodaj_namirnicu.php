@@ -1,10 +1,11 @@
 <?php
+  include 'function_script.php';
   $id = $_POST['id'];
   $ime = $_POST['ime'];
   $protein = $_POST['protein'];
   $ugljikohidrati = $_POST['ugljikohidrati'];
   $masti = $_POST['masti'];
-  $kcal = $_POST['kcal'];
+  $kcal = calculateIngredientCalories($protein, $ugljikohidrati, $masti);
   $servername = "127.0.0.1";
   $username = "student"; //promjenio zbog baze na svom računalu, K
   $password = "student"; //promjenio zbog baze na svom računalu, K

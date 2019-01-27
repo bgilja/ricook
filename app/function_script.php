@@ -16,6 +16,10 @@
     mysqli_close($conn);
   }
 
+  function calculateIngredientCalories($protein, $carbs, $fat) {
+    return round(($protein+$carbs)*4 + $fat*9);
+  }
+
   function getImage($row) {
     if (substr($row['image'], 0, 3) === "src") return $row['image'];
     return "src/default_avatar.jpg";

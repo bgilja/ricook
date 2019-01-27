@@ -89,8 +89,6 @@
         <input type="text" class="form-control"  placeholder="Kolicina ugljikohidrata u 100g " name="ugljikohidrati">
         <label >Masti:</label>
         <input type="text" class="form-control"  placeholder="Kolicina masti u 100g" name="masti">
-        <label >Kalorijska vrijednost(kcal):</label>
-        <input type="text" class="form-control"  placeholder="Kalorijska vrijednost u 100g" name="kcal">
         <input type="hidden" name="id" value="<?php echo $id; ?>">
         <input class="btn btn-primary" type="submit" value="Dodaj" style="margin-left: 40%; margin-top: 5px">
       </form>
