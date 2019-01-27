@@ -277,11 +277,32 @@
     closeDatabaseConnection($conn);
   }
 
+  function printIngredietCard($id, $map) {
+    echo ' <div class="card p-1 float-left border border-light m-1 rounded-0">
+        <h4>' . $map['ime'] . '</h4>
+        <img class="border w-100" src="' . getImage(getUserPersonalInfo(450)) . '" >
+        <ul class="list-group w-100" id="namirnice_search_lista">
+        <li class="list-group-item">Protein: ' . $map['protein'] . '</li><br>
+        <li class="list-group-item">Carbs: ' . $map['ugljikohidrati'] . '</li><br>
+        <li class="list-group-item">Fat: ' . $map['masti'] . '</li><br>
+        <li class="list-group-item">Calorie: ' . $map['kcal'] . '</li></ul>
+      </div> ';
+  }
+
+  function queryIngredientCard($result1, $conn, $id) {
+    while($row1 = $result1->fetch_assoc()) {
+      $sql2 = "SELECT * FROM namirnica WHERE id = " . $row1['id'];
+      $result2 = mysqli_query($conn, $sql2);
+      $row2 = $result2->fetch_assoc();
+      printIngredietCard($id, $row2);
+    }
+  }
+
   function showIngredient($name) {
     $conn = connectToDatabase();
-    $sql = "SELECT id FROM korisnik";
+    $sql = "SELECT id FROM namirnica";
     $result = mysqli_query($conn, $sql);
-    queryPersonCard($result, $conn, 1);
+    queryIngredientCard($result, $conn, 1);
     closeDatabaseConnection($conn);
   }
 
