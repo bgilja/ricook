@@ -277,7 +277,7 @@
     else $sql = showRecipeOnMainpageSQL($id, $meal, $state);
     //$sql = "SELECT id FROM recept WHERE id IN (SELECT id_recept FROM favourite WHERE id_korisnik = $id)";
 
-    $rowsperpage = 100;
+    $rowsperpage = 10;
     $result = mysqli_query($conn, $sql);
     $numrows = mysqli_num_rows($result);
     $totalpages = ceil($numrows / $rowsperpage);

@@ -14,7 +14,7 @@
   $row = $result->fetch_assoc();
   $id_picture = $row['brojac'];
 
-  if ($image == "") header('Location:  user_homepage.php.?id='.$id);
+  if ($image == "") header('Location:  fill_recipe.php?id='.$id.'&recipe='.$id_picture);
 
   $target_dir = 'C:\xampp\htdocs\dashboard\ricook\app\src\recipe\recipe_picture';
   $imageFileType = strtolower(pathinfo($_FILES["fileToUpload"]["name"],PATHINFO_EXTENSION));
@@ -47,7 +47,6 @@
         $image_path = "src/recipe/recipe_picture" . $id_picture . "." . $imageFileType;
         $query = "UPDATE recept SET image = '$image_path' WHERE id = $id_picture";
         $result = mysqli_query($conn, $query);
-        header('Location:  user_homepage.php?id=' . $id);
     }
   }
 
@@ -74,5 +73,5 @@
   }
 
   closeDatabaseConnection($conn);
-  header('Location:  user_homepage.php.?id='.$id);
+  header('Location:  fill_recipe.php?id='.$id.'&recipe='.$id_picture);
 ?>

@@ -1,27 +1,16 @@
 <?php
   include 'function_script.php';
+  
   $id = $_POST['id'];
   $ime = $_POST['ime'];
   $protein = $_POST['protein'];
   $ugljikohidrati = $_POST['ugljikohidrati'];
   $masti = $_POST['masti'];
   $kcal = calculateIngredientCalories($protein, $ugljikohidrati, $masti);
-  $servername = "127.0.0.1";
-  $username = "student"; //promjenio zbog baze na svom računalu, K
-  $password = "student"; //promjenio zbog baze na svom računalu, K
-  $dbname = "ricook";
-  // Stvaranje konekcije na bazu
-  $link = new mysqli($servername, $username, $password, $dbname);
-  // Provjera uspjesnosti spajanja na bazu
-  if ($link->connect_error) {
-    die("Uspostavljanje konekcije na bazu nije uspjelo: ". $link->connect_error);
-  }
 
-
-    $query = "INSERT INTO `namirnica`(`ime`, `protein`, `ugljikohidrati`, `masti`, `kcal`) VALUES ('" . $ime . "', '" . $protein . "', '" . $ugljikohidrati . "', '" . $masti . "','" . $kcal . "')";
-
-  $result = mysqli_query($link, $query);
-  //  Zatvaranje konekcije
-  mysqli_close($link);
+  $conn = connectToDatabase();
+  $query = "INSERT INTO `namirnica`(`ime`, `protein`, `ugljikohidrati`, `masti`, `kcal`) VALUES ('" . $ime . "', '" . $protein . "', '" . $ugljikohidrati . "', '" . $masti . "','" . $kcal . "')";
+  $result = mysqli_query($conn, $query);
+  closeDatabaseConnection($conn);
   header( 'Location: add_ingredient.php?id='.$id);
 ?>

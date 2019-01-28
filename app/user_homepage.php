@@ -69,6 +69,8 @@
           <a class="nav-item nav-link border border-dark rounded-0 text-white <?php if ($state == 3) echo "active"; ?>" href="user_homepage.php?id=<?php echo $id; ?>&state=3">Favored</a>
         </nav>
       </div>
+      <div class="tab-content w-75" id="nav-tabContent" style="margin-left: 12%;">
+      </div>
       <div class="row1">
           <nav class="nav nav-pills nav-fill" role="tablist">
             <a class="nav-item nav-link border border-dark rounded-0 text-white active" id="list-any-list" data-toggle="list" href="#list-any" role="tab" aria-controls="any">Any</a>
@@ -107,9 +109,7 @@
                   <textarea class="form-control" id="exampleFormControlTextarea1" rows="7" name="instructions" required></textarea>
                 </div>
                 <div class="form-row">
-                  <span class="form-col"><input type="text" name="ingredient" required class="form-control">Ingredient</span>
-                  <span class="form-col"><input type="number" name="amount" min="0" max="10000" required class="form-control w-50 ml-2">Amount</span>
-                  <h6 class="mt-2">Ovdje se prikazuju ponudeni rezultati iz autofila</h6>
+                  <h6 class="mt-2">You will add ingredients later</h6>
                 </div>
                 <div class="form-row">
                   <span class="form-col ml-1 mr-1"><input type="checkbox" name="breakfast" class="form-control">Breakfast</span>
