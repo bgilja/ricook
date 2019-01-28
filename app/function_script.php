@@ -255,25 +255,32 @@
     }
   }
 
-  function showRecipeOnMainpage($id, $meal, $order) {
+  function showRecipeOnMainpageSQL($id, $meal, $state) {
+    if ($state == 0) $sql = "SELECT id FROM recept WHERE id IN (SELECT id_recept FROM recept_obrok WHERE obrok = $meal) ORDER BY id DESC";
+    else if ($state == 1) $sql = "SELECT id FROM recept WHERE id IN (SELECT id_recept FROM recept_obrok WHERE obrok = $meal) ORDER BY broj_pregleda DESC";
+    else if ($state == 2) $sql = "SELECT id FROM recept WHERE id IN (SELECT id_recept FROM recept_obrok WHERE obrok = $meal) ORDER BY ocjena DESC";
+    else $sql = "SELECT id FROM recept WHERE id IN (SELECT id_recept FROM recept_obrok WHERE obrok = $meal) AND id IN (SELECT id_recept FROM favourite WHERE id_korisnik = $id)";
+    return $sql;
+  }
+
+  function showRecipeOnMainpageSQLAny($id, $state) {
+    if ($state == 0) $sql = "SELECT id FROM recept ORDER BY id DESC";
+    else if ($state == 1) $sql = "SELECT id FROM recept ORDER BY broj_pregleda DESC";
+    else if ($state == 2) $sql = "SELECT id FROM recept ORDER BY ocjena DESC";
+    else $sql = "SELECT id FROM recept WHERE id IN (SELECT id_recept FROM favourite WHERE id_korisnik = $id)";
+    return $sql;
+  }
+
+  function showRecipeOnMainpage($id, $meal, $state) {
     $conn = connectToDatabase();
-    if ($meal === 1) {
-      $sql = "SELECT id FROM recept WHERE id IN (SELECT id_recept FROM recept_obrok WHERE obrok = 1)";
-    } else if ($meal == 2) {
-      $sql = "SELECT id FROM recept WHERE id IN (SELECT id_recept FROM recept_obrok WHERE obrok = 2)";
-    } else if ($meal == 3) {
-      $sql = "SELECT id FROM recept WHERE id IN (SELECT id_recept FROM recept_obrok WHERE obrok = 3)";
-    } else if ($meal == 4) {
-      $sql = "SELECT id FROM recept WHERE id IN (SELECT id_recept FROM recept_obrok WHERE obrok = 4)";
-    } else {
-      $sql = "SELECT id FROM recept";
-    }
-    $result = mysqli_query($conn, $sql);
-    $rowsperpage = 2;
+    if ($meal == 0) $sql = showRecipeOnMainpageSQLAny($id, $state);
+    else $sql = showRecipeOnMainpageSQL($id, $meal, $state);
+    //$sql = "SELECT id FROM recept WHERE id IN (SELECT id_recept FROM favourite WHERE id_korisnik = $id)";
+
+    $rowsperpage = 100;
     $result = mysqli_query($conn, $sql);
     $numrows = mysqli_num_rows($result);
     $totalpages = ceil($numrows / $rowsperpage);
-
     if (isset($_GET['currentpage']) && is_numeric($_GET['currentpage'])) {
        $currentpage = (int) $_GET['currentpage'];
     } else {
@@ -286,34 +293,53 @@
        $currentpage = 1;
     }
     $offset = ($currentpage - 1) * $rowsperpage;
-    $sql = "SELECT id FROM recept  LIMIT $offset, $rowsperpage";
+    $limit = "LIMIT $offset, $rowsperpage";
+    $sql = $sql . " " . $limit;
     $result = mysqli_query($conn, $sql);
-
     queryRecipeCardOnMainpage($result, $conn, $id);
-
     $range = 3;
+    $serverself = "{$_SERVER['PHP_SELF']}";
+    echo ' <nav class="float-left"><ul class="pagination"> ';
     if ($currentpage > 1) {
-       echo " <a href='{$_SERVER['PHP_SELF']}?currentpage=1&id=$id'><<</a> ";
+       echo ' <li class="page-item"><a class="page-link" href="'.$serverself.'?currentpage=1&id='.$id.'&state='.$state.'">First page</a> ';
        $prevpage = $currentpage - 1;
-       echo " <a href='{$_SERVER['PHP_SELF']}?currentpage=$prevpage&id=$id'><</a> ";
+       //echo ' <li class="page-item"><a class="page-link" href="'.$serverself.'?currentpage='.$prevpage.'&id='.$id.'">Previous page</a> ';
     }
     for ($x = ($currentpage - $range); $x < (($currentpage + $range) + 1); $x++) {
-       if (($x > 0) && ($x <= $totalpages)) {
+       if (($x > 0) && ($x <= $totalpages) && ($totalpages > 1)) {
           if ($x == $currentpage) {
-             echo " [<b>$x</b>] ";
+             echo ' <li class="page-item"><b class="page-link">['.$x.']</b> ';
           } else {
-             echo " <a href='{$_SERVER['PHP_SELF']}?currentpage=$x&id=$id'>$x</a> ";
+             echo ' <li class="page-item"><a class="page-link" href="'.$serverself.'?currentpage='.$x.'&id='.$id.'&state='.$state.'">'.$x.'</a> ';
           }
        }
     }
-
-    if ($currentpage != $totalpages) {
+    if (($currentpage != $totalpages) && ($totalpages > 1)) {
        $nextpage = $currentpage + 1;
-       echo " <a href='{$_SERVER['PHP_SELF']}?currentpage=$nextpage&id=$id'>></a> ";
-       echo " <a href='{$_SERVER['PHP_SELF']}?currentpage=$totalpages&id=$id'>>></a> ";
+       //echo ' <li class="page-item"><a class="page-link" href="'.$serverself.'?currentpage='.$nextpage.'&id='.$id.'">Next page</a> ';
+       echo ' <li class="page-item"><a class="page-link" href="'.$serverself.'?currentpage='.$totalpages.'&id='.$id.'&state='.$state.'">Last page</a> ';
     }
+    echo ' </ul></nav> ';
     closeDatabaseConnection($conn);
   }
+
+  /*function showRecipeOnMainpage($id, $meal, $order) {
+  $conn = connectToDatabase();
+  if ($meal === 1) {
+    $sql = "SELECT id FROM recept WHERE id IN (SELECT id_recept FROM recept_obrok WHERE obrok = 1)";
+  } else if ($meal == 2) {
+    $sql = "SELECT id FROM recept WHERE id IN (SELECT id_recept FROM recept_obrok WHERE obrok = 2)";
+  } else if ($meal == 3) {
+    $sql = "SELECT id FROM recept WHERE id IN (SELECT id_recept FROM recept_obrok WHERE obrok = 3)";
+  } else if ($meal == 4) {
+    $sql = "SELECT id FROM recept WHERE id IN (SELECT id_recept FROM recept_obrok WHERE obrok = 4)";
+  } else {
+    $sql = "SELECT id FROM recept";
+  }
+  $result = mysqli_query($conn, $sql);
+  queryRecipeCardOnMainpage($result, $conn, $id);
+  closeDatabaseConnection($conn);
+}*/
 
   function printRecipeCardOnProfile($row_recipe, $id) {
     $row_user = getUserPersonalInfo($row_recipe['id_kreator']);

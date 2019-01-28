@@ -19,8 +19,8 @@
     <?php
       include 'function_script.php';
       $id = $_GET['id'];
-      $meal = 0;
-      $state = 0;
+      $state = $_GET['state'];
+      if (!isset($state)) $state = 0;
       $conn = connectToDatabase();
       $row = getUserPersonalInfo($id, $conn);
       closeDatabaseConnection($conn);
@@ -63,10 +63,10 @@
     <div class="user_homepage_nav">
       <div class="row1">
         <nav class="nav nav-pills nav-fill" role="tablist">
-          <a class="nav-item nav-link border border-dark rounded-0 text-white active" id="list-any-list" data-toggle="list" href="#list-main" role="tab" aria-controls="main">Latest</a>
-          <a class="nav-item nav-link border border-dark rounded-0 text-white" id="list-any-list" data-toggle="list" href="#list-main" role="tab" aria-controls="main">Popular</a>
-          <a class="nav-item nav-link border border-dark rounded-0 text-white" id="list-any-list" data-toggle="list" href="#list-main" role="tab" aria-controls="main">Top rated</a>
-          <a class="nav-item nav-link border border-dark rounded-0 text-white" id="list-any-list" data-toggle="list" href="#list-main" role="tab" aria-controls="main">Favorited</a>
+          <a class="nav-item nav-link border border-dark rounded-0 text-white <?php if ($state == 0) echo "active"; ?>" href="user_homepage.php?id=<?php echo $id; ?>&state=0">Latest</a>
+          <a class="nav-item nav-link border border-dark rounded-0 text-white <?php if ($state == 1) echo "active"; ?>" href="user_homepage.php?id=<?php echo $id; ?>&state=1">Popular</a>
+          <a class="nav-item nav-link border border-dark rounded-0 text-white <?php if ($state == 2) echo "active"; ?>" href="user_homepage.php?id=<?php echo $id; ?>&state=2">Top rated</a>
+          <a class="nav-item nav-link border border-dark rounded-0 text-white <?php if ($state == 3) echo "active"; ?>" href="user_homepage.php?id=<?php echo $id; ?>&state=3">Favored</a>
         </nav>
       </div>
       <div class="row1">
@@ -80,11 +80,11 @@
       </div>
 
       <div class="tab-content w-75" id="nav-tabContent" style="margin-left: 12%;">
-        <div class="tab-pane fade show active" id="list-any" role="tabpanel" aria-labelledby="list-main-list"><?php for ($i = 0; $i < 1; $i++) showRecipeOnMainpage($id, 0, 0); ?></div>
-        <div class="tab-pane fade" id="list-breakfast" role="tabpanel" aria-labelledby="list-main-list"><?php for ($i = 0; $i < 1; $i++) showRecipeOnMainpage($id, 1, 0); ?></div>
-        <div class="tab-pane fade" id="list-lunch" role="tabpanel" aria-labelledby="list-main-list"><?php for ($i = 0; $i < 1; $i++) showRecipeOnMainpage($id, 2, 0); ?></div>
-        <div class="tab-pane fade" id="list-dinner" role="tabpanel" aria-labelledby="list-main-list"><?php for ($i = 0; $i < 1; $i++) showRecipeOnMainpage($id, 3, 0); ?></div>
-        <div class="tab-pane fade" id="list-dessert" role="tabpanel" aria-labelledby="list-main-list"><?php for ($i = 0; $i < 1; $i++) showRecipeOnMainpage($id, 4, 0); ?></div>
+        <div class="tab-pane fade show active" id="list-any" role="tabpanel" aria-labelledby="list-main-list"><?php for ($i = 0; $i < 1; $i++) showRecipeOnMainpage($id, 0, $state); ?></div>
+        <div class="tab-pane fade" id="list-breakfast" role="tabpanel" aria-labelledby="list-main-list"><?php for ($i = 0; $i < 1; $i++) showRecipeOnMainpage($id, 1, $state); ?></div>
+        <div class="tab-pane fade" id="list-lunch" role="tabpanel" aria-labelledby="list-main-list"><?php for ($i = 0; $i < 1; $i++) showRecipeOnMainpage($id, 2, $state); ?></div>
+        <div class="tab-pane fade" id="list-dinner" role="tabpanel" aria-labelledby="list-main-list"><?php for ($i = 0; $i < 1; $i++) showRecipeOnMainpage($id, 3, $state); ?></div>
+        <div class="tab-pane fade" id="list-dessert" role="tabpanel" aria-labelledby="list-main-list"><?php for ($i = 0; $i < 1; $i++) showRecipeOnMainpage($id, 4, $state); ?></div>
       </div>
     </div>
 
