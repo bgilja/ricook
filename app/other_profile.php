@@ -95,11 +95,8 @@
               <div class="jumbotron" style="margin-top: 305px;">
                 <h1 class="display-4">Hello, chef!</h1>
                 <p class="lead">Cooking is not difficult. Everyone has taste, even if they don't realize it.
-                  Even if you're not a great chef, there's nothing to stop you understanding the difference between what tastes good and what doesn't.
-                  <br>Cooking is not difficult. Everyone has taste, even if they don't realize it.
-                    Even if you're not a great chef, there's nothing to stop you understanding the difference between what tastes good and what doesn't.</p>
+                  Even if you're not a great chef, there's nothing to stop you understanding the difference between what tastes good and what doesn't.</p>
                 <hr class="my-4">
-                <button type="button" class="btn btn-secondary" id="change_status_button" onclick="">Change status</button>
               </div>
             </div>
           </div>

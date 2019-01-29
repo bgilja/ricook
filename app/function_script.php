@@ -47,7 +47,7 @@
     return $row;
   }
 
-  function getIngredintInfo() {
+  function getIngredintInfo($id) {
     $conn = connectToDatabase();
     $sql = "SELECT * FROM namirnica WHERE id = $id";
     $result = mysqli_query($conn, $sql);
@@ -390,8 +390,8 @@
 
     echo ' <div class="card w-25 p-2 rounded-0 float-left" style="height: 350px;">
        <h3><a href="see_recipe.php?id=' . $id . '&recipe=' . $row_recipe['id'] .'"> ' . $row_recipe['ime'] . ' </a></h3>
-       <img class="" src=" ' . getRecipeImage($row_recipe) . ' " width = 100%>
-      <input type="button" name="submit" value="Favorite" class="btn btn-primary w-100 mt-3 card text-dark">
+       <img class="w-100 h-75" src=" ' . getRecipeImage($row_recipe) . ' ">
+      <input type="button" name="submit" value="Favorite" class="btn btn-primary w-100 mt-1 card text-dark">
     </div> ';
   }
 
@@ -410,13 +410,15 @@
     pagingAndQuery($conn, $sql, $id, -1);
   }
 
-  function userAllergen($id, $ingredient) {
+  function printAllSearchRecepies($name, $id) {
     $conn = connectToDatabase();
+    $sql = "SELECT * FROM recept WHERE id_kreator LIKE ('%$name%') AND ime LIKE ('%$name%') AND id_kreator != $id";
+    pagingAndQuery($conn, $sql, $id, -1);
+  }
+
+  function userAllergen($id, $ingredient) {
     $sql = "SELECT COUNT(*) AS a FROM korisnik_namirnica WHERE id_korisnik = $id AND id_namirnica = $ingredient";
-    $result = mysqli_query($conn, $sql);
-    $row = $result->fetch_assoc();
-    closeDatabaseConnection($conn);
-    return $row['a'];
+    return returnSQLResult($sql)['a'];
   }
 
   function printIngredietCard($id, $map) {

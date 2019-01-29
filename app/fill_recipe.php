@@ -71,10 +71,7 @@
         $ukupno_kcal = 0;
         $ukupno_kolicina = 0;
         while($row = mysqli_fetch_array($result, MYSQLI_BOTH)){
-          $ingredient = $row['id_namirnica'];
-          $sql2 = "SELECT * FROM namirnica WHERE id = $ingredient";
-          $result2 = mysqli_query($link, $sql2);
-          $row2 = mysqli_fetch_array($result2, MYSQLI_BOTH);
+          $row2 = getIngredintInfo($row['id_namirnica']);
           print("<tr>");
           print("<td>" . $row2["ime"] . "</td><td>" . $row2["protein"] . "</td><td>" . $row2["ugljikohidrati"] . "</td><td>" . $row2["masti"] . "</td><td>" . $row2['kcal'] . "</td><td>" . $row['kolicina'] . "</td>");
           print('<td>
