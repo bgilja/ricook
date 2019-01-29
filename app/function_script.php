@@ -29,6 +29,11 @@
     return "src/default_recipe.png";
   }
 
+  function getIngredientImage($row) {
+    if (substr($row['image'], 0, 3) === "src") return $row['image'];
+    return "src/ingredient_default.jpg";
+  }
+
   function getUserPersonalInfo($id) {
     $conn = connectToDatabase();
     $sql = "SELECT * FROM korisnik WHERE id = $id";
@@ -47,7 +52,7 @@
     return $row;
   }
 
-  function getIngredintInfo($id) {
+  function getIngredientInfo($id) {
     $conn = connectToDatabase();
     $sql = "SELECT * FROM namirnica WHERE id = $id";
     $result = mysqli_query($conn, $sql);
@@ -424,7 +429,7 @@
   function printIngredietCard($id, $map) {
     echo ' <div class="card p-1 float-left border border-light m-1 rounded-0">
         <h4>' . $map['ime'] . '</h4>
-        <img class="border w-100" src="' . getImage(getUserPersonalInfo(450)) . '" >
+        <img class="border w-100" src="' . getIngredientImage($map) . '" style="height: 200px;" >
         <ul class="list-group w-100">
         <li class="list-group-item">Protein: ' . $map['protein'] . '</li><br>
         <li class="list-group-item">Carbs: ' . $map['ugljikohidrati'] . '</li><br>

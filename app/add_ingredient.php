@@ -80,7 +80,7 @@
     </div>
     <div class="card namirnice_forma mt-5" >
       <h3 align="center">Za dodavanje namirnice ispunite formular</h3>
-      <form action="dodaj_namirnicu.php" method="post" style="width: 70%; margin:auto;">
+      <form action="dodaj_namirnicu.php" method="post" style="width: 70%; margin:auto;" enctype="multipart/form-data">
         <label >Ime:</label>
         <input type="text" class="form-control"  placeholder="Ime" name="ime">
         <label >Proteini:</label>
@@ -91,6 +91,9 @@
         <input type="text" class="form-control"  placeholder="Kolicina masti u 100g" name="masti">
         <input type="hidden" name="id" value="<?php echo $id; ?>">
         <input class="btn btn-primary" type="submit" value="Dodaj" style="margin-left: 40%; margin-top: 5px">
+        <div class="">
+          <h6>Select image to upload: <input type="file" value="" name="fileToUpload" id="image_preview_file"></h6>
+        </div>
       </form>
     </div>
 

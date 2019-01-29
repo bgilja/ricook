@@ -14,7 +14,7 @@
   $row = $result->fetch_assoc();
   $id_picture = $row['brojac'];
 
-  if ($image == "") header('Location:  fill_recipe.php?id='.$id.'&recipe='.$id_picture);
+  if ($image == "") header('Location: fill_recipe.php?id='.$id.'&recipe='.$id_picture);
 
   $target_dir = 'C:\xampp\htdocs\dashboard\ricook\app\src\recipe\recipe_picture';
   $imageFileType = strtolower(pathinfo($_FILES["fileToUpload"]["name"],PATHINFO_EXTENSION));
