@@ -320,7 +320,7 @@
   }
 
   function pagingAndQuery($conn, $sql, $id, $state) {
-    $rowsperpage = 2;
+    $rowsperpage = 10;
     $result = mysqli_query($conn, $sql);
     $numrows = mysqli_num_rows($result);
     $totalpages = ceil($numrows / $rowsperpage);
@@ -339,11 +339,9 @@
     $limit = "LIMIT $offset, $rowsperpage";
     $sql = $sql . " " . $limit;
     $result = mysqli_query($conn, $sql);
-    if ($state == -1) queryRecipeCardOnProfile($result, $conn, $id);
-    else queryRecipeCardOnMainpage($result, $conn, $id);
     $range = 3;
     $serverself = "{$_SERVER['PHP_SELF']}";
-    echo ' <nav class="float-left"><ul class="pagination"> ';
+    echo ' <nav class="float-left mt-1"><ul class="pagination"> ';
     if ($currentpage > 1) {
         echo ' <li class="page-item"><a class="page-link" href="'.$serverself.'?currentpage=1&id='.$id.'&state='.$state.'">First page</a> ';
        $prevpage = $currentpage - 1;
@@ -363,7 +361,10 @@
        //echo ' <li class="page-item"><a class="page-link" href="'.$serverself.'?currentpage='.$nextpage.'&id='.$id.'">Next page</a> ';
        echo ' <li class="page-item"><a class="page-link" href="'.$serverself.'?currentpage='.$totalpages.'&id='.$id.'&state='.$state.'">Last page</a> ';
     }
-    echo ' </ul></nav> ';
+    echo ' </ul></nav>';
+    if ($totalpages > 1) echo '<br><br><br>';
+    if ($state == -1) queryRecipeCardOnProfile($result, $conn, $id);
+    else queryRecipeCardOnMainpage($result, $conn, $id);
     closeDatabaseConnection($conn);
   }
 
