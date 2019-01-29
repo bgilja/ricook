@@ -435,16 +435,38 @@
     pagingAndQueryOnOtherProfile($conn, $sql, $id, $user);
   }
 
+  function userAllergen($id, $ingredient) {
+    $conn = connectToDatabase();
+    $sql = "SELECT COUNT(*) AS a FROM korisnik_namirnica WHERE id_korisnik = $id AND id_namirnica = $ingredient";
+    $result = mysqli_query($conn, $sql);
+    $row = $result->fetch_assoc();
+    closeDatabaseConnection($conn);
+    return $row['a'];
+  }
+
   function printIngredietCard($id, $map) {
     echo ' <div class="card p-1 float-left border border-light m-1 rounded-0">
         <h4>' . $map['ime'] . '</h4>
         <img class="border w-100" src="' . getImage(getUserPersonalInfo(450)) . '" >
-        <ul class="list-group w-100" id="namirnice_search_lista">
+        <ul class="list-group w-100">
         <li class="list-group-item">Protein: ' . $map['protein'] . '</li><br>
         <li class="list-group-item">Carbs: ' . $map['ugljikohidrati'] . '</li><br>
         <li class="list-group-item">Fat: ' . $map['masti'] . '</li><br>
-        <li class="list-group-item">Calorie: ' . $map['kcal'] . '</li></ul>
-      </div> ';
+        <li class="list-group-item">Calorie: ' . $map['kcal'] . '</li></ul>';
+    if (userAllergen($id, $map['id'])) {
+      echo ' <form action="remove_allergen.php" method="post">
+            <input type="hidden" name="id" value="' . $id . '">
+            <input type="hidden" name="namirnica" value="' . $map["id"] .'">
+            <input type="submit" name="submit" value="Remove from allergens" class="btn btn-primary align-top w-100 mb-1">
+            </form> ';
+    } else {
+      echo ' <form action="add_allergen.php" method="post">
+            <input type="hidden" name="id" value="' . $id . '">
+            <input type="hidden" name="namirnica" value="' . $map["id"] .'">
+            <input type="submit" name="submit3" value="Add to allergens" class="btn btn-danger align-top w-100 mb-1">
+            </form> ';
+    }
+    echo '  </div> ';
   }
 
   function queryIngredientCard($result1, $conn, $id) {
