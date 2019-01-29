@@ -47,23 +47,36 @@
     return $row;
   }
 
-  function incrementViewsCount($recipe, $conn) {
-    $sql = "SELECT broj_pregleda FROM recept WHERE id = $recipe";
+  function getIngredintInfo() {
+    $conn = connectToDatabase();
+    $sql = "SELECT * FROM namirnica WHERE id = $id";
     $result = mysqli_query($conn, $sql);
     $row = $result->fetch_assoc();
-    $broj_pregleda = $row['broj_pregleda']+1;
-    $sql = "UPDATE recept SET broj_pregleda = $broj_pregleda WHERE id = $recipe";
+    closeDatabaseConnection($conn);
+    return $row;
+  }
+
+  function returnSQLResult($sql) {
+    $conn = connectToDatabase();
+    $result = mysqli_query($conn, $sql);
+    $row = $result->fetch_assoc();
+    closeDatabaseConnection($conn);
+    return $row;
+  }
+
+  function countFavorites($id) {
+    $sql = "SELECT COUNT(*) as brojac FROM favourite WHERE id_recept = $id";
+    return returnSQLResult($sql)['brojac'];
+  }
+
+  function incrementViewsCount($recipe, $conn) {
+    $sql = "UPDATE recept SET broj_pregleda = broj_pregleda+1 WHERE id = $recipe";
     $result = mysqli_query($conn, $sql);
   }
 
   function isFollowing($id1, $id2) {
-    $conn = connectToDatabase();
     $sql = "SELECT COUNT(*) AS count_follow FROM pratitelj WHERE id_pratitelj = $id2 AND id_pratioc = $id1";
-    $result = mysqli_query($conn, $sql);
-    $row = $result->fetch_assoc();
-    closeDatabaseConnection($conn);
-    if ($row['count_follow'] > 0) return 1;
-    return 0;
+    return returnSQLResult($sql)['count_follow'];
   }
 
   function startFollowing($id, $user) {
@@ -81,100 +94,73 @@
   }
 
   function sumFollowers($id) {
-    $conn = connectToDatabase();
     $sql = "SELECT COUNT(*) as count FROM pratitelj WHERE id_pratitelj = $id";
-    $result = mysqli_query($conn, $sql);
-    $row = $result->fetch_assoc();
-    closeDatabaseConnection($conn);
-    return $row['count'];
+    return returnSQLResult($sql)['count'];
   }
 
   function sumFollowing($id) {
-    $conn = connectToDatabase();
     $sql = "SELECT COUNT(*) as count FROM pratitelj WHERE id_pratioc = $id";
-    $result = mysqli_query($conn, $sql);
-    $row = $result->fetch_assoc();
-    closeDatabaseConnection($conn);
-    return $row['count'];
+    return returnSQLResult($sql)['count'];
   }
 
   function countUserRecipes($id) {
-    $conn = connectToDatabase();
     $sql = "SELECT COUNT(*) AS brojac FROM recept WHERE id_kreator = $id";
-    $result = mysqli_query($conn, $sql);
-    $row = $result->fetch_assoc();
-    closeDatabaseConnection($conn);
-    return $row['brojac'];
+    return returnSQLResult($sql)['brojac'];
   }
 
   function getAverageRecipeRating($id) {
-    $conn = connectToDatabase();
     $sql = "SELECT SUM(ocjena) AS a, COUNT(ocjena) AS b FROM rejting WHERE id_recept IN (SELECT id FROM recept WHERE id_kreator = $id)";
-    $result = mysqli_query($conn, $sql);
-    $row = $result->fetch_assoc();
-    closeDatabaseConnection($conn);
+    $row = returnSQLResult($sql);
     if ($row['b'] == 0) return 0;
     return round($row['a'] / $row['b'], 2);
   }
 
   function getHighestRecipeRating($id) {
-    $conn = connectToDatabase();
     $sql = "SELECT MAX(ocjena) AS ret FROM rejting WHERE id_recept IN (SELECT id FROM recept WHERE id_kreator = $id)";
-    $result = mysqli_query($conn, $sql);
-    $row = $result->fetch_assoc();
-    closeDatabaseConnection($conn);
+    $row = returnSQLResult($sql);
     if (isset($row['ret'])) return $row['ret'];
-    return 0;
+    return "Not rated";
   }
 
   function getLowestRecipeRating($id) {
-    $conn = connectToDatabase();
     $sql = "SELECT MIN(ocjena) AS ret FROM rejting WHERE id_recept IN (SELECT id FROM recept WHERE id_kreator = $id)";
-    $result = mysqli_query($conn, $sql);
-    $row = $result->fetch_assoc();
-    closeDatabaseConnection($conn);
+    $row = returnSQLResult($sql);
     if (isset($row['ret'])) return $row['ret'];
-    return 0;
+    return "Not rated";
   }
 
   function getUserRatingForRecipe($id, $recipe) {
-    $conn = connectToDatabase();
-    $sql = "SELECT ocjena FROM rejting WHERE id_recept = $recipe AND id_korisnik = $id";
-    $result = mysqli_query($conn, $sql);
-    $row = $result->fetch_assoc();
-    closeDatabaseConnection($conn);
-    if (isset($row['ocjena'])) return $row['ocjena'];
-    return 0;
+    $sql = "SELECT SUM(ocjena) AS a FROM rejting WHERE id_recept = $recipe AND id_korisnik = $id";
+    if (isset($row['a'])) return $row['a'];
+    return "Not rated";
   }
 
   function getUserFavoredRecipes($id) {
-    $conn = connectToDatabase();
     $sql = "SELECT COUNT(*) AS a FROM favourite WHERE id_korisnik = $id";
-    $result = mysqli_query($conn, $sql);
-    $row = $result->fetch_assoc();
-    closeDatabaseConnection($conn);
-    if (isset($row['a'])) return $row['a'];
-    return 0;
+    return returnSQLResult($sql)['a'];
   }
 
   function getRecipeRatingCount($recipe) {
-    $conn = connectToDatabase();
     $sql = "SELECT COUNT(*) AS a FROM rejting WHERE id_recept = $recipe";
-    $result = mysqli_query($conn, $sql);
-    $row = $result->fetch_assoc();
-    closeDatabaseConnection($conn);
-    if (isset($row['a'])) return $row['a'];
-    return 0;
+    return returnSQLResult($sql)['a'];
   }
 
   function getRecipeRatingValue($recipe) {
-    $conn = connectToDatabase();
     $sql = "SELECT SUM(ocjena) AS a, COUNT(ocjena) AS b FROM rejting WHERE id_recept = $recipe";
-    $result = mysqli_query($conn, $sql);
-    $row = $result->fetch_assoc();
-    closeDatabaseConnection($conn);
+    $row = returnSQLResult($sql);
     if ($row['b'] == 0) return 0;
-    return round($row['a']/$row['b']);
+    return round($row['a'] / $row['b'], 2);
+  }
+
+  function isFavoredby($id_user, $id_recipe) {
+    $sql = "SELECT COUNT(*) AS a FROM favourite WHERE id_korisnik = $id_user AND id_recept = $id_recipe";
+    return returnSQLResult($sql)['a'];
+  }
+
+  function isCreator($id, $recipe) {
+    $row = getRecipeInfo($recipe);
+    if ($row['id_kreator'] == $id) return true;
+    return false;
   }
 
   function printPersonCard($id, $map) {
@@ -216,11 +202,9 @@
 
   function printFollowersAndFollowing($id) {
     $conn = connectToDatabase();
-    $sql1 = "SELECT id_pratioc AS id FROM pratitelj WHERE id_pratitelj = $id
-            UNION
-            SELECT id_pratitelj AS id FROM pratitelj WHERE id_pratioc = $id";
-    $result1 = mysqli_query($conn, $sql1);
-    queryPersonCard($result1, $conn, $id);
+    $sql = "SELECT id_pratioc AS id FROM pratitelj WHERE id_pratitelj = $id UNION SELECT id_pratitelj AS id FROM pratitelj WHERE id_pratioc = $id";
+    $result = mysqli_query($conn, $sql);
+    queryPersonCard($result, $conn, $id);
     closeDatabaseConnection($conn);
   }
 
@@ -246,20 +230,6 @@
     $result = mysqli_query($conn, $sql);
     queryPersonCard($result, $conn, $id);
     closeDatabaseConnection($conn);
-  }
-
-  function isFavoredby($id_user, $id_recipe) {
-    $conn = connectToDatabase();
-    $sql = "SELECT id_recept FROM favourite WHERE id_korisnik = $id_user";
-    $result = mysqli_query($conn, $sql);
-    while ($row = $result->fetch_assoc()) {
-      if ($row['id_recept'] === $id_recipe) {
-        closeDatabaseConnection($conn);
-        return true;
-      }
-    }
-    closeDatabaseConnection($conn);
-    return false;
   }
 
    function printRecipeCardOnMainpage($id, $map) {
@@ -304,11 +274,12 @@
   }
 
   function showRecipeOnMainpage($id, $meal, $state) {
-    $conn = connectToDatabase();
     if ($meal == 0) $sql = showRecipeOnMainpageSQLAny($id, $state);
     else $sql = showRecipeOnMainpageSQL($id, $meal, $state);
 
+    $conn = connectToDatabase();
     pagingAndQuery($conn, $sql, $id, $state);
+    closeDatabaseConnection($conn);
   }
 
   function pagingAndQuery($conn, $sql, $id, $state) {
@@ -333,11 +304,13 @@
     $result = mysqli_query($conn, $sql);
     $range = 3;
     $serverself = "{$_SERVER['PHP_SELF']}";
+
     echo ' <nav class="float-left mt-1"><ul class="pagination"> ';
     if ($currentpage > 1) {
         echo ' <li class="page-item"><a class="page-link" href="'.$serverself.'?currentpage=1&id='.$id.'&state='.$state.'">First page</a> ';
        $prevpage = $currentpage - 1;
     }
+
     for ($x = ($currentpage - $range); $x < (($currentpage + $range) + 1); $x++) {
        if (($x > 0) && ($x <= $totalpages) && ($totalpages > 1)) {
           if ($x == $currentpage) {
@@ -347,14 +320,23 @@
           }
        }
     }
+
     if (($currentpage != $totalpages) && ($totalpages > 1)) {
        $nextpage = $currentpage + 1;
        echo ' <li class="page-item"><a class="page-link" href="'.$serverself.'?currentpage='.$totalpages.'&id='.$id.'&state='.$state.'">Last page</a> ';
     }
+
     echo ' </ul></nav>';
     if ($totalpages > 1) echo '<br><br><br>';
+
     if ($state == -1) queryRecipeCardOnProfile($result, $conn, $id);
     else queryRecipeCardOnMainpage($result, $conn, $id);
+  }
+
+  function printAllUserRecepiesOnOtherProfile($id, $user) {
+    $sql = "SELECT * FROM recept WHERE id_kreator = $user";
+    $conn = connectToDatabase();
+    pagingAndQueryOnOtherProfile($conn, $sql, $id, $user);
     closeDatabaseConnection($conn);
   }
 
@@ -401,7 +383,6 @@
     echo ' </ul></nav>';
     if ($totalpages > 1) echo '<br><br><br>';
     queryRecipeCardOnProfile($result, $conn, $id);
-    closeDatabaseConnection($conn);
   }
 
   function printRecipeCardOnProfile($row_recipe, $id) {
@@ -427,12 +408,6 @@
     $conn = connectToDatabase();
     $sql = "SELECT * FROM recept WHERE id_kreator = $id";
     pagingAndQuery($conn, $sql, $id, -1);
-  }
-
-  function printAllUserRecepiesOnOtherProfile($id, $user) {
-    $conn = connectToDatabase();
-    $sql = "SELECT * FROM recept WHERE id_kreator = $user";
-    pagingAndQueryOnOtherProfile($conn, $sql, $id, $user);
   }
 
   function userAllergen($id, $ingredient) {
@@ -484,36 +459,5 @@
     $result = mysqli_query($conn, $sql);
     queryIngredientCard($result, $conn, 1);
     closeDatabaseConnection($conn);
-  }
-
-  function showTag($name) {
-    $conn = connectToDatabase();
-    $sql = "SELECT id FROM korisnik";
-    $result = mysqli_query($conn, $sql);
-    queryPersonCard($result, $conn, 1);
-    closeDatabaseConnection($conn);
-  }
-
-  function showEvent($name) {
-    $conn = connectToDatabase();
-    $sql = "SELECT id FROM korisnik";
-    $result = mysqli_query($conn, $sql);
-    queryPersonCard($result, $conn, 1);
-    closeDatabaseConnection($conn);
-  }
-
-  function countFavorites($id) {
-    $conn = connectToDatabase();
-    $sql = "SELECT COUNT(*) as brojac FROM favourite WHERE id_recept = $id";
-    $result = mysqli_query($conn, $sql);
-    $row = $result->fetch_assoc();
-    closeDatabaseConnection($conn);
-    return $row['brojac'];
-  }
-
-  function isCreator($id, $recipe) {
-    $row = getRecipeInfo($recipe);
-    if ($row['id_kreator'] === $id) return true;
-    return false;
   }
 ?>
