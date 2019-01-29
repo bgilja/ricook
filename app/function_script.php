@@ -115,7 +115,7 @@
     $row = $result->fetch_assoc();
     closeDatabaseConnection($conn);
     if ($row['b'] == 0) return 0;
-    return ($row['a'] / $row['b']);
+    return round($row['a'] / $row['b'], 2);
   }
 
   function getHighestRecipeRating($id) {
@@ -389,10 +389,10 @@
   function printRecipeCardOnProfile($row_recipe, $id) {
     $row_user = getUserPersonalInfo($row_recipe['id_kreator']);
 
-    echo ' <div class="card w-25 p-2 rounded-0 float-left" style="height: 400px;">
+    echo ' <div class="card w-25 p-2 rounded-0 float-left" style="height: 350px;">
        <h3><a href="see_recipe.php?id=' . $id . '&recipe=' . $row_recipe['id'] .'"> ' . $row_recipe['ime'] . ' </a></h3>
-       <img class="" src=" ' . getRecipeImage($row_recipe) . ' " height = 250>
-      <input type="button" name="submit" value="Favorite" class="btn btn-primary w-100">
+       <img class="" src=" ' . getRecipeImage($row_recipe) . ' " width = 100%>
+      <input type="button" name="submit" value="Favorite" class="btn btn-primary w-100 mt-3 card text-dark">
     </div> ';
   }
 
