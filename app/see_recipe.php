@@ -103,11 +103,23 @@
             </div>
             <div class="table" style="height: 500px;">
               <table id="tablica" class="table table-sm">
-                <thead><tr ><th class="table-success" scope="col">Nutritivne vrijednosti:</th><th class="table-success"></th></tr></thead>
+                <thead><tr ><th class="table-success" scope="col">Ingredients</th><th class="table-success">Amount</th><th class="table-success">KCal</th></tr></thead>
                 <tbody>
-                  <tr class="table-success"><td>Bjelancevine:</td><td>50g</td></tr>
-                  <tr class="table-success"><td>Ugljikohidrati:</td><td>100g</td></tr>
-                  <tr class="table-success"><td >Masti:</td><td>30g</td></tr>
+                  <?php
+                  $sql = "SELECT id_namirnica, kolicina FROM recept_namirnica WHERE id_recept = $recipe";
+                  $result = mysqli_query($conn, $sql);
+                  $ukupno_kolicina = 0;
+                  $ukupno_kalorija = 0;
+                  while ($row2 = $result->fetch_assoc()) {
+                    $sql2 = "SELECT ime, kcal FROM namirnica WHERE id = ". $row2['id_namirnica'];
+                    $result2 = mysqli_query($conn, $sql2);
+                    $row3 = $result2->fetch_assoc();
+                    echo '<tr class="table-success"><td>'. $row3['ime'].'</td><td>'.$row2['kolicina'].'</td><td>'. $row3['kcal'].'</td></tr>';
+                    $ukupno_kolicina += $row2['kolicina'];
+                    $ukupno_kalorija += $row3['kcal'];
+                  }
+                  echo '<tr class="table-success"><td><b>Ukupno</td><td><b>'.$ukupno_kolicina.'</td><td><b>'. $ukupno_kalorija .'</td></tr>';
+                  ?>
                 </tbody>
               </table>
             </div>
@@ -117,10 +129,9 @@
           <div class="mt-2">
             <div class="jumbotron" id="user_jumbotron">
               <h1 class="display-4">Upute</h1>
-              <p class="lead">Cooking is not difficult. Everyone has taste, even if they don't realize it.
-                Even if you're not a great chef, there's nothing to stop you understanding the difference between what tastes good and what doesn't.
-                <br>Cooking is not difficult. Everyone has taste, even if they don't realize it.
-                  Even if you're not a great chef, there's nothing to stop you understanding the difference between what tastes good and what doesn't.</p>
+              <p class="lead">
+                <?php echo $row['upute']; ?>
+              </p>
               <hr class="my-4">
             </div>
           </div>
