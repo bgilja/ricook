@@ -110,7 +110,7 @@
           print("<td>" . $row["ime"] . "</td><td>" . $row["protein"] . "</td><td>" . $row["ugljikohidrati"] . "</td><td>" . $row["masti"] . "</td><td>" . $row["kcal"] . "</td>");
           print('<td>
                 <form action="recipe_add_ingredient.php" method="POST">
-                <input type="number" min="1" max="1000" name="kolicina" class="mt-1">
+                <input type="number" value="1" min="1" max="1000" name="kolicina" class="mt-1">
                 <input type="hidden" name="id" value="' . $id . '">
                 <input type="hidden" name="namirnica" value="' . $row["id"] . '">
                 <input type="hidden" name="recept" value="' . $recipe . '">

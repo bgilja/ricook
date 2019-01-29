@@ -19,8 +19,8 @@
     <?php
       include 'function_script.php';
       $id = $_GET['id'];
-      $state = $_GET['state'];
-      if (!isset($state)) $state = 0;
+      if (isset($_GET['state'])) $state = $_GET['state'];
+      else $state = 0;
       $conn = connectToDatabase();
       $row = getUserPersonalInfo($id, $conn);
       closeDatabaseConnection($conn);

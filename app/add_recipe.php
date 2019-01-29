@@ -7,7 +7,7 @@
 
   $image = strtolower(pathinfo($_FILES["fileToUpload"]["name"],PATHINFO_EXTENSION));
   $conn = connectToDatabase();
-  $sql = "INSERT INTO recept (ime, id_kreator, suma_ocjena, broj_ocjena, upute, ocjena, broj_pregleda) VALUES ('$ime', $id, 0, 0, '$upute', 0, 0)";
+  $sql = "INSERT INTO recept (ime, id_kreator, upute, ocjena, broj_pregleda) VALUES ('$ime', $id, '$upute', 0, 0)";
   $result = mysqli_query($conn, $sql);
   $sql = "SELECT MAX(id) AS brojac FROM recept WHERE id_kreator = $id";
   $result = mysqli_query($conn, $sql);

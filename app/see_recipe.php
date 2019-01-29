@@ -71,13 +71,13 @@
                   echo ' <form class="" action="add_to_favourites.php" method="post">
                     <input type="hidden" name="id" value="'. $id .'">
                     <input type="hidden" name="recipe" value="'. $recipe .'">
-                    <input type="submit" class="btn btn-primary w-25 ml-1" value="Favourite">
+                    <input type="submit" class="btn btn-primary w-25 ml-1" value="Favor">
                   </form> ';
                 } else {
                   echo ' <form class="" action="remove_from_favourites.php" method="post">
                     <input type="hidden" name="id" value="'. $id .'">
                     <input type="hidden" name="recipe" value="'. $recipe .'">
-                    <input type="submit" class="btn btn-primary w-25 ml-1" value="Unfavourite">
+                    <input type="submit" class="btn btn-primary w-25 ml-1" value="Unfavor">
                   </form> ';
                 }
                 if (isCreator($id, $recipe)) {
@@ -95,10 +95,10 @@
                 <ul class="list-group w-100">
                   <li class="list-group-item">Created by: <span class="info_text"><?php echo $user_info['user_name']; ?></span></li>
                   <li class="list-group-item">Views count: <span class="info_text"><?php echo $row['broj_pregleda']; ?></span></li>
-                  <li class="list-group-item">Rated by: <span class="info_text"><?php echo $row['broj_ocjena']; ?></span></li>
-                  <li class="list-group-item">Rating: <span class="info_text"><?php echo $row['ocjena']; ?></span></li>
-                  <li class="list-group-item">Favourited by: <span class="info_text"><?php echo countFavorites($recipe); ?></span></li>
-                  <li class="list-group-item">Your rating: <span class="info_text"><?php echo 0; ?></span></li> <!--treba novi entitet za spremanje rejtinga-->
+                  <li class="list-group-item">Rated by: <span class="info_text"><?php echo getRecipeRatingCount($recipe); ?></span></li>
+                  <li class="list-group-item">Rating: <span class="info_text"><?php echo getRecipeRatingValue($recipe); ?></span></li>
+                  <li class="list-group-item">Favored by: <span class="info_text"><?php echo countFavorites($recipe); ?></span></li>
+                  <li class="list-group-item">Your rating: <span class="info_text"><?php echo getUserRatingForRecipe($id, $recipe); ?></span></li> <!--treba novi entitet za spremanje rejtinga-->
                 </ul>
             </div>
             <div class="table" style="height: 500px;">
@@ -183,6 +183,11 @@
               </form>
             </div>
             <div class="modal-footer">
+              <?php
+                if (getUserRatingForRecipe($id, $recipe) > 0) {
+                  echo '<h6>You already gave rating to this recipe. New rating will delete previous. If you want to continue fill this form</h6>';
+                }
+              ?>
             </div>
           </div>
         </div>

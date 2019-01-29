@@ -81,7 +81,7 @@
                   <li class="list-group-item">Last name: <span class="info_text"><?php echo $row['last_name'] ?></span></li>
                   <li class="list-group-item">Email: <span class="info_text"><?php echo $row['email'] ?></span></li>
                   <li class="list-group-item">Year of birth: <span class="info_text"><?php echo $row['year_of_birth'] ?></span></li>
-                  <li class="list-group-item">Favourited recepies: <span class="info_text"><?php echo "0" ?></span></li>
+                  <li class="list-group-item">Favored recepies: <span class="info_text"><?php echo getUserFavoredRecipes($id); ?></span></li>
                 </ul>
               </div>
               <div class="w-50 float-left">
