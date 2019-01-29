@@ -168,6 +168,16 @@
     return false;
   }
 
+  function userAllergen($id, $ingredient) {
+    $sql = "SELECT COUNT(*) AS a FROM korisnik_namirnica WHERE id_korisnik = $id AND id_namirnica = $ingredient";
+    return returnSQLResult($sql)['a'];
+  }
+
+  function checkUserAllergens($id, $recipe) {
+    $sql = "SELECT COUNT(*) AS a FROM recept_namirnica WHERE id_namirnica IN (SELECT id_namirnica FROM korisnik_namirnica WHERE id_korisnik = $id) AND id_recept = $recipe";
+    return returnSQLResult($sql)['a'];
+  }
+
   function printPersonCard($id, $map) {
     echo ' <div class="card p-1 float-left border border-light m-1 rounded-0">
     <h3><a class="" href="other_profile.php?id='.$id.'&user='.$map['id'].'">' . $map['user_name'] . '</a></h3>
@@ -236,18 +246,27 @@
 
    function printRecipeCardOnMainpage($id, $map) {
     $row = getUserPersonalInfo($map['id_kreator']);
-    echo '
-    <div class="card w-100 p-1 mt-1 mb-1 float-left">
-      <div class="w-100">
-         <a class="" href="see_recipe.php?id=' . $id . '&recipe=' . $map['id'] .'"><h3> ' . $map['ime'] . '</a> by <a href="other_profile.php?id=' . $id . '&user=' . $row['id'] . '">' . $row['user_name'] . ' </a></h3>
-      </div>
-      <div>
-        <a href="see_recipe.php?id=' . $id . '&recipe=' . $map['id'] .'"><img class="slika2 w-25 card p-1" src=" ' . getRecipeImage($map) . ' "></a>
-        <div class="d-inline-flex w-100 h-100 p-1" style="margin-left: 400px; margin-top:-220px;">
-         <p>Im an inline flexbox container!da da da dd a da da d a da da d a da  da da  da da  da  ad  da da </p>
-        </div>
-      </div>
-    </div> ';
+    $margin_top = 220;
+    echo ' <div class="card w-100 p-1 mt-1 mb-1 float-left"> ';
+    if (checkUserAllergens($id, $map['id']) > 0) {
+      echo ' <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Warning!</strong> Allergen detected. You should be careful with this recipe.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div> ';
+      $margin_top = 280;
+    }
+    echo     '<div class="w-100">
+               <a class="" href="see_recipe.php?id=' . $id . '&recipe=' . $map['id'] .'"><h3> ' . $map['ime'] . '</a> by <a href="other_profile.php?id=' . $id . '&user=' . $row['id'] . '">' . $row['user_name'] . ' </a></h3>
+            </div>
+            <div>
+              <a href="see_recipe.php?id=' . $id . '&recipe=' . $map['id'] .'"><img class="slika2 w-25 card p-1" src=" ' . getRecipeImage($map) . ' "></a>
+              <div class="d-inline-flex w-100 h-100 p-1" style="margin-left: 400px; margin-top:-'. $margin_top .'px;">
+               <p>Im an inline flexbox container!da da da dd a da da d a da da d a da  da da  da da  da  ad  da da </p>
+              </div>
+            </div>
+          </div> ';
   }
 
   function queryRecipeCardOnMainpage($result1, $conn, $id) {
@@ -276,7 +295,7 @@
 
   function printAllSearchRecepies($name, $id) {
     $conn = connectToDatabase();
-    $sql = "SELECT * FROM recept WHERE id_kreator LIKE ('%$name%') AND ime LIKE ('%$name%') AND id_kreator != $id";
+    $sql = "SELECT * FROM recept WHERE id_kreator LIKE ('%$name%') OR ime LIKE ('%$name%') OR id_kreator != $id";
     pagingAndQuery($conn, $sql, $id, -1);
   }
 
@@ -306,7 +325,7 @@
   }
 
   function pagingAndQuery($conn, $sql, $id, $state) {
-    $rowsperpage = 1;
+    $rowsperpage = 8;
     $result = mysqli_query($conn, $sql);
     $numrows = mysqli_num_rows($result);
     $totalpages = ceil($numrows / $rowsperpage);
@@ -411,16 +430,20 @@
   function printRecipeCardOnProfile($row_recipe, $id) {
     $row_user = getUserPersonalInfo($row_recipe['id_kreator']);
 
-    echo ' <div class="card w-25 p-2 rounded-0 float-left" style="height: 350px;">
-       <h3><a href="see_recipe.php?id=' . $id . '&recipe=' . $row_recipe['id'] .'"> ' . $row_recipe['ime'] . ' </a></h3>
-       <img class="w-100 h-75" src=" ' . getRecipeImage($row_recipe) . ' ">
-      <input type="button" name="submit" value="Favorite" class="btn btn-primary w-100 mt-1 card text-dark">
-    </div> ';
-  }
+    echo ' <div class="card w-25 p-2 rounded-0 float-left" style="height: 400px;">
+      <h3><a href="see_recipe.php?id=' . $id . '&recipe=' . $row_recipe['id'] .'"> ' . $row_recipe['ime'] . ' </a></h3>
+       <img class="w-100" src=" ' . getRecipeImage($row_recipe) . '" style="height: 250px;">
+      <input type="button" name="submit" value="Favorite" class="btn btn-primary w-100 mt-1 card text-dark"> ';
+    if (checkUserAllergens($id, $row_recipe['id']) > 0) {
+      echo ' <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Warning!</strong> Allergen detected.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div> ';
+    }
+    echo '</div> ';
 
-  function userAllergen($id, $ingredient) {
-    $sql = "SELECT COUNT(*) AS a FROM korisnik_namirnica WHERE id_korisnik = $id AND id_namirnica = $ingredient";
-    return returnSQLResult($sql)['a'];
   }
 
   function printIngredietCard($id, $map) {
