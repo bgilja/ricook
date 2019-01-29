@@ -109,7 +109,7 @@
           </div>
         </div>
         <div class="col-8 mt-2">
-          <?php for($i = 0; $i < 100; $i++) printAllUserRecepies($id, $id); ?>
+          <?php  printAllUserRecepies($id, $id); ?>
         </div>
       </div>
     </div>

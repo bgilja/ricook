@@ -269,7 +269,7 @@
     <div class="card w-100 p-3 mt-1 mb-1 float-left">
       <div mb-2>
          <a href="see_recipe.php?id=' . $id . '&recipe=' . $map['id'] .'"><h3> ' . $map['ime'] . '</a> by <a href="other_profile.php?id=' . $id . '&user=' . $row['id'] . '">' . $row['user_name'] . ' </a></h3>
-         <a href="see_recipe.php?id=' . $id . '&recipe=' . $map['id'] .'"><img class="slika2" src=" ' . getRecipeImage($map) . ' "></a>
+         <a href="see_recipe.php?id=' . $id . '&recipe=' . $map['id'] .'"><img class="slika2" src=" ' . getRecipeImage($map) . ' " width = 300></a>
          <div class="d-inline-flex w-100 h-100 p-3 bd-highlight" id="flex2">Im an inline flexbox container!da da da dd a da da d a da da d a da  da da  da da  da  ad  da da </div>
       </div>
       <table id="tablica" class="table table-sm">
@@ -316,7 +316,11 @@
     if ($meal == 0) $sql = showRecipeOnMainpageSQLAny($id, $state);
     else $sql = showRecipeOnMainpageSQL($id, $meal, $state);
 
-    $rowsperpage = 10;
+    pagingAndQuery($conn, $sql, $id, $state);
+  }
+
+  function pagingAndQuery($conn, $sql, $id, $state) {
+    $rowsperpage = 2;
     $result = mysqli_query($conn, $sql);
     $numrows = mysqli_num_rows($result);
     $totalpages = ceil($numrows / $rowsperpage);
@@ -335,12 +339,13 @@
     $limit = "LIMIT $offset, $rowsperpage";
     $sql = $sql . " " . $limit;
     $result = mysqli_query($conn, $sql);
-    queryRecipeCardOnMainpage($result, $conn, $id);
+    if ($state == -1) queryRecipeCardOnProfile($result, $conn, $id);
+    else queryRecipeCardOnMainpage($result, $conn, $id);
     $range = 3;
     $serverself = "{$_SERVER['PHP_SELF']}";
     echo ' <nav class="float-left"><ul class="pagination"> ';
     if ($currentpage > 1) {
-       echo ' <li class="page-item"><a class="page-link" href="'.$serverself.'?currentpage=1&id='.$id.'&state='.$state.'">First page</a> ';
+        echo ' <li class="page-item"><a class="page-link" href="'.$serverself.'?currentpage=1&id='.$id.'&state='.$state.'">First page</a> ';
        $prevpage = $currentpage - 1;
        //echo ' <li class="page-item"><a class="page-link" href="'.$serverself.'?currentpage='.$prevpage.'&id='.$id.'">Previous page</a> ';
     }
@@ -385,7 +390,7 @@
 
     echo ' <div class="card w-25 p-2 rounded-0 float-left" style="height: 400px;">
        <h3><a href="see_recipe.php?id=' . $id . '&recipe=' . $row_recipe['id'] .'"> ' . $row_recipe['ime'] . ' </a></h3>
-       <img class="" src=" ' . getRecipeImage($row_recipe) . ' ">
+       <img class="" src=" ' . getRecipeImage($row_recipe) . ' " height = 250>
       <input type="button" name="submit" value="Favorite" class="btn btn-primary w-100">
     </div> ';
   }
@@ -402,9 +407,7 @@
   function printAllUserRecepies($id) {
     $conn = connectToDatabase();
     $sql = "SELECT * FROM recept WHERE id_kreator = $id";
-    $result1 = mysqli_query($conn, $sql);
-    queryRecipeCardOnProfile($result1, $conn, $id);
-    closeDatabaseConnection($conn);
+    pagingAndQuery($conn, $sql, $id, -1);
   }
 
   function printIngredietCard($id, $map) {
