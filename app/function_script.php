@@ -1,5 +1,4 @@
 <?php
-
   function connectToDatabase() {
     $servername = "127.0.0.1";
     $username = "student";
@@ -263,25 +262,18 @@
     return false;
   }
 
-  function printRecipeCardOnMainpage($id, $map) {
+   function printRecipeCardOnMainpage($id, $map) {
     $row = getUserPersonalInfo($map['id_kreator']);
     echo '
-    <div class="card w-100 p-3 mt-1 mb-1 float-left">
-      <div mb-2>
-         <a href="see_recipe.php?id=' . $id . '&recipe=' . $map['id'] .'"><h3> ' . $map['ime'] . '</a> by <a href="other_profile.php?id=' . $id . '&user=' . $row['id'] . '">' . $row['user_name'] . ' </a></h3>
-         <a href="see_recipe.php?id=' . $id . '&recipe=' . $map['id'] .'"><img class="slika2" src=" ' . getRecipeImage($map) . ' " width = 300></a>
-         <div class="d-inline-flex w-100 h-100 p-3 bd-highlight" id="flex2">Im an inline flexbox container!da da da dd a da da d a da da d a da  da da  da da  da  ad  da da </div>
+    <div class="card w-100 p-1 mt-1 mb-1 float-left">
+      <div class="w-100">
+         <a class="" href="see_recipe.php?id=' . $id . '&recipe=' . $map['id'] .'"><h3> ' . $map['ime'] . '</a> by <a href="other_profile.php?id=' . $id . '&user=' . $row['id'] . '">' . $row['user_name'] . ' </a></h3>
       </div>
-      <table id="tablica" class="table table-sm">
-        <thead><tr ><th class="table-success" scope="col">Nutritivne vrijednosti:</th><th class="table-success"></th></tr></thead>
-        <tbody>
-          <tr class="table-success"><td>Bjelancevine:</td><td>50g</td></tr>
-          <tr class="table-success"><td>Ugljikohidrati:</td><td>100g</td></tr>
-          <tr class="table-success"><td >Masti:</td><td>30g</td></tr>
-        </tbody>
-      </table>
-      <div class="imebtn2">
-        <a class="btn btn-primary align-top text-white">Details</a>
+      <div>
+        <a href="see_recipe.php?id=' . $id . '&recipe=' . $map['id'] .'"><img class="slika2 w-25 card p-1" src=" ' . getRecipeImage($map) . ' "></a>
+        <div class="d-inline-flex w-100 h-100 p-1" style="margin-left: 400px; margin-top:-220px;">
+         <p>Im an inline flexbox container!da da da dd a da da d a da da d a da  da da  da da  da  ad  da da </p>
+        </div>
       </div>
     </div> ';
   }
@@ -345,7 +337,6 @@
     if ($currentpage > 1) {
         echo ' <li class="page-item"><a class="page-link" href="'.$serverself.'?currentpage=1&id='.$id.'&state='.$state.'">First page</a> ';
        $prevpage = $currentpage - 1;
-       //echo ' <li class="page-item"><a class="page-link" href="'.$serverself.'?currentpage='.$prevpage.'&id='.$id.'">Previous page</a> ';
     }
     for ($x = ($currentpage - $range); $x < (($currentpage + $range) + 1); $x++) {
        if (($x > 0) && ($x <= $totalpages) && ($totalpages > 1)) {
@@ -358,7 +349,6 @@
     }
     if (($currentpage != $totalpages) && ($totalpages > 1)) {
        $nextpage = $currentpage + 1;
-       //echo ' <li class="page-item"><a class="page-link" href="'.$serverself.'?currentpage='.$nextpage.'&id='.$id.'">Next page</a> ';
        echo ' <li class="page-item"><a class="page-link" href="'.$serverself.'?currentpage='.$totalpages.'&id='.$id.'&state='.$state.'">Last page</a> ';
     }
     echo ' </ul></nav>';
@@ -394,7 +384,6 @@
     if ($currentpage > 1) {
         echo ' <li class="page-item"><a class="page-link" href="'.$serverself.'?currentpage=1&id='.$id.'&user='.$user.'">First page</a> ';
        $prevpage = $currentpage - 1;
-       //echo ' <li class="page-item"><a class="page-link" href="'.$serverself.'?currentpage='.$prevpage.'&id='.$id.'">Previous page</a> ';
     }
     for ($x = ($currentpage - $range); $x < (($currentpage + $range) + 1); $x++) {
        if (($x > 0) && ($x <= $totalpages) && ($totalpages > 1)) {
@@ -407,7 +396,6 @@
     }
     if (($currentpage != $totalpages) && ($totalpages > 1)) {
        $nextpage = $currentpage + 1;
-       //echo ' <li class="page-item"><a class="page-link" href="'.$serverself.'?currentpage='.$nextpage.'&id='.$id.'">Next page</a> ';
        echo ' <li class="page-item"><a class="page-link" href="'.$serverself.'?currentpage='.$totalpages.'&id='.$id.'&user='.$user.'">Last page</a> ';
     }
     echo ' </ul></nav>';
@@ -415,24 +403,6 @@
     queryRecipeCardOnProfile($result, $conn, $id);
     closeDatabaseConnection($conn);
   }
-
-  /*function showRecipeOnMainpage($id, $meal, $order) {
-  $conn = connectToDatabase();
-  if ($meal === 1) {
-    $sql = "SELECT id FROM recept WHERE id IN (SELECT id_recept FROM recept_obrok WHERE obrok = 1)";
-  } else if ($meal == 2) {
-    $sql = "SELECT id FROM recept WHERE id IN (SELECT id_recept FROM recept_obrok WHERE obrok = 2)";
-  } else if ($meal == 3) {
-    $sql = "SELECT id FROM recept WHERE id IN (SELECT id_recept FROM recept_obrok WHERE obrok = 3)";
-  } else if ($meal == 4) {
-    $sql = "SELECT id FROM recept WHERE id IN (SELECT id_recept FROM recept_obrok WHERE obrok = 4)";
-  } else {
-    $sql = "SELECT id FROM recept";
-  }
-  $result = mysqli_query($conn, $sql);
-  queryRecipeCardOnMainpage($result, $conn, $id);
-  closeDatabaseConnection($conn);
-}*/
 
   function printRecipeCardOnProfile($row_recipe, $id) {
     $row_user = getUserPersonalInfo($row_recipe['id_kreator']);
