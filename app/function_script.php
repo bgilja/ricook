@@ -320,7 +320,7 @@
   }
 
   function pagingAndQuery($conn, $sql, $id, $state) {
-    $rowsperpage = 10;
+    $rowsperpage = 1;
     $result = mysqli_query($conn, $sql);
     $numrows = mysqli_num_rows($result);
     $totalpages = ceil($numrows / $rowsperpage);
@@ -368,6 +368,54 @@
     closeDatabaseConnection($conn);
   }
 
+  function pagingAndQueryOnOtherProfile($conn, $sql, $id, $user) {
+    $rowsperpage = 1;
+    $result = mysqli_query($conn, $sql);
+    $numrows = mysqli_num_rows($result);
+    $totalpages = ceil($numrows / $rowsperpage);
+    if (isset($_GET['currentpage']) && is_numeric($_GET['currentpage'])) {
+       $currentpage = (int) $_GET['currentpage'];
+    } else {
+       $currentpage = 1;
+    }
+    if ($currentpage > $totalpages) {
+       $currentpage = $totalpages;
+    }
+    if ($currentpage < 1) {
+       $currentpage = 1;
+    }
+    $offset = ($currentpage - 1) * $rowsperpage;
+    $limit = "LIMIT $offset, $rowsperpage";
+    $sql = $sql . " " . $limit;
+    $result = mysqli_query($conn, $sql);
+    $range = 3;
+    $serverself = "{$_SERVER['PHP_SELF']}";
+    echo ' <nav class="float-left mt-1"><ul class="pagination"> ';
+    if ($currentpage > 1) {
+        echo ' <li class="page-item"><a class="page-link" href="'.$serverself.'?currentpage=1&id='.$id.'&user='.$user.'">First page</a> ';
+       $prevpage = $currentpage - 1;
+       //echo ' <li class="page-item"><a class="page-link" href="'.$serverself.'?currentpage='.$prevpage.'&id='.$id.'">Previous page</a> ';
+    }
+    for ($x = ($currentpage - $range); $x < (($currentpage + $range) + 1); $x++) {
+       if (($x > 0) && ($x <= $totalpages) && ($totalpages > 1)) {
+          if ($x == $currentpage) {
+             echo ' <li class="page-item"><b class="page-link">['.$x.']</b> ';
+          } else {
+             echo ' <li class="page-item"><a class="page-link" href="'.$serverself.'?currentpage='.$x.'&id='.$id.'&user='.$user.'">'.$x.'</a> ';
+          }
+       }
+    }
+    if (($currentpage != $totalpages) && ($totalpages > 1)) {
+       $nextpage = $currentpage + 1;
+       //echo ' <li class="page-item"><a class="page-link" href="'.$serverself.'?currentpage='.$nextpage.'&id='.$id.'">Next page</a> ';
+       echo ' <li class="page-item"><a class="page-link" href="'.$serverself.'?currentpage='.$totalpages.'&id='.$id.'&user='.$user.'">Last page</a> ';
+    }
+    echo ' </ul></nav>';
+    if ($totalpages > 1) echo '<br><br><br>';
+    queryRecipeCardOnProfile($result, $conn, $id);
+    closeDatabaseConnection($conn);
+  }
+
   /*function showRecipeOnMainpage($id, $meal, $order) {
   $conn = connectToDatabase();
   if ($meal === 1) {
@@ -409,6 +457,12 @@
     $conn = connectToDatabase();
     $sql = "SELECT * FROM recept WHERE id_kreator = $id";
     pagingAndQuery($conn, $sql, $id, -1);
+  }
+
+  function printAllUserRecepiesOnOtherProfile($id, $user) {
+    $conn = connectToDatabase();
+    $sql = "SELECT * FROM recept WHERE id_kreator = $user";
+    pagingAndQueryOnOtherProfile($conn, $sql, $id, $user);
   }
 
   function printIngredietCard($id, $map) {

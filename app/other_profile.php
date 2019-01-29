@@ -106,7 +106,7 @@
         </div>
         <div class="col-8 float-left">
           <div class="mt-2">
-            <?php for ($i=0; $i < 100; $i++) printAllUserRecepies($id, $user); ?>
+            <?php printAllUserRecepiesOnOtherProfile($id, $user); ?>
           </div>
         </div>
       </div>
