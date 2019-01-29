@@ -71,6 +71,7 @@
                   <input type="hidden" name="id" value="<?php echo $id; ?>">
                 </form>
                 <button type="submit" class="btn btn-danger" form="delete_profile" id="delete_profile_image_btn" onclick="">Delete profile</button>
+                <button type="submit" class="btn btn-danger" id="allergens" onclick="">My allergens</button>
               </div>
             </div>
             <div class="user_block w-100">
@@ -223,11 +224,54 @@
       </div>
     </div>
 
+    <div class="container">
+      <div class="modal fade" id="allergens_modal" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3>MyAllergens</h3>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body" style="padding:40px 50px;">
+              <div class="price_list">
+                <h3 style="text-align: center;">Ingredient</h3>
+                <table  class="table table-hover table-sm border border-dark" style="width: 70%; margin-left: 15%;">
+               <thead class="thead-light border border-light"> <tr><th>ID</th><th>Ingredient</th><th>Delete</th></tr></thead>
+                <?php
+                  $link = connectToDatabase();
+                  $sql = "SELECT id, ime FROM namirnica WHERE id IN (SELECT id_namirnica FROM korisnik_namirnica WHERE id_korisnik = $id)";
+                  $result = mysqli_query($link, $sql);
+                  while($row = mysqli_fetch_array($result, MYSQLI_BOTH)){
+                    print("<tr>");
+                    print("<td>" . $row["id"] . "</td><td>" . $row["ime"] . "</td>");
+                    print('<td>
+                          <form action="remove_allergen.php" method = "POST">
+                          <input type="hidden" name="id" value="' . $id . '">
+                          <input type="hidden" name="id_namirnica" value="' . $row["id"] . '">
+                          <input type="submit" value="Delete" > </form></td>');
+                    print("</tr>");
+                  }
+                  closeDatabaseConnection($link);
+                ?>
+                </table>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <p>Forgot <a href="">Password?</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
     <!-- Optional JavaScript -->
     <script src="popup_change_password_modal.js"></script>
     <script src="popup_change_profile_image_modal.js"></script>
     <script src="popup_change_profile_status_modal.js"></script>
     <script src="popup_delete_profile_image_modal.js"></script>
+    <script src="popup_MyAllergens_modal.js"></script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>

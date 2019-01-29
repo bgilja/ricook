@@ -20,6 +20,9 @@
   $sql = "DELETE FROM korisnik_namirnica WHERE id_korisnik = $id";
   $result = mysqli_query($conn, $sql);
 
+  $sql = "DELETE FROM korisnik_namirnica WHERE id_korisnik = $id";
+  $result = mysqli_query($conn, $sql);
+
   closeDatabaseConnection($conn);
   header('Location:  index.php');
 ?>

@@ -13,6 +13,9 @@
   $query = "DELETE FROM recept_namirnica WHERE id_namirnica = $namirnica";
   $result = mysqli_query($conn, $query);
 
+  $sql = "DELETE FROM korisnik_namirnica WHERE id_korisnik = $id";
+  $result = mysqli_query($conn, $sql);
+
   closeDatabaseConnection($conn);
   header( 'Location: add_ingredient.php?id=' . $id);
 ?>
