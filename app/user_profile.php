@@ -256,9 +256,6 @@
                 </table>
               </div>
             </div>
-            <div class="modal-footer">
-              <p>Forgot <a href="">Password?</a></p>
-            </div>
           </div>
         </div>
       </div>
