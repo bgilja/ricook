@@ -53,6 +53,7 @@
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
         <h6 id="homepage_username"><?php echo $id ?></h6>
+        <button type="button" class="btn btn-secondary mr-1" id="add_recipe_button">Add Recipe</button>
         <button type="button" class="btn btn-secondary" id="btn1" onclick="window.location.href='index.php'">Logout</button>
       </div>
     </nav>
@@ -65,13 +66,13 @@
               <img class="rounded float-left mw-75 mh-75" src="<?php echo getImage($row) ?>" id="avatar">
               <div class="profile_buttons">
                 <button type="button" class="btn btn-primary" id="change_pass_btn" onclick="">Change password</button>
-                <button type="button" class="btn btn-success" id="change_profile_image_btn" onclick="">Change picture</button>
-                <button type="button" class="btn btn-info" id="delete_profile_image_btn" onclick="">Delete picture</button>
+                <button type="button" class="btn btn-primary" id="change_profile_image_btn" onclick="">Change picture</button>
+                <button type="button" class="btn btn-danger" id="delete_profile_image_btn" onclick="">Delete picture</button>
                 <form class="" action="delete_profile.php" method="post" id="delete_profile">
                   <input type="hidden" name="id" value="<?php echo $id; ?>">
                 </form>
                 <button type="submit" class="btn btn-danger" form="delete_profile" id="delete_profile_image_btn" onclick="">Delete profile</button>
-                <button type="submit" class="btn btn-danger" id="allergens" onclick="">My allergens</button>
+                <button type="submit" class="btn btn-info" id="allergens" onclick="">My allergens</button>
               </div>
             </div>
             <div class="user_block w-100">
@@ -256,7 +257,47 @@
       </div>
     </div>
 
-
+    <div class="container">
+      <div class="modal fade" id="add_recipe_modal" role="dialog">
+        <div class="modal-dialog" style="width: 70%; margin-left: 23%;">
+          <div class="modal-content" style="width: 1000px;">
+            <div class="modal-header">
+              <h3>Add recipe</h3>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body" style="padding:10px 30px;">
+              <form role="form" action="add_recipe.php" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                  <label for="exampleFormControlInput1">Recipe</label>
+                  <input type="textbox" class="form-control" id="exampleFormControlInput1" required placeholder="Dish name" name="dish_name">
+                </div>
+                <div class="form-group">
+                  <label for="exampleFormControlTextarea1">Instructions</label>
+                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="7" name="instructions" required></textarea>
+                </div>
+                <div class="form-row">
+                  <h6 class="mt-2">You will add ingredients later</h6>
+                </div>
+                <div class="form-row">
+                  <span class="form-col ml-1 mr-1"><input type="checkbox" name="breakfast" class="form-control">Breakfast</span>
+                  <span class="form-col ml-1 mr-1"><input type="checkbox" name="lunch" class="form-control">Lunch</span>
+                  <span class="form-col ml-1 mr-1"><input type="checkbox" name="dinner" class="form-control">Dinner</span>
+                  <span class="form-col ml-1 mr-1"><input type="checkbox" name="dessert" class="form-control">Dessert</span>
+                </div>
+                <div class="">
+                  <h6>Select image to upload: <input type="file" value="" name="fileToUpload" id="image_preview_file"></h6>
+                </div>
+                <datalist id="huge_list"></datalist>
+                <input type="hidden" name="id" value="<?php echo $id; ?>">
+                <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span>Add</button>
+              </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Optional JavaScript -->
     <script src="popup_change_password_modal.js"></script>
@@ -264,6 +305,7 @@
     <script src="popup_change_profile_status_modal.js"></script>
     <script src="popup_delete_profile_image_modal.js"></script>
     <script src="popup_MyAllergens_modal.js"></script>
+    <script src="popup_recipe_modal.js"></script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>

@@ -7,5 +7,5 @@
   stopFollowing($id, $user);
   closeDatabaseConnection($conn);
 
-  header('Location: user_homepage.php?id=' . $id);
+  header('Location: user_friends.php?id=' . $id);
 ?>

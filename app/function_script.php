@@ -170,12 +170,9 @@
 
   function printPersonCard($id, $map) {
     echo ' <div class="card p-1 float-left border border-light m-1 rounded-0">
+    <h3><a class="" href="other_profile.php?id='.$id.'&user='.$map['id'].'">' . $map['user_name'] . '</a></h3>
       <span class="border p-1">
-        <img class="slika border" src="' . getImage($map) . '" >
-        <div class="d-inline-flex p-1 bd-highlight">Im an inline flexbox container!da da da dd a da da d a da da d a da  da da  da da  da  ad  da da </div>
-        <div class="imebtn float-right">
-          <h6>' . $map['user_name'] . '</h6>
-          <a href="other_profile.php?id=' . $id .'&user=' . $map["id"] .'" value="Unfollow" class="btn btn-primary align-top w-100 mb-1">Visit profile</a> ';
+        <img class="border w-100" src="' . getImage($map) . '" style="height: 240px;">';
 
     if (isFollowing($id, $map['id'])) {
       echo ' <form action="stop_following.php" method="post">
@@ -190,7 +187,7 @@
             <input type="submit" name="submit3" value="Follow" class="btn btn-primary align-top w-100 mb-1">
             </form> ';
     }
-    echo '   </div></span>
+    echo '   </span>
           </div> ';
   }
 
@@ -260,6 +257,27 @@
       $row2 = $result2->fetch_assoc();
       printRecipeCardOnMainpage($id, $row2);
     }
+  }
+
+  function queryRecipeCardOnProfile($result1, $conn, $id) {
+    while ($row1 = $result1->fetch_assoc()) {
+      $sql2 = "SELECT * FROM recept WHERE id = " . $row1['id'];
+      $result2 = mysqli_query($conn, $sql2);
+      $row2 = $result2->fetch_assoc();
+      printRecipeCardOnProfile($row2, $id);
+    }
+  }
+
+  function printAllUserRecepies($id) {
+    $conn = connectToDatabase();
+    $sql = "SELECT * FROM recept WHERE id_kreator = $id";
+    pagingAndQuery($conn, $sql, $id, -1);
+  }
+
+  function printAllSearchRecepies($name, $id) {
+    $conn = connectToDatabase();
+    $sql = "SELECT * FROM recept WHERE id_kreator LIKE ('%$name%') AND ime LIKE ('%$name%') AND id_kreator != $id";
+    pagingAndQuery($conn, $sql, $id, -1);
   }
 
   function showRecipeOnMainpageSQL($id, $meal, $state) {
@@ -398,27 +416,6 @@
        <img class="w-100 h-75" src=" ' . getRecipeImage($row_recipe) . ' ">
       <input type="button" name="submit" value="Favorite" class="btn btn-primary w-100 mt-1 card text-dark">
     </div> ';
-  }
-
-  function queryRecipeCardOnProfile($result1, $conn, $id) {
-    while ($row1 = $result1->fetch_assoc()) {
-      $sql2 = "SELECT * FROM recept WHERE id = " . $row1['id'];
-      $result2 = mysqli_query($conn, $sql2);
-      $row2 = $result2->fetch_assoc();
-      printRecipeCardOnProfile($row2, $id);
-    }
-  }
-
-  function printAllUserRecepies($id) {
-    $conn = connectToDatabase();
-    $sql = "SELECT * FROM recept WHERE id_kreator = $id";
-    pagingAndQuery($conn, $sql, $id, -1);
-  }
-
-  function printAllSearchRecepies($name, $id) {
-    $conn = connectToDatabase();
-    $sql = "SELECT * FROM recept WHERE id_kreator LIKE ('%$name%') AND ime LIKE ('%$name%') AND id_kreator != $id";
-    pagingAndQuery($conn, $sql, $id, -1);
   }
 
   function userAllergen($id, $ingredient) {
