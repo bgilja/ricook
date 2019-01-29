@@ -1,28 +1,6 @@
 <?php
   include 'function_script.php';
   $id = $_POST['id'];
-  $conn = connectToDatabase();
-  $sql = "DELETE FROM korisnik WHERE id = $id";
-  $result = mysqli_query($conn, $sql);
-
-  $sql = "DELETE FROM recept WHERE id_kreator = $id";
-  $result = mysqli_query($conn, $sql);
-
-  $sql = "DELETE FROM pratitelj WHERE id_pratitelj = $id OR id_pratioc = $id";
-  $result = mysqli_query($conn, $sql);
-
-  $sql = "DELETE FROM favourite WHERE id_korisnik = $id";
-  $result = mysqli_query($conn, $sql);
-
-  $sql = "DELETE FROM komentar WHERE id_korisnik = $id";
-  $result = mysqli_query($conn, $sql);
-
-  $sql = "DELETE FROM korisnik_namirnica WHERE id_korisnik = $id";
-  $result = mysqli_query($conn, $sql);
-
-  $sql = "DELETE FROM korisnik_namirnica WHERE id_korisnik = $id";
-  $result = mysqli_query($conn, $sql);
-
-  closeDatabaseConnection($conn);
+  deleteProfile($id);
   header('Location:  index.php');
 ?>

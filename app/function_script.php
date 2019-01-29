@@ -453,11 +453,77 @@
     }
   }
 
-  function showIngredient($name) {
+  function showIngredient($name, $id) {
     $conn = connectToDatabase();
-    $sql = "SELECT id FROM namirnica";
+    $sql = "SELECT id FROM namirnica WHERE ime LIKE ('%$name%')";
     $result = mysqli_query($conn, $sql);
-    queryIngredientCard($result, $conn, 1);
+    queryIngredientCard($result, $conn, $id);
+    closeDatabaseConnection($conn);
+  }
+
+  function deleteRecipe($recipe) {
+    $conn = connectToDatabase();
+
+    $sql = "DELETE FROM recept WHERE id = $recipe";
+    $result = mysqli_query($conn, $sql);
+
+    $sql = "DELETE FROM rejting WHERE id_recept = $recipe";
+    $result = mysqli_query($conn, $sql);
+
+    $sql = "DELETE FROM favourite WHERE id_recept = $recipe";
+    $result = mysqli_query($conn, $sql);
+
+    $sql = "DELETE FROM komentar WHERE id_recept = $recipe";
+    $result = mysqli_query($conn, $sql);
+
+    $sql = "DELETE FROM recept_namirnica WHERE id_recept = $recipe";
+    $result = mysqli_query($conn, $sql);
+
+    $sql = "DELETE FROM recept_obrok WHERE id_recept = $recipe";
+    $result = mysqli_query($conn, $sql);
+
+    closeDatabaseConnection($conn);
+  }
+
+  function deleteIngredient($namirnica) {
+    $conn = connectToDatabase();
+
+    $query = "DELETE FROM namirnica WHERE id = $namirnica";
+    $result = mysqli_query($conn, $query);
+
+    $query = "DELETE FROM korisnik_namirnica WHERE id_namirnica = $namirnica";
+    $result = mysqli_query($conn, $query);
+
+    $query = "DELETE FROM recept_namirnica WHERE id_namirnica = $namirnica";
+    $result = mysqli_query($conn, $query);
+
+    closeDatabaseConnection($conn);
+  }
+
+  function deleteProfile($id) {
+    $conn = connectToDatabase();
+
+    $sql = "SELECT id FROM recept WHERE id_kreator = $id";
+    $result = mysqli_query($conn, $sql);
+    while ($row = $result->fetch_assoc()) {
+      deleteRecipe($row['id']);
+    }
+
+    $sql = "DELETE FROM korisnik WHERE id = $id";
+    $result = mysqli_query($conn, $sql);
+
+    $sql = "DELETE FROM pratitelj WHERE id_pratitelj = $id OR id_pratioc = $id";
+    $result = mysqli_query($conn, $sql);
+
+    $sql = "DELETE FROM favourite WHERE id_korisnik = $id";
+    $result = mysqli_query($conn, $sql);
+
+    $sql = "DELETE FROM komentar WHERE id_kreator = $id";
+    $result = mysqli_query($conn, $sql);
+
+    $sql = "DELETE FROM korisnik_namirnica WHERE id_korisnik = $id";
+    $result = mysqli_query($conn, $sql);
+
     closeDatabaseConnection($conn);
   }
 ?>

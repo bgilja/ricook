@@ -247,7 +247,7 @@
                     print('<td>
                           <form action="remove_allergen.php" method = "POST">
                           <input type="hidden" name="id" value="' . $id . '">
-                          <input type="hidden" name="id_namirnica" value="' . $row["id"] . '">
+                          <input type="hidden" name="namirnica" value="' . $row["id"] . '">
                           <input type="submit" value="Delete" > </form></td>');
                     print("</tr>");
                   }
