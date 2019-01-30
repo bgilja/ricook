@@ -51,15 +51,15 @@
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
         <h6 id="homepage_username"><?php echo $id ?></h6>
-        <button type="button" class="btn btn-secondary mr-1" id="add_recipe_button">Add Recipe</button>
-        <button type="button" class="btn btn-secondary" id="btn1" onclick="window.location.href='index.php'">Logout</button>
+        <button type="button" class="btn btn-success mr-1" data-toggle="modal" data-target="#add_recipe" style="width: 120px;">Add Recipe</button>
+        <button type="button" class="btn btn-secondary" onclick="window.location.href='index.php'" style="width: 120px;">Logout</button>
       </div>
     </nav>
 
-    <div class="price_list">
-      <h3 style="text-align: center;">Namirnice</h3>
+    <div>
+      <h3 style="text-align: center;">Ingredients</h3>
       <table  class="table table-hover table-sm border border-dark" style="width: 70%; margin-left: 15%;">
-     <thead class="thead-light border border-light"> <tr><th>Id</th><th>Ime</th><th>Proteini(100g)</th><th>Ugljikohidrati(100g)</th><th>Masti(100g)</th><th>kcal(100g)</th><th>Opcije</th></tr></thead>
+     <thead class="thead-light border border-dark"> <tr><th>ID</th><th>Name</th><th>Protein(grams)</th><th>Carbs(grams)</th><th>Fat(100g)</th><th>KCal</th><th>Option</th></tr></thead>
       <?php
         $link = connectToDatabase();
         $sql = "SELECT id, ime, protein, ugljikohidrati, masti, kcal FROM namirnica";
@@ -71,75 +71,87 @@
                 <form action="izbrisi_namirnicu.php" method = "POST">
                 <input type="hidden" name="id" value="' . $id . '">
                 <input type="hidden" name="id_namirnica" value="' . $row["id"] . '">
-                <input type="submit" value="Izbriši" > </form></td>');
+                <input type="submit" value="Remove" class="btn btn-block btn-primary w-100"> </form></td>');
           print("</tr>");
         }
         closeDatabaseConnection($link);
       ?>
       </table>
     </div>
-    <div class="card namirnice_forma mt-5" >
-      <h3 align="center">Za dodavanje namirnice ispunite formular</h3>
-      <form action="dodaj_namirnicu.php" method="post" style="width: 70%; margin:auto;" enctype="multipart/form-data">
-        <label >Ime:</label>
-        <input type="text" class="form-control"  placeholder="Ime" name="ime">
-        <label >Proteini:</label>
-        <input type="text" class="form-control"  placeholder="Kolicina proteina u 100g" name="protein">
-        <label >Ugljikohidrati:</label>
-        <input type="text" class="form-control"  placeholder="Kolicina ugljikohidrata u 100g " name="ugljikohidrati">
-        <label >Masti:</label>
-        <input type="text" class="form-control"  placeholder="Kolicina masti u 100g" name="masti">
-        <input type="hidden" name="id" value="<?php echo $id; ?>">
-        <input class="btn btn-primary" type="submit" value="Dodaj" style="margin-left: 40%; margin-top: 5px">
-        <div class="">
-          <h6>Select image to upload: <input type="file" value="" name="fileToUpload" id="image_preview_file"></h6>
+
+    <div class="card namirnice_forma mt-5 p-3" style="height: 500px;">
+      <h3 align="center" class="mt-2">Fill this form to add new ingredient</h3>
+      <form action="dodaj_namirnicu.php" method="post" style="width: 80%; margin:auto;" enctype="multipart/form-data">
+        <label >Name:</label>
+        <input type="text" class="form-control"  placeholder="Name" name="ime">
+        <label >Protein:</label>
+        <input type="text" class="form-control"  placeholder="Proteins (grams)" name="protein">
+        <label >Carbs:</label>
+        <input type="text" class="form-control"  placeholder="Carbs (grams)" name="ugljikohidrati">
+        <label >Fat:</label>
+        <input type="text" class="form-control"  placeholder="Fat (grams)" name="masti">
+        <div class="mt-2">
+          <h6>Select image to upload: <label class="btn btn-primary btn-file ml-3">Browse<input type="file" name="fileToUpload" style="display: none;"></label></h6>
         </div>
+        <input type="hidden" name="id" value="<?php echo $id; ?>">
+        <input class="btn btn-primary btn-block w-100" type="submit" value="Continue">
       </form>
     </div>
 
-    <div class="container">
-      <div class="modal fade" id="add_recipe_modal" role="dialog">
-        <div class="modal-dialog" style="width: 70%; margin-left: 23%;">
-          <div class="modal-content" style="width: 1000px;">
-            <div class="modal-header">
-              <h3>Add recipe</h3>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body" style="padding:10px 30px;">
-              <form role="form" action="add_recipe.php" method="post" enctype="multipart/form-data">
-                <div class="form-group">
-                  <label for="exampleFormControlInput1">Recipe</label>
-                  <input type="textbox" class="form-control" id="exampleFormControlInput1" required placeholder="Dish name" name="dish_name">
-                </div>
-                <div class="form-group">
-                  <label for="exampleFormControlTextarea1">Instructions</label>
-                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="7" name="instructions" required></textarea>
-                </div>
-                <div class="form-row">
-                  <h6 class="mt-2">You will add ingredients later</h6>
-                </div>
-                <div class="form-row">
-                  <span class="form-col ml-1 mr-1"><input type="checkbox" name="breakfast" class="form-control">Breakfast</span>
-                  <span class="form-col ml-1 mr-1"><input type="checkbox" name="lunch" class="form-control">Lunch</span>
-                  <span class="form-col ml-1 mr-1"><input type="checkbox" name="dinner" class="form-control">Dinner</span>
-                  <span class="form-col ml-1 mr-1"><input type="checkbox" name="dessert" class="form-control">Dessert</span>
-                </div>
-                <div class="">
-                  <h6>Select image to upload: <input type="file" value="" name="fileToUpload" id="image_preview_file"></h6>
-                </div>
-                <datalist id="huge_list"></datalist>
-                <input type="hidden" name="id" value="<?php echo $id; ?>">
-                <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span>Add</button>
-              </form>
-            </div>
-            <div class="modal-footer">
-            </div>
+    <div class="modal fade" id="add_recipe" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header" style="background-color: rgb(130, 160, 210);">
+            <h5 class="modal-title">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form role="form" action="add_recipe.php" method="post" enctype="multipart/form-data">
+              <div class="form-group">
+                <label>Recipe</label>
+                <input type="textbox" class="form-control" required placeholder="Dish name" name="dish_name">
+              </div>
+              <div class="form-group">
+                <label>Instructions</label>
+                <textarea class="form-control" rows="7" name="instructions" required></textarea>
+              </div>
+              <div class="form-row">
+                <h6 class="mt-2">You will add ingredients later</h6>
+              </div>
+              <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                <input type="checkbox" class="custom-control-input" name="breakfast" id="customControlInline1">
+                <label class="custom-control-label" for="customControlInline1">Breakfast</label>
+              </div>
+              <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                <input type="checkbox" class="custom-control-input" name="lunch" id="customControlInline2">
+                <label class="custom-control-label" for="customControlInline2">Lunch</label>
+              </div>
+              <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                <input type="checkbox" class="custom-control-input" name="dinner" id="customControlInline3">
+                <label class="custom-control-label" for="customControlInline3">Dinner</label>
+              </div>
+              <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                <input type="checkbox" class="custom-control-input" name="dessert" id="customControlInline4">
+                <label class="custom-control-label" for="customControlInline4">Dessert</label>
+              </div>
+              <div class="">
+                <h6>Select image to upload: <label class="btn btn-primary btn-file ml-3">Browse<input type="file" name="fileToUpload" style="display: none;"></label></h6>
+              </div>
+              <datalist id="huge_list"></datalist>
+              <input type="hidden" name="id" value="<?php echo $id; ?>">
+              <button type="submit" class="btn btn-block btn-primary"><span class="glyphicon glyphicon-off"></span>Continue</button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <h6 class="float-right">*You will add ingredients later</h6>
           </div>
         </div>
       </div>
     </div>
+    
     <!-- Optional JavaScript -->
-    <script src="popup_recipe_modal.js"></script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>

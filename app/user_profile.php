@@ -53,8 +53,8 @@
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
         <h6 id="homepage_username"><?php echo $id ?></h6>
-        <button type="button" class="btn btn-secondary mr-1" id="add_recipe_button">Add Recipe</button>
-        <button type="button" class="btn btn-secondary" id="btn1" onclick="window.location.href='index.php'">Logout</button>
+        <button type="button" class="btn btn-success mr-1" data-toggle="modal" data-target="#add_recipe" style="width: 120px;">Add Recipe</button>
+        <button type="button" class="btn btn-secondary" onclick="window.location.href='index.php'" style="width: 120px;">Logout</button>
       </div>
     </nav>
 
@@ -65,14 +65,11 @@
             <div class="user_block" id="user_block1">
               <img class="rounded float-left mw-75 mh-75" src="<?php echo getImage($row) ?>" id="avatar">
               <div class="profile_buttons">
-                <button type="button" class="btn btn-primary" id="change_pass_btn" onclick="">Change password</button>
-                <button type="button" class="btn btn-primary" id="change_profile_image_btn" onclick="">Change picture</button>
-                <button type="button" class="btn btn-danger" id="delete_profile_image_btn" onclick="">Delete picture</button>
-                <form class="" action="delete_profile.php" method="post" id="delete_profile">
-                  <input type="hidden" name="id" value="<?php echo $id; ?>">
-                </form>
-                <button type="submit" class="btn btn-danger" form="delete_profile" id="delete_profile_image_btn" onclick="">Delete profile</button>
-                <button type="submit" class="btn btn-info" id="allergens" onclick="">My allergens</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#change_pass">Change password</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#change_picture">Change picture</button>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_picture">Delete picture</button>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_profile">Delete profile</button>
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#allergens">Allergens</button>
               </div>
             </div>
             <div class="user_block w-100">
@@ -111,188 +108,186 @@
       </div>
     </div>
 
-    <div class="container">
-      <div class="modal fade" id="change_pass_modal" role="dialog">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h3>Change password</h3>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body" style="padding:40px 50px;">
-              <form role="form" action="user_password_change.php" method="post">
-                <div class="form-group">
-                  <label for="usrname">Password</label>
-                  <input type="password" class="form-control" id="usrname" placeholder="Enter password" name="pass1">
-                </div>
-                <div class="form-group">
-                  <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> New password</label>
-                  <input type="password" class="form-control" id="psw" placeholder="Enter new password" name="pass2">
-                </div>
-                <div class="form-group">
-                  <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> New password</label>
-                  <input type="password" class="form-control" id="psw" placeholder="Enter new password one more time" name="pass3">
-                </div>
-                  <input type="hidden" name="id" value="<?php echo $id; ?>">
-                  <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span>Change password</button>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <p>Forgot <a href="">Password?</a></p>
-            </div>
+    <div class="modal fade" id="add_recipe" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header" style="background-color: rgb(130, 160, 210);">
+            <h5 class="modal-title">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="container">
-      <div class="modal fade" id="change_profile_image_modal" role="dialog">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h3>Change profile picture</h3>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body" style="padding:40px 50px;">
-              <form action="user_profile_image_upload.php" method="post" enctype="multipart/form-data">
-                <h3>Select image to upload:</h3>
-                <input type="file" name="fileToUpload" id="image_preview_file">
-                <input type="hidden" name="id" value="<?php echo $id; ?>">
-                <input type="submit" value="Upload Image" name="submit" class="btn btn-primary">
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="container">
-      <div class="modal fade" id="change_profile_status_modal" role="dialog">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h3>Change status</h3>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body" style="padding:40px 50px;">
-              <form role="form" action="" method="post">
-                <div class="form-group">
-                  <label for="usrname">Change tag</label>
-                  <input type="text" class="form-control" id="usrname" placeholder="Enter tag" name="tag">
-                </div>
-                <div class="form-group">
-                  <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Change status</label>
-                  <input type="text" class="form-control" id="psw" placeholder="Enter new status" name="status">
-                </div>
-                  <input type="hidden" name="id" value="<?php echo $id; ?>">
-                  <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span>Change status</button>
-              </form>
-            </div>
-            <div class="modal-footer">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="container">
-      <div class="modal fade" id="delete_profile_image_modal" role="dialog">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h3>Delete profile picture</h3>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body" style="padding:40px 50px;">
-              <form role="form" action="delete_profile_picture.php" method="post">
-                <div class="form-group">
-                  <label>Yes I want to delete profile picture</label>
-                  <input type="checkbox" name="check" required>
-                </div>
-                  <input type="hidden" name="id" value="<?php echo $id; ?>">
-                  <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span>Delete profile picture</button>
-              </form>
-            </div>
-            <div class="modal-footer">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="container">
-      <div class="modal fade" id="allergens_modal" role="dialog">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h3>MyAllergens</h3>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body" style="padding:40px 50px;">
-              <div class="price_list">
-                <h3 style="text-align: center;">Ingredient</h3>
-                <table  class="table table-hover table-sm border border-dark" style="width: 70%; margin-left: 15%;">
-               <thead class="thead-light border border-light"> <tr><th>ID</th><th>Ingredient</th><th>Delete</th></tr></thead>
-                <?php
-                  $link = connectToDatabase();
-                  $sql = "SELECT id, ime FROM namirnica WHERE id IN (SELECT id_namirnica FROM korisnik_namirnica WHERE id_korisnik = $id)";
-                  $result = mysqli_query($link, $sql);
-                  while($row = mysqli_fetch_array($result, MYSQLI_BOTH)){
-                    print("<tr>");
-                    print("<td>" . $row["id"] . "</td><td>" . $row["ime"] . "</td>");
-                    print('<td>
-                          <form action="remove_allergen.php" method = "POST">
-                          <input type="hidden" name="id" value="' . $id . '">
-                          <input type="hidden" name="namirnica" value="' . $row["id"] . '">
-                          <input type="submit" value="Delete" > </form></td>');
-                    print("</tr>");
-                  }
-                  closeDatabaseConnection($link);
-                ?>
-                </table>
+          <div class="modal-body">
+            <form role="form" action="add_recipe.php" method="post" enctype="multipart/form-data">
+              <div class="form-group">
+                <label>Recipe</label>
+                <input type="textbox" class="form-control" required placeholder="Dish name" name="dish_name">
               </div>
-            </div>
+              <div class="form-group">
+                <label>Instructions</label>
+                <textarea class="form-control" rows="7" name="instructions" required></textarea>
+              </div>
+              <div class="form-row">
+                <h6 class="mt-2">You will add ingredients later</h6>
+              </div>
+              <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                <input type="checkbox" class="custom-control-input" name="breakfast" id="customControlInline1">
+                <label class="custom-control-label" for="customControlInline1">Breakfast</label>
+              </div>
+              <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                <input type="checkbox" class="custom-control-input" name="lunch" id="customControlInline2">
+                <label class="custom-control-label" for="customControlInline2">Lunch</label>
+              </div>
+              <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                <input type="checkbox" class="custom-control-input" name="dinner" id="customControlInline3">
+                <label class="custom-control-label" for="customControlInline3">Dinner</label>
+              </div>
+              <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                <input type="checkbox" class="custom-control-input" name="dessert" id="customControlInline4">
+                <label class="custom-control-label" for="customControlInline4">Dessert</label>
+              </div>
+              <div class="">
+                <h6>Select image to upload: <label class="btn btn-primary btn-file ml-3">Browse<input type="file" name="fileToUpload" style="display: none;"></label></h6>
+              </div>
+              <datalist id="huge_list"></datalist>
+              <input type="hidden" name="id" value="<?php echo $id; ?>">
+              <button type="submit" class="btn btn-block btn-primary"><span class="glyphicon glyphicon-off"></span>Continue</button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <h6 class="float-right">*You will add ingredients later</h6>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="container">
-      <div class="modal fade" id="add_recipe_modal" role="dialog">
-        <div class="modal-dialog" style="width: 70%; margin-left: 23%;">
-          <div class="modal-content" style="width: 1000px;">
-            <div class="modal-header">
-              <h3>Add recipe</h3>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body" style="padding:10px 30px;">
-              <form role="form" action="add_recipe.php" method="post" enctype="multipart/form-data">
-                <div class="form-group">
-                  <label for="exampleFormControlInput1">Recipe</label>
-                  <input type="textbox" class="form-control" id="exampleFormControlInput1" required placeholder="Dish name" name="dish_name">
-                </div>
-                <div class="form-group">
-                  <label for="exampleFormControlTextarea1">Instructions</label>
-                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="7" name="instructions" required></textarea>
-                </div>
-                <div class="form-row">
-                  <h6 class="mt-2">You will add ingredients later</h6>
-                </div>
-                <div class="form-row">
-                  <span class="form-col ml-1 mr-1"><input type="checkbox" name="breakfast" class="form-control">Breakfast</span>
-                  <span class="form-col ml-1 mr-1"><input type="checkbox" name="lunch" class="form-control">Lunch</span>
-                  <span class="form-col ml-1 mr-1"><input type="checkbox" name="dinner" class="form-control">Dinner</span>
-                  <span class="form-col ml-1 mr-1"><input type="checkbox" name="dessert" class="form-control">Dessert</span>
-                </div>
-                <div class="">
-                  <h6>Select image to upload: <input type="file" value="" name="fileToUpload" id="image_preview_file"></h6>
-                </div>
-                <datalist id="huge_list"></datalist>
+    <div class="modal fade" id="change_pass" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header" style="background-color: rgb(130, 160, 210);">
+            <h3>Change password</h3>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body" style="padding:40px 50px;">
+            <form role="form" action="user_password_change.php" method="post">
+              <div class="form-group">
+                <label for="usrname">Password</label>
+                <input type="password" class="form-control" id="usrname" placeholder="Enter password" name="pass1">
+              </div>
+              <div class="form-group">
+                <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> New password</label>
+                <input type="password" class="form-control" id="psw" placeholder="Enter new password" name="pass2">
+              </div>
+              <div class="form-group">
+                <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> New password</label>
+                <input type="password" class="form-control" id="psw" placeholder="Enter new password one more time" name="pass3">
+              </div>
                 <input type="hidden" name="id" value="<?php echo $id; ?>">
-                <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span>Add</button>
-              </form>
-            </div>
-            <div class="modal-footer">
+                <input type="submit" value="Change password" name="submit" class="btn btn-primary btn-block w-100">
+            </form>
+          </div>
+          <div class="modal-footer">
+            <p>Forgot <a href="">Password?</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="change_picture" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header" style="background-color: rgb(130, 160, 210);">
+            <h3>Change profile picture</h3>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body" style="padding:40px 50px;">
+            <form action="user_profile_image_upload.php" method="post" enctype="multipart/form-data">
+              <h6>Select image to upload: <label class="btn btn-primary btn-file ml-3">Browse<input type="file" name="fileToUpload" style="display: none;"></label></h6>
+              <input type="hidden" name="id" value="<?php echo $id; ?>">
+              <input type="submit" value="Upload Image" name="submit" class="btn btn-primary btn-block w-100">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="delete_picture" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header" style="background-color: rgb(130, 160, 210);">
+            <h3>Delete profile picture</h3>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body" style="padding:40px 50px;">
+            <form role="form" action="delete_profile_picture.php" method="post">
+              <div class="form-group">
+                <label>Yes I want to delete profile picture</label>
+                <input type="checkbox" name="check" required>
+              </div>
+                <input type="hidden" name="id" value="<?php echo $id; ?>">
+                <button type="submit" class="btn btn-primary btn-block w-100"><span class="glyphicon glyphicon-off"></span>Delete profile picture</button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <h6 class="float-right">*You will not be able to revert changes</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="delete_profile" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header" style="background-color: rgb(130, 160, 210);">
+            <h3>Delete profile picture</h3>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body" style="padding:40px 50px;">
+            <form class="" action="delete_profile.php" method="post" id="delete_profile">
+              <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                <input type="checkbox" class="custom-control-input" name="breakfast" id="customControlInline1">
+                <label class="custom-control-label" for="customControlInline1">Yes I'm sure I want to delete my profile</label>
+              </div>
+              <input type="hidden" name="id" value="<?php echo $id; ?>">
+              <input type="submit" name="" value="Continue" class="btn btn-block btn-primary w-100">
+            </form>
+          </div>
+          <div class="modal-footer">
+            <h6 class="float-right">*You will not be able to revert changes</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="allergens" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header" style="background-color: rgb(130, 160, 210);">
+            <h3>My allergens</h3>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body" style="padding:40px 50px;">
+            <div class="price_list">
+              <h3 style="text-align: center;">Ingredient</h3>
+              <table  class="table table-hover table-sm border border-dark">
+             <thead class="bg-light border border-light"> <tr><th>Ingredient</th><th>Delete</th></tr></thead>
+              <?php
+                $link = connectToDatabase();
+                $sql = "SELECT id, ime FROM namirnica WHERE id IN (SELECT id_namirnica FROM korisnik_namirnica WHERE id_korisnik = $id)";
+                $result = mysqli_query($link, $sql);
+                while($row = mysqli_fetch_array($result, MYSQLI_BOTH)){
+                  print("<tr>");
+                  print("<td>" . $row["ime"] . "</td>");
+                  print('<td>
+                        <form action="remove_allergen.php" method = "POST">
+                        <input type="hidden" name="id" value="' . $id . '">
+                        <input type="hidden" name="namirnica" value="' . $row["id"] . '">
+                        <input type="submit" value="Delete" class="btn btn-block btn-primary w-100"> </form></td>');
+                  print("</tr>");
+                }
+                closeDatabaseConnection($link);
+              ?>
+              </table>
             </div>
           </div>
         </div>
@@ -300,12 +295,6 @@
     </div>
 
     <!-- Optional JavaScript -->
-    <script src="popup_change_password_modal.js"></script>
-    <script src="popup_change_profile_image_modal.js"></script>
-    <script src="popup_change_profile_status_modal.js"></script>
-    <script src="popup_delete_profile_image_modal.js"></script>
-    <script src="popup_MyAllergens_modal.js"></script>
-    <script src="popup_recipe_modal.js"></script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>

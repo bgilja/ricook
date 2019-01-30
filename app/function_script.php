@@ -432,17 +432,12 @@
 
     echo ' <div class="card w-25 p-2 rounded-0 float-left" style="height: 400px;">
       <h3><a href="see_recipe.php?id=' . $id . '&recipe=' . $row_recipe['id'] .'"> ' . $row_recipe['ime'] . ' </a></h3>
-       <img class="w-100" src=" ' . getRecipeImage($row_recipe) . '" style="height: 250px;">
+       <img class="w-100" src=" ' . getRecipeImage($row_recipe) . '" style="height: 250px;"><div class="mt-1">
       <input type="button" name="submit" value="Favorite" class="btn btn-primary w-100 mt-1 card text-dark"> ';
     if (checkUserAllergens($id, $row_recipe['id']) > 0) {
-      echo ' <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>Warning!</strong> Allergen detected.
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div> ';
+      echo ' <div class="alert alert-danger show" role="alert"><strong>Warning!</strong> Allergen detected.</div> ';
     }
-    echo '</div> ';
+    echo '</div></div> ';
 
   }
 

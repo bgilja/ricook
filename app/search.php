@@ -51,8 +51,8 @@
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
         <h6 id="homepage_username"><?php echo $id ?></h6>
-        <button type="button" class="btn btn-secondary mr-1" id="add_recipe_button">Add Recipe</button>
-        <button type="button" class="btn btn-secondary" id="btn1" onclick="window.location.href='index.php'">Logout</button>
+        <button type="button" class="btn btn-success mr-1" data-toggle="modal" data-target="#add_recipe" style="width: 120px;">Add Recipe</button>
+        <button type="button" class="btn btn-secondary" onclick="window.location.href='index.php'" style="width: 120px;">Logout</button>
       </div>
     </nav>
 
@@ -75,43 +75,54 @@
       </div>
     </div>
 
-    <div class="container">
-      <div class="modal fade" id="add_recipe_modal" role="dialog">
-        <div class="modal-dialog" style="width: 70%; margin-left: 23%;">
-          <div class="modal-content" style="width: 1000px;">
-            <div class="modal-header">
-              <h3>Add recipe</h3>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body" style="padding:10px 30px;">
-              <form role="form" action="add_recipe.php" method="post" enctype="multipart/form-data">
-                <div class="form-group">
-                  <label for="exampleFormControlInput1">Recipe</label>
-                  <input type="textbox" class="form-control" id="exampleFormControlInput1" required placeholder="Dish name" name="dish_name">
-                </div>
-                <div class="form-group">
-                  <label for="exampleFormControlTextarea1">Instructions</label>
-                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="7" name="instructions" required></textarea>
-                </div>
-                <div class="form-row">
-                  <h6 class="mt-2">You will add ingredients later</h6>
-                </div>
-                <div class="form-row">
-                  <span class="form-col ml-1 mr-1"><input type="checkbox" name="breakfast" class="form-control">Breakfast</span>
-                  <span class="form-col ml-1 mr-1"><input type="checkbox" name="lunch" class="form-control">Lunch</span>
-                  <span class="form-col ml-1 mr-1"><input type="checkbox" name="dinner" class="form-control">Dinner</span>
-                  <span class="form-col ml-1 mr-1"><input type="checkbox" name="dessert" class="form-control">Dessert</span>
-                </div>
-                <div class="">
-                  <h6>Select image to upload: <input type="file" value="" name="fileToUpload" id="image_preview_file"></h6>
-                </div>
-                <datalist id="huge_list"></datalist>
-                <input type="hidden" name="id" value="<?php echo $id; ?>">
-                <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span>Add</button>
-              </form>
-            </div>
-            <div class="modal-footer">
-            </div>
+    <div class="modal fade" id="add_recipe" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header" style="background-color: rgb(130, 160, 210);">
+            <h5 class="modal-title">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form role="form" action="add_recipe.php" method="post" enctype="multipart/form-data">
+              <div class="form-group">
+                <label>Recipe</label>
+                <input type="textbox" class="form-control" required placeholder="Dish name" name="dish_name">
+              </div>
+              <div class="form-group">
+                <label>Instructions</label>
+                <textarea class="form-control" rows="7" name="instructions" required></textarea>
+              </div>
+              <div class="form-row">
+                <h6 class="mt-2">You will add ingredients later</h6>
+              </div>
+              <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                <input type="checkbox" class="custom-control-input" name="breakfast" id="customControlInline1">
+                <label class="custom-control-label" for="customControlInline1">Breakfast</label>
+              </div>
+              <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                <input type="checkbox" class="custom-control-input" name="lunch" id="customControlInline2">
+                <label class="custom-control-label" for="customControlInline2">Lunch</label>
+              </div>
+              <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                <input type="checkbox" class="custom-control-input" name="dinner" id="customControlInline3">
+                <label class="custom-control-label" for="customControlInline3">Dinner</label>
+              </div>
+              <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                <input type="checkbox" class="custom-control-input" name="dessert" id="customControlInline4">
+                <label class="custom-control-label" for="customControlInline4">Dessert</label>
+              </div>
+              <div class="">
+                <h6>Select image to upload: <label class="btn btn-primary btn-file ml-3">Browse<input type="file" name="fileToUpload" style="display: none;"></label></h6>
+              </div>
+              <datalist id="huge_list"></datalist>
+              <input type="hidden" name="id" value="<?php echo $id; ?>">
+              <button type="submit" class="btn btn-block btn-primary"><span class="glyphicon glyphicon-off"></span>Continue</button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <h6 class="float-right">*You will add ingredients later</h6>
           </div>
         </div>
       </div>
