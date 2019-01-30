@@ -137,17 +137,36 @@
             </div>
           </div>
           <div class="panel panel-default">
-            <?php
-              $comments = "SELECT * FROM komentar WHERE id_recept = $recipe";
-              $result = mysqli_query($conn, $comments);
-              while ($row2 = $result->fetch_assoc()) {
-                $sql = "SELECT user_name FROM korisnik WHERE id = ". $row2['id_kreator'];
-                $result2 = mysqli_query($conn, $sql);
-                $row3 = $result2->fetch_assoc();
-                echo "<p>" . $row3['user_name'] . " - " . $row2['tekst'] . "</p>";
-              }
-              closeDatabaseConnection($conn);
-            ?>
+            <table class="table table-hover" style="background-color: white">
+              <thead>
+                <tr>
+                  <th scope="col">Comments</th>
+                 
+                </tr>
+              </thead>
+              <tbody>
+                <col width="750">
+                <col width="80">  
+                    <?php
+                      $comments = "SELECT * FROM komentar WHERE id_recept = $recipe";
+                      $result = mysqli_query($conn, $comments);
+                      while ($row2 = $result->fetch_assoc()) {
+                        $sql = "SELECT user_name FROM korisnik WHERE id = ". $row2['id_kreator'];
+                        $result2 = mysqli_query($conn, $sql);
+                        $row3 = $result2->fetch_assoc();
+                        echo "
+                        <tr>
+                          <td>
+                            <p>" . $row3['user_name'] . " - " . $row2['tekst'] . "</p>
+                          </td>
+                        </tr>
+                        ";
+                      }
+                      closeDatabaseConnection($conn);
+                    ?>
+
+              </tbody>
+            </table>
           <div class="panel-heading">Submit Your Comments</div>
             <div class="panel-body">
             	<form method="post" action="add_comment.php">
