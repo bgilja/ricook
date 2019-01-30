@@ -247,7 +247,7 @@
    function printRecipeCardOnMainpage($id, $map) {
     $row = getUserPersonalInfo($map['id_kreator']);
     echo ' <div class="card w-100 p-1 mt-1 mb-1 float-left"> ';
-    if (checkUserAllergens($id, $map['id']) > 0) {
+    if (checkUserAllergens($id, $map['id']) > 0 && $id != 0) {
       echo ' <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <strong>Warning!</strong> Allergen detected. You should be careful with this recipe.
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
