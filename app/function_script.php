@@ -439,9 +439,19 @@
     echo ' <div class="card w-25 p-2 rounded-0 float-left" style="height: 400px;">
       <h3><a href="see_recipe.php?id=' . $id . '&recipe=' . $row_recipe['id'] .'"> ' . $row_recipe['ime'] . ' </a></h3>
        <img class="w-100" src=" ' . getRecipeImage($row_recipe) . '" style="height: 250px;"><div class="mt-1"> ';
-    if ($id != 0) {
-      echo '<input type="button" name="submit" value="Favorite" class="btn btn-primary w-100 mt-1 card text-dark"> ';
-    }
+       if (!isFavoredby($id,  $row_recipe['id']) && $id != 0) {
+        echo ' <form class="" action="add_to_favourites.php" method="post">
+          <input type="hidden" name="id" value="'. $id .'">
+          <input type="hidden" name="recipe" value="'.  $row_recipe['id'] .'">
+          <input type="submit" class="btn btn-primary w-100 mt-1 card text-dark" value="Favor">
+        </form> ';
+      } else if ($id != 0) {
+        echo ' <form class="" action="remove_from_favourites.php" method="post">
+          <input type="hidden" name="id" value="'. $id .'">
+          <input type="hidden" name="recipe" value="'.  $row_recipe['id'] .'">
+          <input type="submit" class="btn btn-primary w-100 mt-1 card text-dark" value="Unfavor">
+        </form> ';
+      }
     if (checkUserAllergens($id, $row_recipe['id']) > 0 && $id != 0) {
       echo ' <div class="alert alert-danger show" role="alert"><strong>Warning!</strong> Allergen detected.</div> ';
     }
