@@ -25,6 +25,7 @@
       $row = getUserPersonalInfo($id, $conn);
       closeDatabaseConnection($conn);
       session_start();
+      if ($id == 0) $_SESSION['user_id'] = 0;
       if ( isset( $_SESSION['user_id'] ) ) {
       } else {
           header("Location: index.php");
