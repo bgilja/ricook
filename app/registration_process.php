@@ -14,7 +14,7 @@
   }
 
   $conn = connectToDatabase();
-  $sql = "SELECT COUNT(*) AS brojac FROM korisnik WHERE user_name = $user_name OR email = '".$email."'";
+  $sql = "SELECT COUNT(*) AS brojac FROM korisnik WHERE user_name LIKE $user_name OR email LIKE '".$email."'";
   $row = returnSQLResult($sql);
 
   if ($row['brojac'] > 0) {
