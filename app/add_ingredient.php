@@ -73,7 +73,7 @@
                 <form action="izbrisi_namirnicu.php" method = "POST">
                 <input type="hidden" name="id" value="' . $id . '">
                 <input type="hidden" name="id_namirnica" value="' . $row["id"] . '">
-                <input type="submit" value="Remove" class="btn btn-block btn-primary w-100"> </form></td>');
+                <input type="submit" value="Remove" class="btn btn-block btn-primary w-100"></form></td>');
           print("</tr>");
         }
         closeDatabaseConnection($link);

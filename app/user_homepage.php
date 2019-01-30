@@ -74,6 +74,13 @@
           <a class="nav-item nav-link border border-dark rounded-0 text-white <?php if ($state == 0) echo "active"; ?>" href="user_homepage.php?id=<?php echo $id; ?>&state=0">Latest</a>
           <a class="nav-item nav-link border border-dark rounded-0 text-white <?php if ($state == 1) echo "active"; ?>" href="user_homepage.php?id=<?php echo $id; ?>&state=1">Popular</a>
           <a class="nav-item nav-link border border-dark rounded-0 text-white <?php if ($state == 2) echo "active"; ?>" href="user_homepage.php?id=<?php echo $id; ?>&state=2">Top rated</a>
+          <?php
+          if ($id != 0) {
+            echo ' <a class="nav-item nav-link border border-dark rounded-0 text-white ';
+            if ($state == 3) echo 'active';
+            echo '" href="user_homepage.php?id=<?php echo $id; ?>&state=2">Favored</a> ';
+          }
+          ?>
         </nav>
       </div>
       <div class="tab-content w-75" id="nav-tabContent" style="margin-left: 12%;">

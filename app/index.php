@@ -12,6 +12,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.12.0/validate.min.js"></script>
 
     <title>Hello, chef!</title>
   </head>
@@ -65,7 +66,7 @@
         <div class="card-header" align="center"><h4>Registration form</h4></div>
          <div class="card-body">
           <span>
-            <form class="registerForm" action="registration_process.php" method="post">
+            <form class="registerForm" action="registration_process.php" method="post" data-toggle="validator">
               <div class="form-group col-md-6">
                 <label for="inputOib4">Username</label>
                 <input type="text" class="form-control" placeholder="JohnCollins1" name="username" required>
@@ -80,15 +81,15 @@
               </div>
               <div class="form-group col-md-6">
                 <label>Email</label>
-                <input type="text" class="form-control" placeholder="johncollins@example.com" name="email" required>
+                <input type="email" class="form-control" placeholder="johncollins@example.com" name="email" required>
               </div>
               <div class="form-group col-md-6">
                 <label for="inputPassword4">Password</label>
-                <input type="password" class="form-control" placeholder="Password" name="pass1" required>
+                <input type="password" name="pass1" data-minlength="8" class="form-control" id="inputPassword" placeholder="Password" required>
               </div>
               <div class="form-group col-md-6">
                 <label for="inputPassword4">Repeat password</label>
-                <input type="password" class="form-control" placeholder="Password" name="pass2" required>
+                <input type="password" class="form-control" placeholder="Password" name="pass2" id="inputPasswordConfirm" data-match="#inputPassword" data-match-error="Whoops, these don't match" required>
               </div>
               <div class="form-group col-md-6">
                 <label for="inputYear">Year of birth</label>
