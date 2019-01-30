@@ -64,9 +64,39 @@
 
     <div class="events">
       <h3>Events</h3>
-      <span><img src="src/home.jpg"></span>
-      <span><img src="src/home.jpg"></span>
-      <span><img src="src/home.jpg"></span>
+      <span>
+        <a href="https://www.thechocolateshow.co.uk/?ref=organicgglunkwn&prid=pfseogglunkwn">
+          <div class="card" style="width: 18rem;">
+            <img src="https://i.ytimg.com/vi/qkmbpYe4E70/maxresdefault.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Chocolate Show New York</h5>
+              <p class="card-text">Every November, people gather to see the unique ways chocolate is used in this festival.</p>
+              </a>
+            </div>
+          </div>
+      </span>
+      <span>
+        <a href="https://pizzafestival.ca/">
+          <div class="card" style="width: 18rem;">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOItDXaqo4_wGvvBPA_5dU1zURh-rN-IH0g9V8fO7pP3uSudZy" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Pizza festival Toronto</h5>
+              <p class="card-text">Toronto’s top pizza joints and Italian restaurants come together for Toronto’s first ever PIZZA FEST</p>
+              </a>
+            </div>
+          </div>
+      </span>
+      <span>
+        <a href="http://www.fieryfoodsshow.com/">
+          <div class="card" style="width: 18rem;">
+            <img src="https://dailyhealthremedies.com/wp-content/uploads/2015/04/spicy-foods-and-takeaway.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">National Fiery Foods - New Mexico</h5>
+              <p class="card-text">There's no better place to satisfy your craving for flavor and fire.</p>
+              </a>
+            </div>
+          </div>
+      </span>
     </div>
 
     <div class="jumbotron" id="index_footer">
