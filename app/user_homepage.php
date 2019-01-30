@@ -86,7 +86,7 @@
           if ($id != 0) {
             echo ' <a class="nav-item nav-link border border-dark rounded-0 text-white ';
             if ($state == 3) echo 'active';
-            echo '" href="user_homepage.php?id='. $id .'&state=2">Favored</a> ';
+            echo '" href="user_homepage.php?id='. $id .'&state=3">Favored</a> ';
           }
           ?>
         </nav>

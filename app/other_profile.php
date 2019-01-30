@@ -79,12 +79,23 @@
         <div class="col-4 p-1" style="background-color: grey">
           <div class="user_information_block">
             <div class="user_block" id="user_block1">
-              <img class="rounded float-left mw-75 mh-75" src="<?php echo getImage($row) ?>" id="avatar">
-              <div class="profile_buttons">
+              <img class="rounded float-left mw-75 mh-75 mr-2" src="<?php echo getImage($row) ?>" id="avatar">
+              <div class="profile_buttons ml-2 mt-2 float-left" style="width: 200px;">
                 <?php
                 if ($id != 0) {
-                  echo '  <button type="button" class="btn btn-primary" id="" onclick="">Follow</button>
-                          <button type="button" class="btn btn-danger" id="" onclick="">Report</button> ';
+                  if (isFollowing($id, $user)) {
+                    echo '<form method="post" action="stop_following.php">
+                            <input type="hidden" name="id" value="'. $id .'"></input>
+                            <input type="hidden" name="user" value="'. $user .'"></input>
+                            <input type="submit" class="btn btn-primary btn-block w-100" name="submit" value="Unfollow"></input>
+                          </form> ';
+                  } else {
+                    echo '<form method="post" action="start_following.php">
+                            <input type="hidden" name="id" value="'. $id .'"></input>
+                            <input type="hidden" name="user" value="'. $user .'"></input>
+                            <input type="submit" class="btn btn-primary btn-block w-100" name="submit" value="Follow"></input>
+                          </form> ';
+                  }
                 }
                 ?>
               </div>

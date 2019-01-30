@@ -8,5 +8,5 @@
   $result = mysqli_query($conn, $sql);
   closeDatabaseConnection($conn);
 
-  header('Location: see_recipe.php?id=' . $id . '&recipe=' . $recipe);
+  header('Location: user_homepage.php?id=' . $id . '&recipe=' . $recipe);
 ?>
