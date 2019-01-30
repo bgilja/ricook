@@ -13,8 +13,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <title>Hello, world!</title>
+    <title>Hello, chef!</title>
   </head>
+
   <body>
     <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
       <a class="navbar-brand" href="#">LOGO</a>
@@ -34,21 +35,19 @@
       </div>
       <div class="nav1_button">
         <button type="button" class="btn btn-secondary" id="login_button">Login</button>
-        <button type="button" class="btn btn-secondary" id="register_button" onclick="window.location.href='register.php'">Register</button>
-      </div>
       </div>
     </nav>
-
-    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+   
+    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" style="border-style: solid; border-radius: 5px; border-color: grey;">
       <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="src/home_slide1.jpg" class="d-block w-100" alt="...">
+        <div class="carousel-item w-100 h-50 active">
+          <img src="src/home_slide1.jpg" class="d-block w-100 ">
         </div>
         <div class="carousel-item">
-          <img src="src/home_slide2.jpg" class="d-block w-100" alt="...">
+          <img src="src/home_slide2.jpg" class="d-block w-100">
         </div>
         <div class="carousel-item">
-          <img src="src/home_slide3.jpg" class="d-block w-100" alt="...">
+          <img src="src/home_slide3.jpg" class="d-block w-100">
         </div>
       </div>
       <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -61,9 +60,49 @@
       </a>
     </div>
 
+    <div class="dario_reg" id="regFormDiv">
+      <div class="card bg-light mb-3" style="width: 100%; height: 125%;">
+        <div class="card-header" align="center"><h4>Registration form</h4></div>
+         <div class="card-body">
+          <span>
+            <form class="registerForm" action="registration_process.php" method="post">
+              <div class="form-group col-md-6">
+                <label for="inputOib4">Username</label>
+                <input type="text" class="form-control" placeholder="JohnCollins1" name="username" required>
+              </div>
+              <div class="form-group col-md-6">
+                <label>First name</label>
+                <input type="text" class="form-control" placeholder="John" name="first_name" required>
+              </div>
+              <div class="form-group col-md-6">
+                <label>Last name</label>
+                <input type="text" class="form-control" placeholder="Collins" name="last_name" required>
+              </div>
+              <div class="form-group col-md-6">
+                <label>Email</label>
+                <input type="text" class="form-control" placeholder="johncollins@example.com" name="email" required>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputPassword4">Password</label>
+                <input type="password" class="form-control" placeholder="Password" name="pass1" required>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputPassword4">Repeat password</label>
+                <input type="password" class="form-control" placeholder="Password" name="pass2" required>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputYear">Year of birth</label>
+                <input type="number" class="form-control" placeholder="1974" name="year" required>
+              </div>
+              <input type="submit" class="btn btn-primary" value="Register">
+            </form>
+          </span>
+          </div>
+        </div>
+      </div>
 
     <div class="events">
-      <h3>Events</h3>
+      <h1 align="center" style="margin-bottom:  50px; margin-top: -100px">Events</h1>
       <span>
         <a href="https://www.thechocolateshow.co.uk/?ref=organicgglunkwn&prid=pfseogglunkwn">
           <div class="card" style="width: 18rem;">
@@ -71,9 +110,9 @@
             <div class="card-body">
               <h5 class="card-title">Chocolate Show New York</h5>
               <p class="card-text">Every November, people gather to see the unique ways chocolate is used in this festival.</p>
-              </a>
+              </div>
             </div>
-          </div>
+        </a>
       </span>
       <span>
         <a href="https://pizzafestival.ca/">
@@ -82,9 +121,9 @@
             <div class="card-body">
               <h5 class="card-title">Pizza festival Toronto</h5>
               <p class="card-text">Toronto’s top pizza joints and Italian restaurants come together for Toronto’s first ever PIZZA FEST</p>
-              </a>
             </div>
           </div>
+        </a>
       </span>
       <span>
         <a href="http://www.fieryfoodsshow.com/">
@@ -92,12 +131,12 @@
             <img src="https://dailyhealthremedies.com/wp-content/uploads/2015/04/spicy-foods-and-takeaway.jpg" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">National Fiery Foods - New Mexico</h5>
-              <p class="card-text">There's no better place to satisfy your craving for flavor and fire.</p>
-              </a>
+              <p class="card-text">There's no better place to satisfy your craving for flavor and fire.</p>  
             </div>
           </div>
+        </a>
       </span>
-    </div>
+  </div>
 
     <div class="jumbotron" id="index_footer">
       <hr class="my-4">
@@ -107,40 +146,6 @@
         Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
         Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
     </div>
-
-    <div class="container">
-      <div class="modal fade" id="login_modal" role="dialog">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h3>Login</h3>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body" style="padding:40px 50px;">
-              <form role="form" action="login_process.php" method="post">
-                <div class="form-group">
-                  <label for="usrname">Username</label>
-                  <input type="text" class="form-control" id="usrname" placeholder="Enter username" name="login_username">
-                </div>
-                <div class="form-group">
-                  <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
-                  <input type="text" class="form-control" id="psw" placeholder="Enter password" name="login_password">
-                </div>
-                <div class="checkbox">
-                  <label><input type="checkbox" value="" checked> Remember me</label>
-                </div>
-                  <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span>Login</button>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <p>Forgot <a href="">Password?</a></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Optional JavaScript -->
-    <script src="popup_modal.js"></script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
