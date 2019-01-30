@@ -147,13 +147,16 @@
                        $row3 = getUserPersonalInfo($row['id_kreator']);
                        echo ' <tr>
                          <td>
-                           <img class="rounded border float-left h-100" src="' . getImage($row3) . '" style="width: 60px;">
+                           <img class="rounded border float-left" src="' . getImage($row3) . '" style="width: 100%; height: 80px;">
                          </td>
                          <td style="width: 100px;">
                            <p>' . $row3['user_name'] . '</p>
                          </td>
                          <td>
                            <p>' . $row2['tekst'] . '</p>
+                         </td>
+                         <td style="width: 130px;"">
+                           <p>' . $row2['vrijeme'] . '</p>
                          </td>
                        </tr>';
                      }

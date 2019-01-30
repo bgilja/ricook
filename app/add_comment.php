@@ -8,7 +8,7 @@
 
   $conn = connectToDatabase();
 
-  $sql = "INSERT INTO komentar (id_kreator, tekst, vrijeme, id_recept) VALUES ($id, '$komentar', $time, $recept)";
+  $sql = "INSERT INTO komentar (id_kreator, tekst, vrijeme, id_recept) VALUES ($id, '$komentar', now(), $recept)";
   $result = mysqli_query($conn, $sql);
   closeDatabaseConnection($conn);
   header("location: see_recipe.php?id=" .$id . "&recipe=". $recept);
