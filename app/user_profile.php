@@ -70,7 +70,7 @@
         <div class="col-4 p-1 pl-4 pr-3" style="background-color: grey">
           <div class="user_information_block">
             <div class="user_block" id="user_block1">
-              <img class="rounded float-left mw-75 mh-75" src="<?php echo getImage($row) ?>" id="avatar">
+              <img class="rounded float-left mw-75 h-80" src="<?php echo getImage($row) ?>" id="avatar">
               <div class="profile_buttons">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#change_pass">Change password</button>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#change_picture">Change picture</button>

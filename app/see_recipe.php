@@ -33,7 +33,7 @@
     ?>
 
     <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">LOGO</a>
+       <a class="navbar-brand" href="index.php"><img style="width: 110px;" src="src/logo.png"></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -81,20 +81,20 @@
           <div class="col-4 p-1 pl-4 pr-3 h-100" style="background-color: grey;">
           <div class="user_information_block">
             <div class="user_block" id="user_block1">
-              <img class="rounded border float-left mw-75 mh-75" src=" <?php echo getRecipeImage($row); ?>">
-              <div class="profile_buttons">
+              <img class="rounded border float-left mw-75 h-75" style="margin-top: 35px;" src=" <?php echo getRecipeImage($row); ?>">
+              <div class="profile_buttons" >
                 <?php
                  if (!isFavoredby($id, $recipe) && $id != 0) {
                   echo ' <form class="" action="add_to_favourites.php" method="post">
                     <input type="hidden" name="id" value="'. $id .'">
                     <input type="hidden" name="recipe" value="'. $recipe .'">
-                    <input type="submit" class="btn btn-primary w-25 ml-1" value="Favor">
+                    <input type="submit" class="btn btn-primary w-25 ml-1" style="margin-top: 100px;" value="Favor">
                   </form> ';
                 } else if ($id != 0) {
                   echo ' <form class="" action="remove_from_favourites.php" method="post">
                     <input type="hidden" name="id" value="'. $id .'">
                     <input type="hidden" name="recipe" value="'. $recipe .'">
-                    <input type="submit" class="btn btn-primary w-25 ml-1" value="Unfavor">
+                    <input type="submit" class="btn btn-primary w-25 ml-1" style="margin-top: 100px;" value="Unfavor">
                   </form> ';
                 }
                 if (isCreator($id, $recipe)) {
@@ -148,7 +148,7 @@
         <div class="col-8 float-left">
           <div class="mt-2">
             <div class="jumbotron" id="user_jumbotron">
-              <h1 class="display-4">Instructions</h1>
+              <h1 class="display-4">Upute</h1>
               <p class="lead">
                 <?php echo $row['upute']; ?>
               </p>
