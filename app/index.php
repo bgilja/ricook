@@ -142,10 +142,7 @@
     <div class="jumbotron" id="index_footer">
       <hr class="my-4">
       <h1 class="display-4">About us</h1>
-      <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      <p class="lead">Simple ingredients prepared in a simple way - that's the best way to take your everyday cooking to a higher level.</p>
     </div>
 
     <div class="modal fade" id="login" tabindex="-1" aria-hidden="true">
@@ -165,7 +162,7 @@
               </div>
               <div class="form-group">
                 <label>Password</label>
-                <input type="textbox" class="form-control" required placeholder="Password" name="pass">
+                <input type="password" class="form-control" required placeholder="Password" name="pass">
               </div>
               <button type="submit" class="btn btn-block btn-primary">Continue</button>
             </form>
