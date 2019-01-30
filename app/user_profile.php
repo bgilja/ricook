@@ -22,6 +22,11 @@
       $conn = connectToDatabase();
       $row = getUserPersonalInfo($id, $conn);
       closeDatabaseConnection($conn);
+      session_start();
+      if ( isset( $_SESSION['user_id'] ) ) {
+      } else {
+          header("Location: index.php");
+      }
     ?>
 
     <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
@@ -54,7 +59,9 @@
         </form>
         <h6 id="homepage_username"><?php echo $id ?></h6>
         <button type="button" class="btn btn-success mr-1" data-toggle="modal" data-target="#add_recipe" style="width: 120px;">Add Recipe</button>
-        <button type="button" class="btn btn-secondary" onclick="window.location.href='index.php'" style="width: 120px;">Logout</button>
+        <form method = "post" action="logout.php">
+        <input type="submit" class="btn btn-secondary" name="logout" style="width: 120px;" value = "Logout"></input>
+        </form>
       </div>
     </nav>
 

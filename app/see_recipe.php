@@ -24,6 +24,12 @@
       incrementViewsCount($recipe, $conn);
       $row = getRecipeInfo($recipe);
       $user_info = getUserPersonalInfo($row['id_kreator']);
+
+      session_start();
+      if ( isset( $_SESSION['user_id'] ) ) {
+      } else {
+          header("Location: index.php");
+      }
     ?>
 
     <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
@@ -62,7 +68,9 @@
           if ($id != 0) {
             echo '  <h6 id="homepage_username">'.$user_info['user_name'].'</h6>
                     <button type="button" class="btn btn-success mr-1" data-toggle="modal" data-target="#add_recipe" style="width: 120px;">Add Recipe</button>
-                    <a type="button" class="btn btn-secondary" href="index.php" style="width: 120px;">Logout</a> ';
+                    <form method = "post" action="logout.php">
+                    <input type="submit" class="btn btn-secondary" name="logout" style="width: 120px;" value = "Logout"></input>
+                    </form> ';
           }
         ?>
       </div>
