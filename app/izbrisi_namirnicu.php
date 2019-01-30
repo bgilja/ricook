@@ -1,5 +1,5 @@
 <?php
-  include 'function_script.php'
+  include 'function_script.php';
   $id = $_POST['id'];
   $namirnica = $_POST['id_namirnica'];
   deleteIngredient($namirnica);
