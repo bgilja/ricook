@@ -261,7 +261,7 @@
             </div>
             <div>
               <img class="slika2 w-25 card p-1" src=" ' . getRecipeImage($map) . ' ">
-              <div class="jumbotron" style="width: 70%; height: 290px; margin-left: 300px; margin-top:-300px; background-color: white;">
+              <div class="jumbotron" style="width: 65%; height: 290px; margin-left: 400px; margin-top:-300px; background-color: white;">
                 <h3 class="display-4">
                 <a class="" href="see_recipe.php?id=' . $id . '&recipe=' . $map['id'] .'">' . $map['ime'] . '</a>
                 by
