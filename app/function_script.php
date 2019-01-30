@@ -246,7 +246,6 @@
 
    function printRecipeCardOnMainpage($id, $map) {
     $row = getUserPersonalInfo($map['id_kreator']);
-    $margin_top = 220;
     echo ' <div class="card w-100 p-1 mt-1 mb-1 float-left"> ';
     if (checkUserAllergens($id, $map['id']) > 0) {
       echo ' <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -255,16 +254,15 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div> ';
-      $margin_top = 280;
     }
     echo     '<div class="w-100">
                <a class="" href="see_recipe.php?id=' . $id . '&recipe=' . $map['id'] .'"><h3> ' . $map['ime'] . '</a> by <a href="other_profile.php?id=' . $id . '&user=' . $row['id'] . '">' . $row['user_name'] . ' </a></h3>
             </div>
             <div>
-              <a href="see_recipe.php?id=' . $id . '&recipe=' . $map['id'] .'"><img class="slika2 w-25 card p-1" src=" ' . getRecipeImage($map) . ' "></a>
-              <div class="d-inline-flex w-100 h-100 p-1" style="margin-left: 400px; margin-top:-'. $margin_top .'px;">
-               <p>Im an inline flexbox container!da da da dd a da da d a da da d a da  da da  da da  da  ad  da da </p>
-              </div>
+              <img class="slika2 w-25 card p-1" src=" ' . getRecipeImage($map) . ' ">
+              <span class="d-inline-flex p-1" style="width: 70%; height: 300px; margin-left: 400px; margin-top:-300px;">
+               <p class="">' . $map['upute'] . '</p>
+              </span>
             </div>
           </div> ';
   }

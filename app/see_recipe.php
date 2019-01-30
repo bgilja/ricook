@@ -138,35 +138,33 @@
           </div>
           <div class="panel panel-default">
             <table class="table table-hover" style="background-color: white">
-              <thead>
-                <tr>
-                  <th scope="col">Comments</th>
-                 
-                </tr>
-              </thead>
-              <tbody>
-                <col width="750">
-                <col width="80">  
-                    <?php
-                      $comments = "SELECT * FROM komentar WHERE id_recept = $recipe";
-                      $result = mysqli_query($conn, $comments);
-                      while ($row2 = $result->fetch_assoc()) {
-                        $sql = "SELECT user_name FROM korisnik WHERE id = ". $row2['id_kreator'];
-                        $result2 = mysqli_query($conn, $sql);
-                        $row3 = $result2->fetch_assoc();
-                        echo "
-                        <tr>
-                          <td>
-                            <p>" . $row3['user_name'] . " - " . $row2['tekst'] . "</p>
-                          </td>
-                        </tr>
-                        ";
-                      }
-                      closeDatabaseConnection($conn);
-                    ?>
+             <thead><tr><th scope="row">Comments</th><th></th><th></th></tr></thead>
+             <tbody>
+               <col width="40">
+               <col width="80">
+               <col width="750">
+                   <?php
+                     $comments = "SELECT * FROM komentar WHERE id_recept = $recipe";
+                     $result = mysqli_query($conn, $comments);
+                     while ($row2 = $result->fetch_assoc()) {
+                       $row3 = getUserPersonalInfo($row['id_kreator']);
+                       echo ' <tr>
+                         <td>
+                           <img class="rounded border float-left h-100" src="' . getImage($row3) . '" style="width: 60px;">
+                         </td>
+                         <td style="width: 100px;">
+                           <p>' . $row3['user_name'] . '</p>
+                         </td>
+                         <td>
+                           <p>' . $row2['tekst'] . '</p>
+                         </td>
+                       </tr>';
+                     }
+                     closeDatabaseConnection($conn);
+                   ?>
 
-              </tbody>
-            </table>
+             </tbody>
+           </table>
           <div class="panel-heading">Submit Your Comments</div>
             <div class="panel-body">
             	<form method="post" action="add_comment.php">
@@ -215,7 +213,6 @@
     </div>
 
     <!-- Optional JavaScript -->
-    <script src="popup_delete_profile_image_modal.js"></script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
