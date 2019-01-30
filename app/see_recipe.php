@@ -22,8 +22,8 @@
       $recipe = $_GET['recipe'];
       $conn = connectToDatabase();
       incrementViewsCount($recipe, $conn);
-      $row = getRecipeInfo($recipe, $conn);
-      $user_info = getUserPersonalInfo($id);
+      $row = getRecipeInfo($recipe);
+      $user_info = getUserPersonalInfo($row['id_kreator']);
     ?>
 
     <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
@@ -36,17 +36,21 @@
           <li class="nav-item">
             <a class="nav-link" href="user_homepage.php?id=<?php echo $id; ?>">Home</a>
           </li>
-          <li class="nav-item">
-          	<a class="nav-link" href="user_friends.php?id=<?php echo $id; ?>">My Friends</a>
-          </li>
-          <li class="nav-item">
-          	<a class="nav-link" href="user_profile.php?id=<?php echo $id; ?>">Profile</a>
-          </li>
+          <?php
+            if ($id != 0) {
+              echo '  <li class="nav-item">
+                        <a class="nav-link" href="user_friends.php?id='.$id.'">My Friends</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="user_profile.php?id=' .$id . '">Profile</a>
+                      </li>';
+            }
+          ?>
           <?php
           if ($id == 1) {
-            echo '<li class="nav-item">
-                    <a class="nav-link" href="add_ingredient.php?id=' .$id . '">Add ingredient</a>
-                  </li>';
+            echo '  <li class="nav-item">
+                      <a class="nav-link" href="add_ingredient.php?id=' .$id . '">Add ingredient</a>
+                    </li>' ;
           }
           ?>
         </ul>
@@ -54,9 +58,13 @@
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="string" required>
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
-        <h6 id="homepage_username"><?php echo $id ?></h6>
-        <button type="button" class="btn btn-success mr-1" data-toggle="modal" data-target="#add_recipe" style="width: 120px;">Add Recipe</button>
-        <button type="button" class="btn btn-secondary" onclick="window.location.href='index.php'" style="width: 120px;">Logout</button>
+        <?php
+          if ($id != 0) {
+            echo '  <h6 id="homepage_username">'.$user_info['user_name'].'</h6>
+                    <button type="button" class="btn btn-success mr-1" data-toggle="modal" data-target="#add_recipe" style="width: 120px;">Add Recipe</button>
+                    <a type="button" class="btn btn-secondary" href="index.php" style="width: 120px;">Logout</a> ';
+          }
+        ?>
       </div>
     </nav>
 
@@ -65,16 +73,16 @@
           <div class="col-4 p-1 pl-4 pr-3 h-100" style="background-color: grey;">
           <div class="user_information_block">
             <div class="user_block" id="user_block1">
-              <img class="rounded border float-left mw-75 mh-75" src=" <?php echo getRecipeImage(getRecipeInfo($recipe)); ?>">
+              <img class="rounded border float-left mw-75 mh-75" src=" <?php echo getRecipeImage($row); ?>">
               <div class="profile_buttons">
                 <?php
-                 if (!isFavoredby($id, $recipe)) {
+                 if (!isFavoredby($id, $recipe) && $id != 0) {
                   echo ' <form class="" action="add_to_favourites.php" method="post">
                     <input type="hidden" name="id" value="'. $id .'">
                     <input type="hidden" name="recipe" value="'. $recipe .'">
                     <input type="submit" class="btn btn-primary w-25 ml-1" value="Favor">
                   </form> ';
-                } else {
+                } else if ($id != 0) {
                   echo ' <form class="" action="remove_from_favourites.php" method="post">
                     <input type="hidden" name="id" value="'. $id .'">
                     <input type="hidden" name="recipe" value="'. $recipe .'">
@@ -84,8 +92,10 @@
                 if (isCreator($id, $recipe)) {
                   echo ' <button type="button" class="btn btn-danger mt-1 w-25" data-toggle="modal" data-target="#delete_recipe">Delete recipe</button> ';
                 }
+                if ($id != 0) {
+                  echo ' <button type="button" class="btn btn-info mt-1 w-25" data-toggle="modal" data-target="#give_rating">Give rating</button> ';
+                }
                 ?>
-                <button type="button" class="btn btn-info mt-1 w-25" data-toggle="modal" data-target="#give_rating">Give rating</button>
               </div>
             </div>
             <div class="user_block">
@@ -95,7 +105,11 @@
                   <li class="list-group-item">Rated by: <span class="info_text"><?php echo getRecipeRatingCount($recipe); ?></span></li>
                   <li class="list-group-item">Rating: <span class="info_text"><?php echo getRecipeRatingValue($recipe); ?></span></li>
                   <li class="list-group-item">Favored by: <span class="info_text"><?php echo countFavorites($recipe); ?></span></li>
-                  <li class="list-group-item">Your rating: <span class="info_text"><?php echo getUserRatingForRecipe($id, $recipe); ?></span></li> <!--treba novi entitet za spremanje rejtinga-->
+                  <?php
+                    if ($id != 0) {
+                      echo ' <li class="list-group-item">Your rating: <span class="info_text">'. getUserRatingForRecipe($id, $recipe) .'</span></li> ';
+                    }
+                  ?>
                 </ul>
             </div>
             <div class="table" style="height: 500px;">
@@ -165,17 +179,21 @@
 
              </tbody>
            </table>
-          <div class="panel-heading">Submit Your Comments</div>
-            <div class="panel-body">
-            	<form method="post" action="add_comment.php">
-          	  <div class="form-group">
-          	    <textarea name="comment" class="form-control" rows="3"></textarea>
-          	  </div>
-              <input type="hidden" name="id" value= "<?php echo $id; ?>">
-              <input type="hidden" name="recipe" value="<?php echo $recipe; ?>">
-          	  <button type="submit" class="btn btn-primary">Submit</button>
-          	</form>
-            </div>
+          <?php
+            if ($id != 0) {
+              echo ' <div class="panel-heading">Submit Your Comments</div>
+                      <div class="panel-body">
+                        <form method="post" action="add_comment.php">
+                        	<div class="form-group">
+                        	  <textarea name="comment" class="form-control" rows="3"></textarea>
+                        	</div>
+                          <input type="hidden" name="id" value= "'. $id .'">
+                          <input type="hidden" name="recipe" value="'. $recipe .'">
+                        	<button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                      </div> ';
+            }
+          ?>
           </div>
         </div>
       </div>

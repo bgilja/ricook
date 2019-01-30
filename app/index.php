@@ -25,19 +25,19 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Explore<span class="sr-only"></span></a>
+            <a class="nav-link" href="user_homepage.php?id=0">Explore<span class="sr-only"></span></a>
           </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0" id="search">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <form class="form-inline my-2 my-lg-0" action="search.php?id=0" method="post" id="search">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="string">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
       </div>
       <div class="nav1_button">
-        <button type="button" class="btn btn-secondary" id="login_button">Login</button>
+        <button type="button" class="btn btn-secondary mr-1" data-toggle="modal" data-target="#login" style="width: 120px;">Login</button>
       </div>
     </nav>
-   
+
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" style="border-style: solid; border-radius: 5px; border-color: grey;">
       <div class="carousel-inner">
         <div class="carousel-item w-100 h-50 active">
@@ -97,11 +97,11 @@
               <input type="submit" class="btn btn-primary" value="Register">
             </form>
           </span>
-          </div>
         </div>
       </div>
+    </div>
 
-    <div class="events">
+    <div class="events mb-5">
       <h1 align="center" style="margin-bottom:  50px; margin-top: -100px">Events</h1>
       <span>
         <a href="https://www.thechocolateshow.co.uk/?ref=organicgglunkwn&prid=pfseogglunkwn">
@@ -131,7 +131,7 @@
             <img src="https://dailyhealthremedies.com/wp-content/uploads/2015/04/spicy-foods-and-takeaway.jpg" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">National Fiery Foods - New Mexico</h5>
-              <p class="card-text">There's no better place to satisfy your craving for flavor and fire.</p>  
+              <p class="card-text">There's no better place to satisfy your craving for flavor and fire.</p>
             </div>
           </div>
         </a>
@@ -145,6 +145,35 @@
         Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
         Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
         Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </div>
+
+    <div class="modal fade" id="login" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header" style="background-color: rgb(130, 160, 210);">
+            <h5 class="modal-title">Login</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form role="form" action="login_process.php" method="post" enctype="multipart/form-data">
+              <div class="form-group">
+                <label>Username</label>
+                <input type="textbox" class="form-control" required placeholder="Username" name="username">
+              </div>
+              <div class="form-group">
+                <label>Password</label>
+                <input type="textbox" class="form-control" required placeholder="Password" name="pass">
+              </div>
+              <button type="submit" class="btn btn-block btn-primary">Continue</button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <h6 class="float-right"></h6>
+          </div>
+        </div>
+      </div>
     </div>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

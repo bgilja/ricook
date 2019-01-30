@@ -36,17 +36,21 @@
           <li class="nav-item">
             <a class="nav-link active" href="user_homepage.php?id=<?php echo $id; ?>">Home</a>
           </li>
-          <li class="nav-item">
-          	<a class="nav-link" href="user_friends.php?id=<?php echo $id; ?>">My Friends</a>
-          </li>
-          <li class="nav-item">
-          	<a class="nav-link" href="user_profile.php?id=<?php echo $id; ?>">Profile</a>
-          </li>
+          <?php
+            if ($id != 0) {
+              echo '  <li class="nav-item">
+                        <a class="nav-link" href="user_friends.php?id='.$id.'">My Friends</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="user_profile.php?id=' .$id . '">Profile</a>
+                      </li>';
+            }
+          ?>
           <?php
           if ($id == 1) {
-            echo '<li class="nav-item">
-                    <a class="nav-link" href="add_ingredient.php?id=' .$id . '">Add ingredient</a>
-                  </li>';
+            echo '  <li class="nav-item">
+                      <a class="nav-link" href="add_ingredient.php?id=' .$id . '">Add ingredient</a>
+                    </li>' ;
           }
           ?>
         </ul>
@@ -54,9 +58,13 @@
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="string" required>
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
-        <h6 id="homepage_username"><?php echo $id ?></h6>
-        <button type="button" class="btn btn-success mr-1" data-toggle="modal" data-target="#add_recipe" style="width: 120px;">Add Recipe</button>
-        <button type="button" class="btn btn-secondary" onclick="window.location.href='index.php'" style="width: 120px;">Logout</button>
+        <?php
+          if ($id != 0) {
+            echo '  <h6 id="homepage_username">'.$row['user_name'].'</h6>
+                    <button type="button" class="btn btn-success mr-1" data-toggle="modal" data-target="#add_recipe" style="width: 120px;">Add Recipe</button>
+                    <a type="button" class="btn btn-secondary" href="index.php" style="width: 120px;">Logout</a> ';
+          }
+        ?>
       </div>
     </nav>
 
@@ -66,7 +74,6 @@
           <a class="nav-item nav-link border border-dark rounded-0 text-white <?php if ($state == 0) echo "active"; ?>" href="user_homepage.php?id=<?php echo $id; ?>&state=0">Latest</a>
           <a class="nav-item nav-link border border-dark rounded-0 text-white <?php if ($state == 1) echo "active"; ?>" href="user_homepage.php?id=<?php echo $id; ?>&state=1">Popular</a>
           <a class="nav-item nav-link border border-dark rounded-0 text-white <?php if ($state == 2) echo "active"; ?>" href="user_homepage.php?id=<?php echo $id; ?>&state=2">Top rated</a>
-          <a class="nav-item nav-link border border-dark rounded-0 text-white <?php if ($state == 3) echo "active"; ?>" href="user_homepage.php?id=<?php echo $id; ?>&state=3">Favored</a>
         </nav>
       </div>
       <div class="tab-content w-75" id="nav-tabContent" style="margin-left: 12%;">

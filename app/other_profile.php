@@ -35,17 +35,21 @@
           <li class="nav-item">
             <a class="nav-link" href="user_homepage.php?id=<?php echo $id; ?>">Home</a>
           </li>
-          <li class="nav-item">
-          	<a class="nav-link" href="user_friends.php?id=<?php echo $id; ?>">My Friends</a>
-          </li>
-          <li class="nav-item">
-          	<a class="nav-link" href="user_profile.php?id=<?php echo $id; ?>">Profile</a>
-          </li>
+          <?php
+            if ($id != 0) {
+              echo '  <li class="nav-item">
+                        <a class="nav-link" href="user_friends.php?id='.$id.'">My Friends</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="user_profile.php?id=' .$id . '">Profile</a>
+                      </li>';
+            }
+          ?>
           <?php
           if ($id == 1) {
-            echo '<li class="nav-item">
-                    <a class="nav-link" href="add_ingredient.php?id=' .$id . '">Add ingredient</a>
-                  </li>';
+            echo '  <li class="nav-item">
+                      <a class="nav-link" href="add_ingredient.php?id=' .$id . '">Add ingredient</a>
+                    </li>' ;
           }
           ?>
         </ul>
@@ -53,8 +57,13 @@
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="string" required>
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
-        <h6 id="homepage_username"><?php echo $id ?></h6>
-        <button type="button" class="btn btn-secondary" id="btn1" onclick="window.location.href='index.php'">Logout</button>
+        <?php
+          if ($id != 0) {
+            echo '  <h6 id="homepage_username">'.$row['user_name'].'</h6>
+                    <button type="button" class="btn btn-success mr-1" data-toggle="modal" data-target="#add_recipe" style="width: 120px;">Add Recipe</button>
+                    <a type="button" class="btn btn-secondary" href="index.php" style="width: 120px;">Logout</a> ';
+          }
+        ?>
       </div>
     </nav>
 
@@ -65,8 +74,12 @@
             <div class="user_block" id="user_block1">
               <img class="rounded float-left mw-75 mh-75" src="<?php echo getImage($row) ?>" id="avatar">
               <div class="profile_buttons">
-                <button type="button" class="btn btn-primary" id="" onclick="">Follow</button>
-                <button type="button" class="btn btn-danger" id="" onclick="">Report</button>
+                <?php
+                if ($id != 0) {
+                  echo '  <button type="button" class="btn btn-primary" id="" onclick="">Follow</button>
+                          <button type="button" class="btn btn-danger" id="" onclick="">Report</button> ';
+                }
+                ?>
               </div>
             </div>
             <div class="user_block">

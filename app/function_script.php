@@ -135,8 +135,9 @@
   }
 
   function getUserRatingForRecipe($id, $recipe) {
-    $sql = "SELECT SUM(ocjena) AS a FROM rejting WHERE id_recept = $recipe AND id_korisnik = $id";
-    if (isset($row['a'])) return $row['a'];
+    $sql = "SELECT ocjena FROM rejting WHERE id_recept = $recipe AND id_korisnik = $id";
+    $row = returnSQLResult($sql);
+    if ($row['ocjena'] > 0) return $row['ocjena'];
     return "Not rated";
   }
 
@@ -184,13 +185,13 @@
       <span class="border p-1">
         <img class="border w-100" src="' . getImage($map) . '" style="height: 240px;">';
 
-    if (isFollowing($id, $map['id'])) {
+    if (isFollowing($id, $map['id']) && $id != 0) {
       echo ' <form action="stop_following.php" method="post">
             <input type="hidden" name="id" value="' . $id . '">
             <input type="hidden" name="user" value="' . $map["id"] .'">
             <input type="submit" name="submit" value="Unfollow" class="btn btn-primary align-top w-100 mb-1">
             </form> ';
-    } else {
+    } else if ($id != 0) {
       echo ' <form action="start_following.php" method="post">
             <input type="hidden" name="id" value="' . $id . '">
             <input type="hidden" name="user" value="' . $map["id"] .'">
@@ -436,9 +437,11 @@
 
     echo ' <div class="card w-25 p-2 rounded-0 float-left" style="height: 400px;">
       <h3><a href="see_recipe.php?id=' . $id . '&recipe=' . $row_recipe['id'] .'"> ' . $row_recipe['ime'] . ' </a></h3>
-       <img class="w-100" src=" ' . getRecipeImage($row_recipe) . '" style="height: 250px;"><div class="mt-1">
-      <input type="button" name="submit" value="Favorite" class="btn btn-primary w-100 mt-1 card text-dark"> ';
-    if (checkUserAllergens($id, $row_recipe['id']) > 0) {
+       <img class="w-100" src=" ' . getRecipeImage($row_recipe) . '" style="height: 250px;"><div class="mt-1"> ';
+    if ($id != 0) {
+      echo '<input type="button" name="submit" value="Favorite" class="btn btn-primary w-100 mt-1 card text-dark"> ';
+    }
+    if (checkUserAllergens($id, $row_recipe['id']) > 0 && $id != 0) {
       echo ' <div class="alert alert-danger show" role="alert"><strong>Warning!</strong> Allergen detected.</div> ';
     }
     echo '</div></div> ';
@@ -454,13 +457,13 @@
         <li class="list-group-item">Carbs: ' . $map['ugljikohidrati'] . '</li><br>
         <li class="list-group-item">Fat: ' . $map['masti'] . '</li><br>
         <li class="list-group-item">Calorie: ' . $map['kcal'] . '</li></ul>';
-    if (userAllergen($id, $map['id'])) {
+    if (userAllergen($id, $map['id']) && $id != 0) {
       echo ' <form action="remove_allergen.php" method="post">
             <input type="hidden" name="id" value="' . $id . '">
             <input type="hidden" name="namirnica" value="' . $map["id"] .'">
             <input type="submit" name="submit" value="Remove from allergens" class="btn btn-primary align-top w-100 mb-1">
             </form> ';
-    } else {
+    } else if ($id != 0) {
       echo ' <form action="add_allergen.php" method="post">
             <input type="hidden" name="id" value="' . $id . '">
             <input type="hidden" name="namirnica" value="' . $map["id"] .'">
