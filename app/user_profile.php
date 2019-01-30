@@ -245,7 +245,7 @@
           <div class="modal-body" style="padding:40px 50px;">
             <form class="" action="delete_profile.php" method="post" id="delete_profile">
               <div class="custom-control custom-checkbox my-1 mr-sm-2">
-                <input type="checkbox" class="custom-control-input" name="breakfast" id="customControlInline1">
+                <input type="checkbox" class="custom-control-input" name="breakfast" id="customControlInline1" required>
                 <label class="custom-control-label" for="customControlInline1">Yes I'm sure I want to delete my profile</label>
               </div>
               <input type="hidden" name="id" value="<?php echo $id; ?>">

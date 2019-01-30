@@ -256,13 +256,19 @@
               </div> ';
     }
     echo     '<div class="w-100">
-               <a class="" href="see_recipe.php?id=' . $id . '&recipe=' . $map['id'] .'"><h3> ' . $map['ime'] . '</a> by <a href="other_profile.php?id=' . $id . '&user=' . $row['id'] . '">' . $row['user_name'] . ' </a></h3>
+
             </div>
             <div>
               <img class="slika2 w-25 card p-1" src=" ' . getRecipeImage($map) . ' ">
-              <span class="d-inline-flex p-1" style="width: 70%; height: 300px; margin-left: 400px; margin-top:-300px;">
-               <p class="">' . $map['upute'] . '</p>
-              </span>
+              <div class="jumbotron" style="width: 70%; height: 290px; margin-left: 400px; margin-top:-300px; background-color: white;">
+                <h3 class="display-4">
+                <a class="" href="see_recipe.php?id=' . $id . '&recipe=' . $map['id'] .'">' . $map['ime'] . '</a>
+                by
+                <a href="other_profile.php?id=' . $id . '&user=' . $row['id'] . '">' . $row['user_name'] . ' </a>
+                </h3>
+                <p class="lead">'. substr($map['upute'], 0, 100) .'...</p>
+                <hr class="my-4">
+              </div>
             </div>
           </div> ';
   }
