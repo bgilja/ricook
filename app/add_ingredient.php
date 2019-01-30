@@ -56,10 +56,12 @@
       </div>
     </nav>
 
+    <button type="button" class="btn btn-primary rounded-0 mr-1 mb-5 w-100" data-toggle="modal" data-target="#add_ingredient" style="width: 120px;">Add Ingredient</button>
+
     <div>
       <h3 style="text-align: center;">Ingredients</h3>
       <table  class="table table-hover table-sm border border-dark" style="width: 70%; margin-left: 15%;">
-     <thead class="thead-light border border-dark"> <tr><th>ID</th><th>Name</th><th>Protein(grams)</th><th>Carbs(grams)</th><th>Fat(100g)</th><th>KCal</th><th>Option</th></tr></thead>
+     <thead class="thead-light border border-dark"> <tr><th>ID</th><th>Name</th><th>Protein(grams)</th><th>Carbohydrates(grams)</th><th>Fat(100g)</th><th>KCal</th><th>Option</th></tr></thead>
       <?php
         $link = connectToDatabase();
         $sql = "SELECT id, ime, protein, ugljikohidrati, masti, kcal FROM namirnica";
@@ -77,25 +79,6 @@
         closeDatabaseConnection($link);
       ?>
       </table>
-    </div>
-
-    <div class="card namirnice_forma mt-5 p-3" style="height: 500px;">
-      <h3 align="center" class="mt-2">Fill this form to add new ingredient</h3>
-      <form action="dodaj_namirnicu.php" method="post" style="width: 80%; margin:auto;" enctype="multipart/form-data">
-        <label >Name:</label>
-        <input type="text" class="form-control"  placeholder="Name" name="ime">
-        <label >Protein:</label>
-        <input type="text" class="form-control"  placeholder="Proteins (grams)" name="protein">
-        <label >Carbs:</label>
-        <input type="text" class="form-control"  placeholder="Carbs (grams)" name="ugljikohidrati">
-        <label >Fat:</label>
-        <input type="text" class="form-control"  placeholder="Fat (grams)" name="masti">
-        <div class="mt-2">
-          <h6>Select image to upload: <label class="btn btn-primary btn-file ml-3">Browse<input type="file" name="fileToUpload" style="display: none;"></label></h6>
-        </div>
-        <input type="hidden" name="id" value="<?php echo $id; ?>">
-        <input class="btn btn-primary btn-block w-100" type="submit" value="Continue">
-      </form>
     </div>
 
     <div class="modal fade" id="add_recipe" tabindex="-1" aria-hidden="true">
@@ -150,7 +133,40 @@
         </div>
       </div>
     </div>
-    
+
+    <div class="modal fade" id="add_ingredient" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header" style="background-color: rgb(130, 160, 210);">
+            <h5 class="modal-title">Add ingredient</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="dodaj_namirnicu.php" method="post" style="width: 80%; margin:auto;" enctype="multipart/form-data">
+              <label >Name:</label>
+              <input type="text" class="form-control"  placeholder="Name" name="ime">
+              <label >Protein:</label>
+              <input type="text" class="form-control"  placeholder="Proteins (grams)" name="protein">
+              <label >Carbohydrates:</label>
+              <input type="text" class="form-control"  placeholder="Carbohydrates (grams)" name="ugljikohidrati">
+              <label >Fat:</label>
+              <input type="text" class="form-control"  placeholder="Fat (grams)" name="masti">
+              <div class="mt-2">
+                <h6>Select image to upload: <label class="btn btn-primary btn-file ml-3">Browse<input type="file" name="fileToUpload" style="display: none;"></label></h6>
+              </div>
+              <input type="hidden" name="id" value="<?php echo $id; ?>">
+              <button type="submit" class="btn btn-block btn-primary"><span class="glyphicon glyphicon-off"></span>Continue</button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <h6 class="float-right">*Only you can add ingredients.</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
