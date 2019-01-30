@@ -13,19 +13,21 @@
     header('Location:  index.php');
   }
 
-  $conn = connectToDatabase();
-  $sql = "SELECT COUNT(*) AS brojac FROM korisnik WHERE user_name LIKE $user_name OR email LIKE '".$email."'";
-  $row = returnSQLResult($sql);
+   $conn = connectToDatabase();
+   $sql = "SELECT COUNT(*) AS brojac FROM korisnik WHERE user_name LIKE '".$user_name."' OR email LIKE '".$email."'";
+   $row = returnSQLResult($sql);
 
-  if ($row['brojac'] > 0) {
-    closeDatabaseConnection($conn);
-    header('Location: index.php');
-  } else {
+   if ($row['brojac'] > 0) {
+     closeDatabaseConnection($conn);
+     header('Location: index.php');
+   } else {
     $sql = "INSERT INTO korisnik (first_name, last_name, user_name, email, year_of_birth, password, image) VALUES ('$first_name', '$last_name', '$user_name', '".$email."', $year, '$pass1', '$image')";
     $result = mysqli_query($conn, $sql);
-    $sql = "SELECT id FROM korisnik WHERE user_name = $user_name AND email = '".$email."' AND password = $pass1";
+    $sql = "SELECT id FROM korisnik WHERE user_name = '".$user_name."' AND email = '".$email."' AND password = $pass1";
     $row = returnSQLResult($sql);
     closeDatabaseConnection($conn);
+    session_start();
+    $_SESSION['user_id'] = $row['id'];
     header('Location:  user_profile.php?id=' . $row['id']);
   }
 ?>

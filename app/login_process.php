@@ -5,7 +5,7 @@
   $user_name = $_POST['username'];
   $password = $_POST['pass'];
 
-  $sql = "SELECT id, COUNT(*) AS brojac FROM korisnik WHERE user_name = $user_name AND password = $password";
+  $sql = "SELECT id, COUNT(*) AS brojac FROM korisnik WHERE user_name = '".$user_name."' AND password = '".$password."'";
   $row = returnSQLResult($sql);
   if ($row['brojac'] > 0) {
     $_SESSION['user_id'] = $row[id];

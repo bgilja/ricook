@@ -63,7 +63,7 @@
 
   function returnSQLResult($sql) {
     $conn = connectToDatabase();
-    $result = mysqli_query($conn, $sql);
+    $result = mysqli_query($conn, $sql) or die($conn->error);
     $row = $result->fetch_assoc();
     closeDatabaseConnection($conn);
     return $row;
@@ -261,7 +261,7 @@
             </div>
             <div>
               <img class="slika2 w-25 card p-1" src=" ' . getRecipeImage($map) . ' ">
-              <div class="jumbotron" style="width: 70%; height: 290px; margin-left: 400px; margin-top:-300px; background-color: white;">
+              <div class="jumbotron" style="width: 70%; height: 290px; margin-left: 300px; margin-top:-300px; background-color: white;">
                 <h3 class="display-4">
                 <a class="" href="see_recipe.php?id=' . $id . '&recipe=' . $map['id'] .'">' . $map['ime'] . '</a>
                 by
@@ -300,7 +300,8 @@
 
   function printAllSearchRecepies($name, $id) {
     $conn = connectToDatabase();
-    $sql = "SELECT * FROM recept WHERE id_kreator LIKE ('%$name%') OR ime LIKE ('%$name%') OR id_kreator != $id";
+    //$sql = "SELECT * FROM recept WHERE id_kreator LIKE ('%$name%') OR ime LIKE ('%$name%') OR id_kreator != $id";
+    $sql = "SELECT * FROM recept WHERE ime LIKE ('%$name%')";
     pagingAndQuery($conn, $sql, $id, -1);
   }
 
@@ -388,7 +389,7 @@
   }
 
   function pagingAndQueryOnOtherProfile($conn, $sql, $id, $user) {
-    $rowsperpage = 1;
+    $rowsperpage = 8;
     $result = mysqli_query($conn, $sql);
     $numrows = mysqli_num_rows($result);
     $totalpages = ceil($numrows / $rowsperpage);
